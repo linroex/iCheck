@@ -4,27 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校園RFID系統｜編輯成員資料</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/sb-admin.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
+    @include('import')
     
 </head>
 
 <body>
     <div id="wrapper">
-        <?php include('menu.php'); ?>
+        @include('menu')
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-md-12">
                     <h1>編輯成員資料</h1>
                     <ul class="breadcrumb">
                         <li>活動簽到</li>
-                        <li><a href="view_namelist.php">檢視名冊</a></li>
-                        <li><a href="edit_namelist.php">編輯名冊</a></li>
+                        <li><a href="{{url()}}/namelist/view">檢視名冊</a></li>
+                        <li><a href="{{url()}}/namelist/edit">編輯名冊</a></li>
                         <li><a href="edit_namelist_member_data.php">編輯成員資料</a></li>
                     </ul>
                 </div>

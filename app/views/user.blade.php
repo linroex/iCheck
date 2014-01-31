@@ -4,17 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校園RFID系統｜個人資料</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/sb-admin.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
+    @include('import')
 </head>
 
 <body>
     <div id="wrapper">
-        <?php include('menu.php'); ?>
+        @include('menu')
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-md-12">

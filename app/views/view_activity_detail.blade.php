@@ -4,26 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校園RFID系統｜檢視簽到記錄</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/sb-admin.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
+    @include('import')
 
 </head>
 
 <body>
     <div id="wrapper">
-        <?php include('menu.php'); ?>
+        @include('menu')
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-md-12">
                     <h1>檢視簽到記錄</h1>
                     <ul class="breadcrumb">
                         <li>活動簽到</li>
-                        <li><a href="view_activity.php">檢視活動</a></li>
-                        <li><a href="view_activity_detail.php">檢視簽到記錄</a></li>
+                        <li><a href="{{url()}}/activity/view">檢視活動</a></li>
+                        <li><a href="{{url()}}/activity/view/detail">檢視簽到記錄</a></li>
                         
                     </ul>
                 </div>
