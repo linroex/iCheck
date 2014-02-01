@@ -18,8 +18,8 @@ class CreateActivityTable extends Migration {
 			$table->timestamp('activity_date');
 			$table->text('activity_type');
 			$table->integer('nid');
-			$table->text('activity_organize');
-			$table->text('activity_note');
+			$table->text('activity_organize')->nullable();
+			$table->text('activity_note')->nullable();
 			$table->timestamps();
 		});
 	}

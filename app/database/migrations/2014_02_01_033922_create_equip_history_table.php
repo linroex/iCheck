@@ -17,7 +17,7 @@ class CreateEquipHistoryTable extends Migration {
 			$table->text('equip_name');
 			$table->timestamp('borrow_time');
 			$table->timestamp('estimate_return_time');
-			$table->timestamp('return_time');
+			$table->timestamp('return_time')->nullable();
 		});
 	}
 

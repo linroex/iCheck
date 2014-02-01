@@ -14,7 +14,7 @@ class CreateActivityCheckTable extends Migration {
 		Schema::create('activity_check',function($table){
 			$table->increments('cid')->unique();	
 			$table->integer('aid');
-			$table->text('name');
+			$table->text('name')->nullable();
 			$table->text('student_id');
 			$table->timestamp('check_time');
 		});

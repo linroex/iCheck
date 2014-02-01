@@ -15,10 +15,10 @@ class CreateUserTable extends Migration {
 			$table->increments('uid')->unique();
 			$table->text('username');
 			$table->text('password');
-			$table->text('student_id');
+			$table->text('student_id')->nullable();
 			$table->text('name');
 			$table->text('email');
-			$table->text('school_email');
+			$table->text('school_email')->nullable();
 			$table->text('department');
 			$table->timestamps();
 			

@@ -16,10 +16,10 @@ class CreateNamelistMemberTable extends Migration {
 			$table->integer('nid');
 			$table->text('name');
 			$table->text('student_id');
-			$table->text('department');
-			$table->text('job');
-			$table->text('phone');
-			$table->text('email');
+			$table->text('department')->nullable();
+			$table->text('job')->nullable();
+			$table->text('phone')->nullable();
+			$table->text('email')->nullable();
 			
 			
 		});
