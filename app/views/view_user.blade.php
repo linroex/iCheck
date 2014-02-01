@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校園RFID系統｜檢視用戶</title>
+    @include('import')
+    <script>
+        function delete_dialog(user_id,user_name){
+            $('.del_name').text(user_name);
+            $('#check_delete_dialog').modal('show');
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        @include('menu')
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4">
+                            <h1>檢視用戶</h1>
+                        </div>
+                        <div class="col-md-9 hidden-xs col-sm-8">
+                            <div class="btn-group quick-btn pull-right">
+                                
+                                <a href="{{url()}}/user/create" class="btn btn-default">建立用戶</a>
+                                <a href="{{url()}}/user/view" class="btn btn-default">檢視用戶</a>              
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="breadcrumb">
+                                <li>系統設定</li>
+                                <li><a href="{{url()}}/user/view">檢視用戶</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td>姓名</td>
+                                <td class="hidden-xs">帳號</td>
+                                <td>單位</td>
+                                <td class="hidden-xs">信箱</td>
+                                <td class="hidden-xs">類型</td>
+                                <td></td>
+                                <td class="hidden-xs"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>林熙哲</td>
+                                <td class="hidden-xs">linroex</td>
+                                <td>國立台灣科技大學學生會</td>
+                                <td class="hidden-xs">B10209019@ntust.edu.tw</td>
+                                <td class="hidden-xs">管理員</td>
+                                <td><a href="{{url()}}/user/edit" class="btn btn-default">編輯</a></td>
+                                <td class="hidden-xs"><a onclick="delete_dialog(0,'林熙哲')" class="btn btn-danger">刪除</a></td>
+                            </tr>
+                            <tr>
+                                <td>林熙哲</td>
+                                <td class="hidden-xs">linroex</td>
+                                <td>國立台灣科技大學學生會</td>
+                                <td class="hidden-xs">B10209019@ntust.edu.tw</td>
+                                <td class="hidden-xs">管理員</td>
+                                <td><a href="{{url()}}/user/edit" class="btn btn-default">編輯</a></td>
+                                <td class="hidden-xs"><a onclick="delete_dialog(0,'林熙哲')" class="btn btn-danger">刪除</a></td>
+                            </tr>
+                            <tr>
+                                <td>林熙哲</td>
+                                <td class="hidden-xs">linroex</td>
+                                <td>國立台灣科技大學學生會</td>
+                                <td class="hidden-xs">B10209019@ntust.edu.tw</td>
+                                <td class="hidden-xs">管理員</td>
+                                <td><a href="{{url()}}/user/edit" class="btn btn-default">編輯</a></td>
+                                <td class="hidden-xs"><a onclick="delete_dialog(0,'林熙哲')" class="btn btn-danger">刪除</a></td>
+                            </tr>
+                            <tr>
+                                <td>林熙哲</td>
+                                <td class="hidden-xs">linroex</td>
+                                <td>國立台灣科技大學學生會</td>
+                                <td class="hidden-xs">B10209019@ntust.edu.tw</td>
+                                <td class="hidden-xs">管理員</td>
+                                <td><a href="{{url()}}/user/edit" class="btn btn-default">編輯</a></td>
+                                <td class="hidden-xs"><a onclick="delete_dialog(0,'林熙哲')" class="btn btn-danger">刪除</a></td>
+                            </tr>
+                            <tr>
+                                <td>林熙哲</td>
+                                <td class="hidden-xs">linroex</td>
+                                <td>國立台灣科技大學學生會</td>
+                                <td class="hidden-xs">B10209019@ntust.edu.tw</td>
+                                <td class="hidden-xs">管理員</td>
+                                <td><a href="{{url()}}/user/edit" class="btn btn-default">編輯</a></td>
+                                <td class="hidden-xs"><a onclick="delete_dialog(0,'林熙哲')" class="btn btn-danger">刪除</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- col-md-12 -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- page-wrapper -->
+        <div class="modal fade" id="check_delete_dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">確認刪除</h4>
+              </div>
+              <div class="modal-body">
+                <p>你確定要刪除<span class="del_name"></span>？</p>
+              </div>
+              <div class="modal-footer">
+                <a class="btn btn-danger">確定刪除</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消刪除</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+</body>
+</html>

@@ -19,10 +19,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 col-sm-4">
                             <h1>建立活動</h1>
                         </div>
-                        <div class="col-md-9 hidden-xs">
+                        <div class="col-md-9 hidden-xs col-sm-8">
                             <div class="btn-group quick-btn pull-right">
                                 <a href="{{url()}}/activity/create" class="btn btn-default">建立活動</a>
                                 <a href="{{url()}}/namelist/create" class="btn btn-default">建立名冊</a>

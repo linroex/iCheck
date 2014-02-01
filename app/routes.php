@@ -61,3 +61,14 @@ Route::group(array('prefix'=>'equip'),function(){
         return View::make('borrow_equipment');
     });
 });
+Route::group(array('prefix'=>'user'),function(){
+    Route::get('create',function(){
+        return View::make('create_user');
+    });
+    Route::get('edit',function(){
+        return View::make('edit_user');
+    });
+    Route::get('view',function(){
+        return View::make('view_user');
+    });
+});
