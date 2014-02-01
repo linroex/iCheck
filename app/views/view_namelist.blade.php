@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校園RFID系統｜檢視名冊</title>
-    @include('import')
+    @include('import',array('target'=>'活動簽到'))
     <script>
         function delete_dialog(namelist_id,namelist_name){
             $('.del_name').text(namelist_name);

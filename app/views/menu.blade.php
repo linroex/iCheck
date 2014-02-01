@@ -10,7 +10,7 @@
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-            <li class="active"><a href="{{url()}}">總覽</a></li>
+            <li><a href="{{url()}}">總覽</a></li>
             <li><a href="{{url()}}/search">搜尋</a></li>
             <li class="dropdown">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">系統管理</a>

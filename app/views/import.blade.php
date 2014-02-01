@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="{{url()}}/css/bootstrap.css">
 <link rel="stylesheet" href="{{url()}}/css/sb-admin.css">
 <link rel="stylesheet" href="{{url()}}/css/style.css">
@@ -7,3 +6,10 @@
 <script src="{{url()}}/js/jquery-1.10.2.js"></script>
 <script src="{{url()}}/js/bootstrap.js"></script>
 <script src="{{url()}}/js/jquery-ui-1.10.4.custom.js"></script>
+<script>
+    var target = '{{$target}}';
+
+    $(document).ready(function(){
+        $('.side-nav li a:contains(' + target + ')').parent().first().addClass('active open');
+    })
+</script>

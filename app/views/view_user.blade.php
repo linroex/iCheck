@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校園RFID系統｜檢視用戶</title>
-    @include('import')
+    @include('import',array('target'=>'系統管理'))
     <script>
         function delete_dialog(user_id,user_name){
             $('.del_name').text(user_name);

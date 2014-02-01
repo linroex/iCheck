@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校園RFID系統｜編輯名冊</title>
-    @include('import')
+    @include('import',array('target'=>'活動簽到'))
     <script>
         function del_namelist_check(namelist_id,namelist_name){
             $('#check_dialog .modal-title').text('確認刪除名冊');

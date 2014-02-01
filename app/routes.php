@@ -72,3 +72,4 @@ Route::group(array('prefix'=>'user'),function(){
         return View::make('view_user');
     });
 });
+Route::get('test','UserController@test');

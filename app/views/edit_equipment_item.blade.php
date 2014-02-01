@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校園RFID系統｜編輯器材</title>
-    @include('import')
+    @include('import',array('target'=>'器材借用'))
     <script>
         $(document).ready(function(){
             $('#buy_date').datepicker();

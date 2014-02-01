@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校園RFID系統｜建立活動</title>
-    @include('import')
+    @include('import',array('target'=>'活動簽到'))
     <script>
         $(document).ready(function(){
             $('#activity_date').datepicker();
