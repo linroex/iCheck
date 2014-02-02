@@ -56,4 +56,20 @@ class UserController extends Controller{
         }
         
     }
+    public function login(){
+        $return = User::login(Input::get('username'),Input::get('password'));
+        if($return === false){
+            return Redirect::to('login')->with(array('message'=>'密碼錯誤'));
+        }elseif($return === null){
+            return Redirect::to('login')->with(array('message'=>'帳號不存在'));
+        }else{
+            Session::put('user_data',$return);
+            return Redirect::to('/');
+        }
+        
+    }
+    public function logout(){
+        Session::flush();
+        return Redirect::to('login');
+    }
 }

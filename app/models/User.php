@@ -93,7 +93,7 @@ class User extends Eloquent{
         ),array(
             'password'=>'required | min:8 | max:64',
         ));
-        
+
         if($validator_return->fails()){
             return $validator_return->messages();
         }else{
@@ -102,5 +102,20 @@ class User extends Eloquent{
             ));
         }
     }
+
+    public static function login($username, $password){
+        $user_data = self::where('username','=',$username)->first();
+        if($user_data !== null){
+            if(!Hash::check($password, $user_data->password)){
+                return false;
+            }else{
+                return $user_data;
+            }
+        }else{
+            return $user_data;
+        }
+        
+    }
+
 }
 
