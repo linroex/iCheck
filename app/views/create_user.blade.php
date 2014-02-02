@@ -39,39 +39,37 @@
             </div>
             <div class="row">
                 <div class="col-md-8">
-                    <form action="">
+                    
+                    {{Form::open()}}
                         <table class="table">
                             <tr>
                                 <td class="col-md-3 field-name">使用者名稱</td>
-                                <td class="col-md-9"><input type="text" class="form-control"></td>
+                                <td class="col-md-9">{{Form::text('username',Session::get('data')['username'],array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>使用者密碼</td>
-                                <td><input type="password" class="form-control"></td>
+                                <td>{{Form::password('password',array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>在輸入一次</td>
-                                <td><input type="password" class="form-control"></td>
+                                <td>{{Form::password('password_confirmation',array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>姓名</td>
-                                <td><input type="text" class="form-control"></td>
+                                <td>{{Form::text('name',Session::get('data')['name'],array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>單位</td>
-                                <td><input type="text" class="form-control"></td>
+                                <td>{{Form::text('department',Session::get('data')['department'],array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>信箱</td>
-                                <td><input type="email" class="form-control"></td>
+                                <td>{{Form::email('email',Session::get('data')['email'],array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>種類</td>
                                 <td>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">管理者</option>
-                                        <option value="">使用者</option>
-                                    </select>
+                                    {{Form::select('type',array('normal'=>'使用者','admin'=>'管理員'),Session::get('data')['type'],array('class'=>'form-control'))}}
                                 </td>
                             </tr>
                             <tr>
@@ -79,7 +77,7 @@
                                 <td><input type="submit" value="建立" class="btn btn-lg btn-primary pull-right"></td>
                             </tr>
                         </table>
-                    </form>
+                    {{Form::close()}}
                 </div>
             </div>
         </div>

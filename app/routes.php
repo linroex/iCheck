@@ -65,11 +65,15 @@ Route::group(array('prefix'=>'user'),function(){
     Route::get('create',function(){
         return View::make('create_user');
     });
-    Route::get('edit',function(){
-        return View::make('edit_user');
-    });
-    Route::get('view',function(){
-        return View::make('view_user');
-    });
+    Route::post('create',array('before'=>'csrf','uses'=>'UserController@addUser'));
+    Route::get('edit/{uid}','UserController@getUserData');
+    Route::post('edit/{uid}',array('before'=>'csrf','uses'=>'UserController@editUser'));
+    Route::get('view','UserController@viewUser');
 });
-Route::get('test','UserController@test');
+Route::any('test','UserController@test');
+// Route::post('test','UserController@test');
+
+App::missing(function($exception)
+{
+    return Response::view('404', array(), 404);
+});

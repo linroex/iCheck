@@ -17,9 +17,7 @@
                     <ul class="breadcrumb">
                         <li><a href="index.php">總覽</a></li>
                     </ul>
-                    <div class="alert alert-success">
-                        第一次登入，建議修改密碼
-                    </div>
+                    
                 </div>
             </div>
             <div class="row">

@@ -7,9 +7,17 @@
 <script src="{{url()}}/js/bootstrap.js"></script>
 <script src="{{url()}}/js/jquery-ui-1.10.4.custom.js"></script>
 <script>
-    var target = '{{$target}}';
+    var target = '{{$target or ''}}';
 
     $(document).ready(function(){
         $('.side-nav li a:contains(' + target + ')').parent().first().addClass('active open');
+
+        @if (Session::has('message') === true)
+            @if (is_object(Session::get('message')) === true)
+                $('.breadcrumb').parent().append('<div class="alert alert-danger">@foreach (Session::get('message')->all() as $row){{$row}} <br/>@endforeach </div>')
+            @else
+                $('.breadcrumb').parent().append('<div class="alert alert-success">{{Session::get("message")}}</div>')
+            @endif
+        @endif
     })
 </script>

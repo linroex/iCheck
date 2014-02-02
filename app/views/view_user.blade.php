@@ -58,51 +58,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>林熙哲</td>
-                                <td class="hidden-xs">linroex</td>
-                                <td>國立台灣科技大學學生會</td>
-                                <td class="hidden-xs">B10209019@ntust.edu.tw</td>
-                                <td class="hidden-xs">管理員</td>
-                                <td><a href="{{url()}}/user/edit" class="btn btn-default">編輯</a></td>
-                                <td class="hidden-xs"><a onclick="delete_dialog(0,'林熙哲')" class="btn btn-danger">刪除</a></td>
-                            </tr>
-                            <tr>
-                                <td>林熙哲</td>
-                                <td class="hidden-xs">linroex</td>
-                                <td>國立台灣科技大學學生會</td>
-                                <td class="hidden-xs">B10209019@ntust.edu.tw</td>
-                                <td class="hidden-xs">管理員</td>
-                                <td><a href="{{url()}}/user/edit" class="btn btn-default">編輯</a></td>
-                                <td class="hidden-xs"><a onclick="delete_dialog(0,'林熙哲')" class="btn btn-danger">刪除</a></td>
-                            </tr>
-                            <tr>
-                                <td>林熙哲</td>
-                                <td class="hidden-xs">linroex</td>
-                                <td>國立台灣科技大學學生會</td>
-                                <td class="hidden-xs">B10209019@ntust.edu.tw</td>
-                                <td class="hidden-xs">管理員</td>
-                                <td><a href="{{url()}}/user/edit" class="btn btn-default">編輯</a></td>
-                                <td class="hidden-xs"><a onclick="delete_dialog(0,'林熙哲')" class="btn btn-danger">刪除</a></td>
-                            </tr>
-                            <tr>
-                                <td>林熙哲</td>
-                                <td class="hidden-xs">linroex</td>
-                                <td>國立台灣科技大學學生會</td>
-                                <td class="hidden-xs">B10209019@ntust.edu.tw</td>
-                                <td class="hidden-xs">管理員</td>
-                                <td><a href="{{url()}}/user/edit" class="btn btn-default">編輯</a></td>
-                                <td class="hidden-xs"><a onclick="delete_dialog(0,'林熙哲')" class="btn btn-danger">刪除</a></td>
-                            </tr>
-                            <tr>
-                                <td>林熙哲</td>
-                                <td class="hidden-xs">linroex</td>
-                                <td>國立台灣科技大學學生會</td>
-                                <td class="hidden-xs">B10209019@ntust.edu.tw</td>
-                                <td class="hidden-xs">管理員</td>
-                                <td><a href="{{url()}}/user/edit" class="btn btn-default">編輯</a></td>
-                                <td class="hidden-xs"><a onclick="delete_dialog(0,'林熙哲')" class="btn btn-danger">刪除</a></td>
-                            </tr>
+                            @foreach ($data as $row)
+                                <tr>
+                                    <td>{{$row->name}}</td>
+                                    <td class="hidden-xs">{{$row->username}}</td>
+                                    <td>{{$row->department}}</td>
+                                    <td class="hidden-xs">{{$row->email}}</td>
+                                    <td class="hidden-xs">{{$row->type == 'admin' ?'管理員':'使用者'}}</td>
+                                    <td><a href="{{url()}}/user/edit/{{$row->uid}}" class="btn btn-default">編輯</a></td>
+                                    <td class="hidden-xs"><a onclick="delete_dialog({{$row->uid}},'{{$row->name}}')" class="btn btn-danger">刪除</a></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
