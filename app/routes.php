@@ -65,9 +65,11 @@ Route::group(array('prefix'=>'user'),function(){
     Route::get('create',function(){
         return View::make('create_user');
     });
-    Route::post('create',array('before'=>'csrf','uses'=>'UserController@addUser'));
+    Route::group(array('befroe'=>'csrf'),function(){
+        Route::post('create','UserController@addUser');
+        Route::post('edit/{uid}','UserController@editUser');
+    });
     Route::get('edit/{uid}','UserController@getUserData');
-    Route::post('edit/{uid}',array('before'=>'csrf','uses'=>'UserController@editUser'));
     Route::get('view','UserController@viewUser');
 });
 Route::any('test','UserController@test');
