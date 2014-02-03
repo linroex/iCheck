@@ -12,13 +12,15 @@
         <ul class="nav navbar-nav side-nav">
             <li><a href="{{url()}}">總覽</a></li>
             <li><a href="{{url()}}/search">搜尋</a></li>
-            <li class="dropdown">
-                <a href="" class="dropdown-toggle" data-toggle="dropdown">系統管理</a>
-                <ul class="dropdown-menu">
-                    <li><a href="{{url()}}/user/create">新增用戶</a></li>
-                    <li><a href="{{url()}}/user/view">檢視用戶</a></li>
-                </ul>
-            </li>
+            @if (Session::get('user_data')['type'] == 'admin')
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">系統管理</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{url()}}/user/create">新增用戶</a></li>
+                        <li><a href="{{url()}}/user/view">檢視用戶</a></li>
+                    </ul>
+                </li>
+            @endif
             <li class="dropdown">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">活動簽到</a>
                 <ul class="dropdown-menu">

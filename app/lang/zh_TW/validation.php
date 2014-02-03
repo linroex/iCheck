@@ -27,7 +27,7 @@ return array(
         "string"  => "The :attribute must be between :min and :max characters.",
         "array"   => "The :attribute must have between :min and :max items.",
     ),
-    "confirmed"        => "The :attribute confirmation does not match.",
+    "confirmed"        => ":attribute 和密碼欄位不符合",
     "date"             => "The :attribute is not a valid date.",
     "date_format"      => "The :attribute does not match the format :format.",
     "different"        => "The :attribute and :other must be different.",
@@ -55,7 +55,7 @@ return array(
     "not_in"           => "The selected :attribute is invalid.",
     "numeric"          => "The :attribute must be a number.",
     "regex"            => "The :attribute format is invalid.",
-    "required"         => ":attribute field is required.",
+    "required"         => ":attribute 欄位是必填",
     "required_if"      => "The :attribute field is required when :other is :value.",
     "required_with"    => "The :attribute field is required when :values is present.",
     "required_without" => "The :attribute field is required when :values is not present.",
@@ -66,7 +66,7 @@ return array(
         "string"  => "The :attribute must be :size characters.",
         "array"   => "The :attribute must contain :size items.",
     ),
-    "unique"           => "The :attribute has already been taken.",
+    "unique"           => "此 :attribute 已有人使用",
     "url"              => "The :attribute format is invalid.",
 
     /*

@@ -12,10 +12,16 @@
 */
 Route::get('login', function()
 {
-    return View::make('login');
+    if(Session::has('user_data')){
+        return Redirect::to('/');
+    }else{
+        return View::make('login');
+
+    }
 });
 Route::post('login',array('before'=>'csrf','uses'=>'UserController@login'));
 Route::get('logout','UserController@logout');
+
 Route::group(array('before'=>'auth'),function(){
     Route::get('/', function()
     {
@@ -68,7 +74,7 @@ Route::group(array('before'=>'auth'),function(){
             return View::make('borrow_equipment');
         });
     });
-    Route::group(array('prefix'=>'user'),function(){
+    Route::group(array('prefix'=>'user','before'=>'isAdmin'),function(){
         Route::get('create',function(){
             return View::make('create_user');
         });

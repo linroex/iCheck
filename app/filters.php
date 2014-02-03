@@ -39,7 +39,12 @@ Route::filter('auth', function()
         return Redirect::to('login');
     }
 });
-
+Route::filter('isAdmin',function(){
+	$user_data = Session::get('user_data');
+	if($user_data['type'] != 'admin'){
+		return App::abort(404);
+	}
+});
 
 Route::filter('auth.basic', function()
 {
