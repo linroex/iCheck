@@ -15,41 +15,43 @@
                 <div class="col-md-12">
                     <h1>個人資料修改</h1>
                     <ul class="breadcrumb">
-                        <li><a href="user.php">個人資料</a></li>
+                        <li><a href="{{url()}}/me">個人資料</a></li>
                     </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8">
-                    <form action="">
+                    {{Form::model(Session::get('user_data'))}}
                         <table class="table">
+                            {{Form::hidden('username')}}
                             <tr>
-                                <td class="col-md-3">使用者名稱</td>
-                                <td class="col-md-9"><input type="text" name="" id="" class="form-control" disabled></td>
+                                <td class="col-md-3 field-name">使用者名稱</td>
+                                <td class="col-md-9">{{Form::text('username',NULL,array('class'=>'form-control','disabled'))}}</td>
                             </tr>
                             <tr>
-                                <td>暱稱</td>
-                                <td><input type="text" name="" id="" class="form-control"></td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-2">請輸入密碼</td>
-                                <td><input type="password" name="" id="" class="form-control"></div></td>
+                                <td>使用者密碼</td>
+                                <td>{{Form::password('password',array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>在輸入一次</td>
-                                <td><input type="password" name="" id="" class="form-control"></td>
+                                <td>{{Form::password('password_confirmation',array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
-                                <td>電子信箱</td>
-                                <td><input type="email" name="" id="" class="form-control"></td>
+                                <td>姓名</td>
+                                <td>{{Form::text('name',NULL,array('class'=>'form-control'))}}</td>
                             </tr>
+                            
+                            <tr>
+                                <td>信箱</td>
+                                <td>{{Form::email('email',NULL,array('class'=>'form-control'))}}</td>
+                            </tr>
+                            
                             <tr>
                                 <td></td>
-                                <td><input type="submit" value="送出" class="btn btn-primary pull-right btn-lg"></td>
+                                <td><input type="submit" value="更新" class="btn btn-lg btn-primary pull-right"></td>
                             </tr>
                         </table>
-                        
-                    </form>
+                    {{Form::close()}}
                 </div>
             </div>
         </div>

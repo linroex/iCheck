@@ -33,6 +33,30 @@ class UserController extends Controller{
         }
         
     }
+    public function editMe(){
+        if(Input::has('password')){
+            if(Input::get('password')==Input::get('password_confirmation')){
+                $data = User::editUserPasswd(Login::getUid(),Input::get('password'));
+                if(is_object($data) === true){
+                    return Redirect::to('/me')->with(array('message'=>$data));
+                }else{
+                    Session::put('user_data',User::getUserData(Login::getUid()));
+                    return Redirect::to('/me')->with(array('message'=>'密碼變更成功'));
+                }
+            }else{
+                return Redirect::to('/me')->with(array('message'=>'兩次密碼輸入不同'));
+            }
+        }else{
+            $data = User::editMe(Login::getUid(),Input::all());
+            
+            if($data === false){
+                App::abort(404);
+            }else{
+                Session::put('user_data',User::getUserData(Login::getUid()));
+                return Redirect::to('/me')->with(array('message'=>'用戶資料變更成功'));
+            }
+        }
+    }
     public function editUser($uid){
         if(Input::has('password')){
             if(Input::get('password')==Input::get('password_confirmation')){
@@ -55,6 +79,10 @@ class UserController extends Controller{
             }
         }
         
+    }
+    public function deleteUser(){
+        User::deleteUser(Input::get('uid'));
+        return '指定用戶刪除成功';
     }
     public function login(){
         $return = User::login(Input::get('username'),Input::get('password'));

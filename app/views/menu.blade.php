@@ -12,7 +12,7 @@
         <ul class="nav navbar-nav side-nav">
             <li><a href="{{url()}}">總覽</a></li>
             <li><a href="{{url()}}/search">搜尋</a></li>
-            @if (Session::get('user_data')['type'] == 'admin')
+            @if (Login::getType() == 'admin')
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">系統管理</a>
                     <ul class="dropdown-menu">
@@ -45,7 +45,7 @@
             <li class="dropdown user-dropdown">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-user"></i>
-                     用戶 
+                     {{Login::getName()}}
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">

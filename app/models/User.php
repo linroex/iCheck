@@ -36,6 +36,19 @@ class User extends Eloquent{
             return true;
         }
     }
+    public static function validator_edit_me($data){
+        $validator_return = Validator::make($data,array(
+            'username'=>'required | min:3 | max:20',
+            'name'=>'required',
+            'email'=>'required | email'
+        ));
+
+        if($validator_return->fails()){
+            return $validator_return->messages();
+        }else{
+            return true;
+        }
+    }
     public static function addUser($data){
         $check = self::validator($data);
         if($check === true){
@@ -55,7 +68,9 @@ class User extends Eloquent{
         }
         
     }
-    
+    public static function deleteUser($uid){
+        return self::destroy($uid);
+    }
     public static function getUserList(){
         return self::all();
     }
@@ -69,17 +84,37 @@ class User extends Eloquent{
         
     }
     public static function editUser($uid, $data){
+
         $check = self::validator_edit_user($data);
         if($check === true){
             $user = self::find($uid);
             if($user === null){
                 return false;
             }else{
+
                 return self::find($uid)->update(array(
                     'name'=>$data['name'],
                     'department'=>$data['department'],
                     'email'=>$data['email'],
                     'type'=>$data['type']
+                ));
+
+            }
+        }else{
+            return $check;
+        }
+    }
+    public static function editMe($uid, $data){
+        $check = self::validator_edit_me($data);
+        if($check === true){
+            $user = self::find($uid);
+            if($user === null){
+                return false;
+            }else{
+
+                return self::find($uid)->update(array(
+                    'name'=>$data['name'],
+                    'email'=>$data['email']
                 ));
 
             }
@@ -102,7 +137,6 @@ class User extends Eloquent{
             ));
         }
     }
-
     public static function login($username, $password){
         $user_data = self::where('username','=',$username)->first();
         if($user_data !== null){

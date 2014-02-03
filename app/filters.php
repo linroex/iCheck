@@ -35,13 +35,12 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if(!Session::has('user_data')){
+	if(Login::isLogin() === false){
         return Redirect::to('login');
     }
 });
 Route::filter('isAdmin',function(){
-	$user_data = Session::get('user_data');
-	if($user_data['type'] != 'admin'){
+	if(Login::getType() != 'admin'){
 		return App::abort(404);
 	}
 });

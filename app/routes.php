@@ -32,9 +32,15 @@ Route::group(array('before'=>'auth'),function(){
         return View::make('user');
     });
 
+
     Route::get('/search',function(){
         return View::make('search');
     });
+
+    Route::group(array('before'=>'csrf'),function(){
+        Route::post('/me','UserController@editMe');
+    });
+
     Route::group(array('prefix'=>'namelist'),function(){
         Route::get('create',function(){
             return View::make('create_namelist');
@@ -81,7 +87,9 @@ Route::group(array('before'=>'auth'),function(){
         Route::group(array('befroe'=>'csrf'),function(){
             Route::post('create','UserController@addUser');
             Route::post('edit/{uid}','UserController@editUser');
+
         });
+        Route::post('delete','UserController@deleteUser');
         Route::get('edit/{uid}','UserController@getUserData');
         Route::get('view','UserController@viewUser');
     });

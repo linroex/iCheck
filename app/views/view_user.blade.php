@@ -6,11 +6,21 @@
     <title>校園RFID系統｜檢視用戶</title>
     @include('import',array('target'=>'系統管理'))
     <script>
+        var uid = '';
         function delete_dialog(user_id,user_name){
             $('.del_name').text(user_name);
+            uid = user_id;
             $('#check_delete_dialog').modal('show');
         }
-
+        $(document).ready(function(){
+            $('#sure_delete').click(function(){
+                $.post('{{url()}}/user/delete',{uid:uid},function(data){
+                    $('#check_delete_dialog').modal('hide');
+                    $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>')
+                    $('tr.uid-' + uid).remove();
+                })
+            })
+        })
     </script>
 </head>
 
@@ -59,7 +69,7 @@
                         </thead>
                         <tbody>
                             @foreach ($data as $row)
-                                <tr>
+                                <tr class="uid-{{$row->uid}}">
                                     <td>{{$row->name}}</td>
                                     <td class="hidden-xs">{{$row->username}}</td>
                                     <td>{{$row->department}}</td>
@@ -88,7 +98,7 @@
                 <p>你確定要刪除<span class="del_name"></span>？</p>
               </div>
               <div class="modal-footer">
-                <a class="btn btn-danger">確定刪除</a>
+                <a class="btn btn-danger" id="sure_delete">確定刪除</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消刪除</button>
               </div>
             </div><!-- /.modal-content -->

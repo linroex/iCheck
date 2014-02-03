@@ -45,7 +45,7 @@
                         <table class="table">
                             <tr>
                                 <td class="col-md-3 field-name">使用者名稱</td>
-                                <td class="col-md-9">{{Form::text('username',Session::get('data')['username'],array('class'=>'form-control','disabled'))}}</td>
+                                <td class="col-md-9">{{Form::text('username',NULL,array('class'=>'form-control','disabled'))}}</td>
                             </tr>
                             <tr>
                                 <td>使用者密碼</td>
@@ -57,20 +57,20 @@
                             </tr>
                             <tr>
                                 <td>姓名</td>
-                                <td>{{Form::text('name',Session::get('data')['name'],array('class'=>'form-control'))}}</td>
+                                <td>{{Form::text('name',NULL,array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>單位</td>
-                                <td>{{Form::text('department',Session::get('data')['department'],array('class'=>'form-control'))}}</td>
+                                <td>{{Form::text('department',NULL,array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>信箱</td>
-                                <td>{{Form::email('email',Session::get('data')['email'],array('class'=>'form-control'))}}</td>
+                                <td>{{Form::email('email',NULL,array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>種類</td>
                                 <td>
-                                    {{Form::select('type',array('normal'=>'使用者','admin'=>'管理員'),Session::get('data')['type'],array('class'=>'form-control'))}}
+                                    {{Form::select('type',array('normal'=>'使用者','admin'=>'管理員'),NULL,array('class'=>'form-control'))}}
                                 </td>
                             </tr>
                             <tr>
