@@ -26,8 +26,6 @@
                         </div>
                         <div class="col-md-9 hidden-xs col-sm-8">
                             <div class="btn-group quick-btn pull-right">
-                                <!-- <a href="add_euqipment.php" class="btn btn-default">新增器材</a>
-                                <a href="view_equipment.php" class="btn btn-default">器材清單</a> -->
                                 <a href="{{url()}}/equip/history" class="btn btn-default">借用記錄</a>
                                 <a href="{{url()}}/equip/borrow" class="btn btn-default">借還登記</a>
                                            
@@ -51,7 +49,11 @@
                         <li class="active"><a href="#borrowed" data-toggle="tab">已借出</a></li>
                         <li><a href="#returned" data-toggle="tab">已歸還</a></li>
                         <li><a href="#recovery" data-toggle="tab">待催討</a></li>
+                        <div class="pull-right">
+                        {{Form::selectMonth('month',date('m',time()),array('class'=>'form-control'))}}
+                    </div>
                     </ul>
+                    
                     <div class="tab-content">
                         <div class="tab-pane active fade in" id="borrowed">
                             <table class="table table-hover">
