@@ -47,7 +47,7 @@ class UserController extends Controller{
                 return Redirect::to('/me')->with(array('message'=>'兩次密碼輸入不同'));
             }
         }else{
-            $data = User::editMe(Login::getUid(),Input::all());
+            $data = User::editMe(Input::all());
             
             if($data === false){
                 App::abort(404);

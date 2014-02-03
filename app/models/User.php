@@ -104,7 +104,8 @@ class User extends Eloquent{
             return $check;
         }
     }
-    public static function editMe($uid, $data){
+    public static function editMe($data){
+        $uid = Login::getUid();
         $check = self::validator_edit_me($data);
         if($check === true){
             $user = self::find($uid);
