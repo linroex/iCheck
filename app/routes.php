@@ -80,8 +80,10 @@ Route::group(array('before'=>'auth'),function(){
             return View::make('borrow_equipment');
         });
         Route::post('return/not','EquipController@getNotReturnEquipList');
-        
+                
         Route::group(array('before'=>'csrf'),function(){
+            Route::post('borrow','EquipController@borrowEquip');
+
         });
     });
     Route::group(array('prefix'=>'user','before'=>'isAdmin'),function(){

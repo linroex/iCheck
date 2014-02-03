@@ -6,14 +6,17 @@
     <title>校園RFID系統｜借還登記</title>
     @include('import',array('target'=>'器材借用'))
     <script>
+
         $(document).ready(function(){
-            $('.return_date').datepicker();
+            
             var origin = $('#reset-clear').html();
+            $('.return_date').datepicker();
             var flag = false;
             $('#stu_card').keypress(function(e){
                 if(($('#stu_card').val().length == 9) && e.which == 13){
                     if(flag == true){
                         $('#reset-clear').html(origin);
+                        $('.return_date').datepicker();
                         flag = false;
 
                     }
@@ -34,7 +37,7 @@
                                     +'"></td><td>' 
                                     + data[i].equip_name 
                                     + '</td><td>' 
-                                    + data[i].borrow_time 
+                                    + $.datepicker.formatDate('yy/mm/dd',new Date(data[i].borrow_time)) 
                                     + '</td></tr>');
                                 i++;
                             })
@@ -44,25 +47,35 @@
                     })                    
                 }
             });
+            
         })
-        
+        function borrow(){
+            $(".alert").remove();
+            $.post('{{url()}}/equip/borrow',$('form').serialize(),function(data){
+                $("form input:text").val('');
+                $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>')
+            })
+        }
         function add_item(){
             
-            $(".borrow-table tbody").append('<tr><td><input type="text" class="form-control"></td><td><input type="text" class="form-control return_date"></td></tr>');
+            $(".borrow-table tbody").append('<tr><td><input type="text" class="form-control" name="equip_name[]"></td><td><input type="text" class="form-control return_date" name="return_date[]"></td></tr>');
             $('.return_date').datepicker();
         }
         function del_item(){
             
             $(".borrow-table tbody tr").last().remove();
-            $('.return_date').datepicker();
+            
         }
+
     </script>
+
 </head>
 
 <body>
     <div id="wrapper">
         @include('menu')
         <div id="page-wrapper">
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
@@ -92,7 +105,7 @@
                 <div class="col-md-12 col-xs-12 col-sm-12">
                     <div class="well">
                         <label for="stu_card" class="control-label">學生證</label>
-                        <input type="text" class="form-control" id="stu_card" placeholder="請刷學生證">
+                        <input type="text" class="form-control" id="stu_card" name="student_id" placeholder="請刷學生證">
                     </div>
                     <div id="reset-clear">
                         <div class="wait-to-return hidden col-md-6">
@@ -110,7 +123,7 @@
                                     
                                 </tbody>
                             </table>
-                            <a href="" class="btn btn-primary btn-lg pull-right">歸還</a>
+                            <a id="return_btn" class="btn btn-primary btn-lg pull-right">歸還</a>
 
                         </div>
                         <div class="borrow-table hidden col-md-6">
@@ -124,8 +137,8 @@
                                </thead>
                                <tbody>
                                    <tr>
-                                       <td><input type="text" class="form-control"></td>
-                                       <td><input type="text" class="form-control return_date"></td>
+                                       <td><input type="text" class="form-control" name="equip_name[]"></td>
+                                       <td><input type="text" class="form-control return_date" name="return_date[]"></td>
                                    </tr>
                                    
                                </tbody>
@@ -134,7 +147,7 @@
                                 <a onclick="add_item()" class="btn btn-default">增加</a>
                                 <a onclick="del_item()" class="btn btn-default">減少</a>
                             </div>
-                            <a href="" class="btn btn-primary btn-lg pull-right">借用</a>
+                            <a onclick="borrow()" class="btn btn-primary btn-lg pull-right">借用</a>
 
                         </div>
                     </div> <!-- reset-clear -->
