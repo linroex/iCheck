@@ -51,10 +51,15 @@
         })
         function borrow(){
             $(".alert").remove();
-            $.post('{{url()}}/equip/borrow',$('form').serialize(),function(data){
-                $("form input:text").val('');
-                $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>')
-            })
+            if($('#stu_card').val() != ''){
+                $.post('{{url()}}/equip/borrow',$('form').serialize(),function(data){
+                    $("form input:text").val('');
+                    $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>')
+                })
+            }else{
+                $('.breadcrumb').parent().append('<div class="alert alert-danger">學生證欄位為必填</div>')
+            }
+            
         }
         function returnEquip(){
             $(".alert").remove();

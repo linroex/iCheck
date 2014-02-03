@@ -25,6 +25,7 @@ class Equip extends Eloquent{
         }
     }
     public static function borrowEquip($student_id, $equip_name, $estimate_return_date){
+        
         if($estimate_return_date == ''){
             $data = self::create(array(
                 'student_id'=>$student_id,
@@ -47,6 +48,8 @@ class Equip extends Eloquent{
             ));    
             return $data->student_id;
         }
+        
+        
     }
     public static function setRecordReturned($bid){
         return self::whereRaw('bid = ?',array($bid))->update(array(
