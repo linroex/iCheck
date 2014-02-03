@@ -25,8 +25,6 @@ class Equip extends Eloquent{
         }
     }
     public static function borrowEquip($student_id, $equip_name, $estimate_return_date){
-        
-
         if($estimate_return_date == ''){
             $data = self::create(array(
                 'student_id'=>$student_id,
@@ -48,8 +46,21 @@ class Equip extends Eloquent{
                 'uid'=>Login::getUid()
             ));    
             return $data->student_id;
-
         }
-        
+    }
+    public static function setRecordReturned($bid){
+        return self::whereRaw('bid = ?',array($bid))->update(array(
+            'type'=>'returned',
+            'return_time'=>date('Y/m/d',time())
+        ));
+    }
+    public static function getBorrowEquip($month){
+
+    }
+    public static function getReturnedEquip($month){
+
+    }
+    public static function getLateEquip($month){
+
     }
 }

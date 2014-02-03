@@ -20,7 +20,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        
                         <div class="col-md-3 col-sm-4">
                             <h1>借用記錄</h1>
                         </div>

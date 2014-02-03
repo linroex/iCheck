@@ -56,15 +56,21 @@
                 $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>')
             })
         }
+        function returnEquip(){
+            $(".alert").remove();
+            $.post('{{url()}}/equip/return',$('form').serialize(),function(data){
+                $("form input:text").val('');
+                $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>');
+                $("input:checked").parent().parent().remove();
+
+            })
+        }
         function add_item(){
-            
             $(".borrow-table tbody").append('<tr><td><input type="text" class="form-control" name="equip_name[]"></td><td><input type="text" class="form-control return_date" name="return_date[]"></td></tr>');
             $('.return_date').datepicker();
         }
         function del_item(){
-            
             $(".borrow-table tbody tr").last().remove();
-            
         }
 
     </script>
@@ -117,13 +123,13 @@
                                         <td>器材名稱</td>
                                         <td>借用日期</td>
                                     </tr>
-                                    <!-- 逾時歸還用紅框 -->
+                                    
                                 </thead>
                                 <tbody>
                                     
                                 </tbody>
                             </table>
-                            <a id="return_btn" class="btn btn-primary btn-lg pull-right">歸還</a>
+                            <a onclick="returnEquip()" class="btn btn-primary btn-lg pull-right">歸還</a>
 
                         </div>
                         <div class="borrow-table hidden col-md-6">

@@ -83,7 +83,7 @@ Route::group(array('before'=>'auth'),function(){
                 
         Route::group(array('before'=>'csrf'),function(){
             Route::post('borrow','EquipController@borrowEquip');
-
+            Route::post('return','EquipController@setRecordReturned');
         });
     });
     Route::group(array('prefix'=>'user','before'=>'isAdmin'),function(){
@@ -101,7 +101,7 @@ Route::group(array('before'=>'auth'),function(){
     });
 });
 
-Route::any('test','EquipController@getNotReturnEquipList');
+Route::any('test','EquipController@test');
 // Route::post('test','UserController@test');
 
 App::missing(function($exception)

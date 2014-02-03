@@ -19,4 +19,13 @@ class EquipController extends Controller{
         }
         return $data;
     }
+    public function setRecordReturned(){
+        foreach (Input::get('bid') as $bid) {
+            Equip::setRecordReturned($bid);
+        }
+        return '已設定為歸還';
+    }
+    public function test(){
+        dd(Equip::setRecordReturned(3));
+    }
 }
