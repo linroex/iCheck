@@ -7,10 +7,16 @@
     @include('import',array('target'=>'器材借用'))
     <script>
         $(document).ready(function(){
-            $('#return_date').datepicker();
-            
+            $('.return_date').datepicker();
+            var origin = $('#reset-clear').html();
+            var flag = false;
             $('#stu_card').keypress(function(e){
                 if(($('#stu_card').val().length == 9) && e.which == 13){
+                    if(flag == true){
+                        $('#reset-clear').html(origin);
+                        flag = false;
+
+                    }
                     $.post('{{url()}}/equip/return/not',{student_id:$('#stu_card').val()},function(data){
                         if(data!='false'){
                             data = JSON.parse(data);
@@ -23,7 +29,7 @@
                                 if(Date.parse(now) > Date.parse(data[i].estimate_return_time)){
                                     type = "danger";
                                 }
-                                $('tbody').append('<tr class="' + type + '"><td><input type="checkbox" name="bid[]" value="' 
+                                $('.wait-to-return tbody').append('<tr class="' + type + '"><td><input type="checkbox" name="bid[]" value="' 
                                     + data[i].bid
                                     +'"></td><td>' 
                                     + data[i].equip_name 
@@ -33,10 +39,23 @@
                                 i++;
                             })
                         }
+                        $('.borrow-table').removeClass('hidden');
+                        flag = true;
                     })                    
                 }
             });
         })
+        
+        function add_item(){
+            
+            $(".borrow-table tbody").append('<tr><td><input type="text" class="form-control"></td><td><input type="text" class="form-control return_date"></td></tr>');
+            $('.return_date').datepicker();
+        }
+        function del_item(){
+            
+            $(".borrow-table tbody tr").last().remove();
+            $('.return_date').datepicker();
+        }
     </script>
 </head>
 
@@ -70,44 +89,56 @@
             </div> <!-- row -->
             <div class="row">
                 {{Form::open()}}
-                <div class="col-md-9 col-xs-12 col-sm-12">
-                    <h3>借用、歸還</h3>
-                    <div class="form-group">
-                        <label for="stu_card">學生證</label>
+                <div class="col-md-12 col-xs-12 col-sm-12">
+                    <div class="well">
+                        <label for="stu_card" class="control-label">學生證</label>
                         <input type="text" class="form-control" id="stu_card" placeholder="請刷學生證">
                     </div>
-                    <div class="form-group wait-to-return hidden">
-                        <label for="">歸還</label>
-                        <table class="table table-hover">
-                            <thead>
-                                <td></td>
-                                <td>器材名稱</td>
-                                <td>借用日期</td>
-                                <!-- 逾時歸還用紅框 -->
-                            </thead>
-                            <tbody>
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group">
-                        <label for="">借用</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="">歸還日期</label>
-                        <input type="text" class="form-control" id="return_date">
-                    </div>
-                    <div class="form-group">
-                        <div class="btn-group pull-right">
-                            <input type="button" value="借用" class="btn btn-lg btn-default">
-                            <input type="button" value="歸還" class="btn btn-lg btn-default">
+                    <div id="reset-clear">
+                        <div class="wait-to-return hidden col-md-6">
+                            <h3>歸還</h3>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td>器材名稱</td>
+                                        <td>借用日期</td>
+                                    </tr>
+                                    <!-- 逾時歸還用紅框 -->
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                            <a href="" class="btn btn-primary btn-lg pull-right">歸還</a>
 
                         </div>
-                    </div>
-                
-                    
-                </div> <!-- col-md-9 -->
+                        <div class="borrow-table hidden col-md-6">
+                            <h3>借用</h3>
+                            <table class="table table-hover">
+                               <thead>
+                                   <tr>
+                                       <td class="col-md-4">器材名稱</td>
+                                       <td class="col-md-8">預計歸還日期</td>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                   <tr>
+                                       <td><input type="text" class="form-control"></td>
+                                       <td><input type="text" class="form-control return_date"></td>
+                                   </tr>
+                                   
+                               </tbody>
+                            </table>
+                            <div class="btn-group">
+                                <a onclick="add_item()" class="btn btn-default">增加</a>
+                                <a onclick="del_item()" class="btn btn-default">減少</a>
+                            </div>
+                            <a href="" class="btn btn-primary btn-lg pull-right">借用</a>
+
+                        </div>
+                    </div> <!-- reset-clear -->
+                </div> <!-- col-md-12 -->
                 
                 {{Form::close()}}
             </div>
