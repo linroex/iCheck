@@ -138,12 +138,24 @@ class User extends Eloquent{
             ));
         }
     }
+
+    public static function getUidByUsername($username){
+        $user = self::where('username','=',$username)->first()->get()->toArray();
+        return $user[0]['uid'];
+    }
     public static function login($username, $password){
         $user_data = self::where('username','=',$username)->first();
         if($user_data !== null){
             if(!Hash::check($password, $user_data->password)){
                 return false;
             }else{
+                DB::insert('insert into login_history(uid, login_os, login_ip, login_time) values (?, ?, ?, ?)',array(
+                    self::getUidByUsername($username),
+                    Request::server('HTTP_USER_AGENT'),
+                    Request::server('REMOTE_ADDR'),
+                    date('Y/m/d H:i:s',time())
+                ));
+                
                 return $user_data;
             }
         }else{

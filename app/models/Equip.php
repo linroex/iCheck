@@ -9,7 +9,7 @@ class Equip extends Eloquent{
         未歸還 = not_return
         無限期 = no_deadline
     */
-
+    
     public static function getNotReturnEquipList($student_id){
         $data = self::find($student_id);
         if($data === null){

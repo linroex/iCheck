@@ -25,7 +25,5 @@ class EquipController extends Controller{
         }
         return '已設定為歸還';
     }
-    public function test(){
-        dd(Equip::setRecordReturned(3));
-    }
+
 }
