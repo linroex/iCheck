@@ -54,33 +54,33 @@ class Equip extends Eloquent{
     public static function setRecordReturned($bid){
         return self::whereRaw('bid = ?',array($bid))->update(array(
             'type'=>'returned',
-            'return_time'=>date('Y/m/d',time())
+            'return_time'=>date('Y/m/d H:i',time())
         ));
     }
     public static function getRecordList($type = 'not_return', $month = 'all', $page=1, $num = 10){
         if($type == 'be_lated'){
             if($month == 'all'){
-                return self::whereRaw('type = \'not_return\' and estimate_return_time < now()')->take($num)->skip(($page-1)*$num)->get()->toJson();
+                return self::whereRaw('type = \'not_return\' and estimate_return_time < now()')->orderBy('estimate_return_time')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
             }else{
-                return self::whereRaw('type = \'not_return\' and estimate_return_time < now() and month(borrow_time) = ?',array($month))->take($num)->skip(($page-1)*$num)->get()->toJson();
+                return self::whereRaw('type = \'not_return\' and estimate_return_time < now() and month(borrow_time) = ?',array($month))->orderBy('estimate_return_time')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
             }
         }else{
             if($type == 'not_return'){
                 if($month == 'all'){
-                    return self::whereRaw('return_time is NULL')->take($num)->skip(($page-1)*$num)->get()->toJson();
+                    return self::whereRaw('return_time is NULL')->orderBy('borrow_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
                 }else{
-                    return self::whereRaw('return_time is NULL and month(borrow_time) = ?',array($month))->take($num)->skip(($page-1)*$num)->get()->toJson();
+                    return self::whereRaw('return_time is NULL and month(borrow_time) = ?',array($month))->orderBy('borrow_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
                 }
             }elseif($type == 'returned'){
                 if($month == 'all'){
-                    return self::whereRaw('type = \'returned\' ')->take($num)->skip(($page-1)*$num)->get()->toJson();
+                    return self::whereRaw('type = \'returned\' ')->orderBy('return_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
                 }else{
-                    return self::whereRaw('type = \'returned\' and month(borrow_time) = ?',array($month))->take($num)->skip(($page-1)*$num)->get()->toJson();
+                    return self::whereRaw('type = \'returned\' and month(borrow_time) = ?',array($month))->orderBy('return_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
                 }
             }

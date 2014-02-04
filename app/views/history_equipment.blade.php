@@ -16,6 +16,10 @@
             $('.pagination a').click(function(e){
                 e.preventDefault();
             })
+            $('#month').change(function(){
+                var target = $("#history_tab li.active a").attr('href');
+                load_record($(target).find('ul.pagination li.active a').text(),target.replace('#',''));
+            })
         })
         
         function load_record(page, type){
@@ -55,7 +59,7 @@
                             + '</td><td>' 
                             + formatDateTime(data[i].borrow_time)
                             + '</td><td>' 
-                            + formatDateTime(data[i].borrow_time == null?data[i].estimate_return_time :data[i].borrow_time )
+                            + formatDateTime(data[i].return_time)
                             + '</td></tr>');
                     }
                     
