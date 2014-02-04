@@ -6,7 +6,7 @@
 <script src="{{url()}}/js/jquery-1.10.2.js"></script>
 <script src="{{url()}}/js/bootstrap.js"></script>
 <script src="{{url()}}/js/jquery-ui-1.10.4.custom.js"></script>
-<script src="custom.js"></script>
+<script src="{{url()}}/js/custom.js"></script>
 <script>
     var target = '{{$target or ''}}';
 

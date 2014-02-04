@@ -57,7 +57,7 @@ class Equip extends Eloquent{
             'return_time'=>date('Y/m/d',time())
         ));
     }
-    public static function getRecordList($type = 'not_return', $month = 'all', $page=1, $num = 2){
+    public static function getRecordList($type = 'not_return', $month = 'all', $page=1, $num = 10){
         if($type == 'be_lated'){
             if($month == 'all'){
                 return self::whereRaw('type = \'not_return\' and estimate_return_time < now()')->take($num)->skip(($page-1)*$num)->get()->toJson();
@@ -89,7 +89,7 @@ class Equip extends Eloquent{
 
 
     }
-    public static function getRecordListPageCount($type = 'not_return', $month = 'all',$num = 2){
+    public static function getRecordListPageCount($type = 'not_return', $month = 'all',$num = 10){
         if($type == 'be_lated'){
             if($month == 'all'){
                 return ceil(self::whereRaw('type = \'not_return\' and estimate_return_time < now()')->count()/$num);
