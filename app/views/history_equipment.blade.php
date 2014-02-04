@@ -8,42 +8,60 @@
     <script>
         
         $(document).ready(function(){
-            /*$("#history_tab li").each(function(){
-                var type = $(this).children('a').attr('href').replace('#','');
-                var month = $('#month').val();
-                var target = $(this).children('a').attr('href');
-                $.post('{{url()}}/equip/history/count',{type:type,month:month},function(num){
-                  for(var i=0; i<num; i++){
-                      $(target + ' ul.pagination').append('<li><a class="' + type + '-page-' + (i+1) + '">' +  (i+1) + '</a></li>');
-                  }
-                  
-                });
-                $.post('{{url()}}/equip/history',{type:type,month:month,page:1},function(data){
-                    data = JSON.parse(data);
-                    var i=0;
-                    $.each(data,function(){
-                        $(target + ' tbody').append('<tr><td></td><td>' 
-                            + data[i].student_id
-                            + '</td><td>' 
-                            + data[i].equip_name
-                            + '</td><td>' 
-                            + data[i].borrow_time 
-                            + '</td><td>' 
-                            + (data[i].borrow_time == null?data[i].estimate_return_time :data[i].borrow_time )
-                            + '</td></tr>');
-                        i++;
-                    })
-                });
-
-            })*/
+            
             $('#history_tab a').click(function (e) {
                 e.preventDefault();
                 $(this).tab('show');              
             })    
+            $('.pagination a').click(function(e){
+                e.preventDefault();
+            })
         })
-
-        function load_record($page, $type){
-
+        
+        function load_record(page, type){
+            $.post('{{url()}}/equip/history',{type:type,page:page,month:$('#month').val()},function(data){
+                $('#' + type).find("ul.pagination li.active").removeClass('active');
+                $('#' + type).find("ul.pagination li").eq(page-1).addClass('active');
+                $('#' + type).find('tbody').html('');
+                
+                data = JSON.parse(data);
+                var i=0;
+                $.each(data,function(){
+                    if(type == 'be_lated'){
+                        $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
+                            + data[i].student_id
+                            + '</td><td>' 
+                            + data[i].equip_name
+                            + '</td><td>' 
+                            + formatDateTime(data[i].borrow_time)
+                            + '</td><td>' 
+                            + formatDateTime(data[i].estimate_return_time)
+                            + '</td><td>' 
+                            + $.datepicker.formatDate('d',new Date((+new Date()) - (+new Date(data[i].estimate_return_time))))
+                            + '天</td></tr>');
+                    }else if(type == 'not_return'){
+                        $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
+                            + data[i].student_id
+                            + '</td><td>' 
+                            + data[i].equip_name
+                            + '</td><td>' 
+                            + formatDateTime(data[i].borrow_time)
+                            + '</td></tr>');
+                    }else{
+                        $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
+                            + data[i].student_id
+                            + '</td><td>' 
+                            + data[i].equip_name
+                            + '</td><td>' 
+                            + formatDateTime(data[i].borrow_time)
+                            + '</td><td>' 
+                            + formatDateTime(data[i].borrow_time == null?data[i].estimate_return_time :data[i].borrow_time )
+                            + '</td></tr>');
+                    }
+                    
+                    i++;
+                })
+            });
         }
     </script>
 </head>
@@ -111,7 +129,6 @@
                                         <td>學號</td>
                                         <td>器材名稱</td>
                                         <td>借用日期</td>
-                                        <td>預計歸還日期</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -120,8 +137,7 @@
                                             <td>XXX</td>
                                             <td>{{$record['student_id']}}</td>
                                             <td>{{$record['equip_name']}}</td>
-                                            <td>{{date('Y/m/d H:i',time($record['borrow_time']))}}</td>
-                                            <td>{{date('Y/m/d',time($record['estimate_return_time']))}}</td>
+                                            <td>{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -152,8 +168,8 @@
                                             <td>XXX</td>
                                             <td>{{$record['student_id']}}</td>
                                             <td>{{$record['equip_name']}}</td>
-                                            <td>{{date('Y/m/d H:i',time($record['borrow_time']))}}</td>
-                                            <td>{{date('Y/m/d H:i',time($record['return_time']))}}</td>
+                                            <td>{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}</td>
+                                            <td>{{date('Y/m/d H:i',strtotime($record['return_time']))}}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -185,9 +201,9 @@
                                             <td>XXX</td>
                                             <td>{{$record['student_id']}}</td>
                                             <td>{{$record['equip_name']}}</td>
-                                            <td>{{$record['borrow_time']}}</td>
-                                            <td>{{date('Y/m/d',time($record['estimate_return_time']))}}</td>
-                                            <td>{{date('j',time()-time($record['estimate_return_time']))}}天</td>
+                                            <td>{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}</td>
+                                            <td>{{date('Y/m/d H:i',strtotime($record['estimate_return_time']))}}</td>
+                                            <td>{{date('j',time()-strtotime($record['estimate_return_time']))}}天</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
