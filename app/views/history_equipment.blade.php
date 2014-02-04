@@ -18,10 +18,11 @@
             })
             $('#month').change(function(){
                 var target = $("#history_tab li.active a").attr('href');
+                $('input.month').val($('#month').val());
                 load_record($(target).find('ul.pagination li.active a').text(),target.replace('#',''));
             })
         })
-        
+
         function load_record(page, type){
             $.post('{{url()}}/equip/history',{type:type,page:page,month:$('#month').val()},function(data){
                 $('#' + type).find("ul.pagination li.active").removeClass('active');
@@ -67,6 +68,7 @@
                 })
             });
         }
+
     </script>
 </head>
 
@@ -147,7 +149,11 @@
                                 </tbody>
                             </table>
                             <div class="pull-left">
-                                <a href="" class="btn btn-success">匯出資料</a>
+                                <form action="{{url()}}/equip/export" method="post">
+                                    <input type="hidden" name="month" class="month" value="all">
+                                    <input type="hidden" name="type" value="not_return">
+                                    <input type="submit" class="btn btn-success" value="匯出資料">
+                                </form>
                             </div>
                             <ul class="pagination pull-right">
                                 @for ($i=1; $i<=$pagenum['not_return']; $i++)
@@ -179,7 +185,11 @@
                                 </tbody>
                             </table>
                             <div class="pull-left">
-                                <a href="" class="btn btn-success">匯出資料</a>
+                                <form action="{{url()}}/equip/export" method="post">
+                                    <input type="hidden" name="month" class="month" value="all">
+                                    <input type="hidden" name="type" value="returned">
+                                    <input type="submit" class="btn btn-success" value="匯出資料">
+                                </form>
                             </div>
                             <ul class="pagination pull-right">
                                 @for ($i=1; $i<=$pagenum['returned']; $i++)
@@ -213,7 +223,11 @@
                                 </tbody>
                             </table>
                             <div class="pull-left">
-                                <a href="" class="btn btn-success">匯出資料</a>
+                                <form action="{{url()}}/equip/export" method="be_lated">
+                                    <input type="hidden" name="month" class="month" value="all">
+                                    <input type="hidden" name="type" value="not_return">
+                                    <input type="submit" class="btn btn-success" value="匯出資料">
+                                </form>
                             </div>
                             <ul class="pagination pull-right">
                                 @for ($i=1; $i<=$pagenum['be_lated']; $i++)

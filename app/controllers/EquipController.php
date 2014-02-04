@@ -46,7 +46,37 @@ class EquipController extends Controller{
     public function getRecordList(){
         return Equip::getRecordList(Input::get('type'), Input::get('month'),Input::get('page'));
     }
+    public function export(){
+        $excel = new Excel('設備清單','校園RFID系統','設備清單');
+        $data = array();
+        $get_column = array('bid','student_id','equip_name','borrow_time','estimate_return_time','return_time');
+        if(Input::get('type') == 'not_return'){
+            if(Input::get('month') == 'all'){
+                $data = Equip::whereRaw('return_time is null')->get($get_column)->toArray();
+
+            }else{
+                $data = Equip::whereRaw('return_time is null and month(borrow_time)=?',array(Input::get('month')))->get($get_column)->toArray();
+
+            }
+        }else{
+            if(Input::get('month') == 'all'){
+                $data = Equip::whereRaw('type = ?',array(Input::get('type')))->get($get_column)->toArray();
+            }else{
+                $data = Equip::whereRaw('type = ? and month(borrow_time)=?',array(Input::get('type'),Input::get('month')))->get($get_column)->toArray();
+            }
+        }
+        $excel->makeXLS(array(
+            '編號',
+            '學號',
+            '器材名稱',
+            '借出時間',
+            '預計歸還時間',
+            '實際歸還時間'
+            ),$data);
+        $excel->download();
+
+
+    }
     public function test(){
-        
     }
 }

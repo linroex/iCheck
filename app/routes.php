@@ -80,6 +80,7 @@ Route::group(array('before'=>'auth'),function(){
         Route::post('return/not','EquipController@getNotReturnEquipList');
         Route::post('history/count','EquipController@getPageNum');
         Route::post('history','EquipController@getRecordList');
+        Route::post('export','EquipController@export');
         Route::group(array('before'=>'csrf'),function(){
             Route::post('borrow','EquipController@borrowEquip');
             Route::post('return','EquipController@setRecordReturned');
