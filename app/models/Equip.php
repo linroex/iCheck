@@ -9,7 +9,7 @@ class Equip extends Eloquent{
         未歸還 = not_return
         無限期 = no_deadline
     */
-    
+
     public static function getNotReturnEquipList($student_id){
         $data = self::find($student_id);
         if($data === null){
@@ -57,13 +57,67 @@ class Equip extends Eloquent{
             'return_time'=>date('Y/m/d',time())
         ));
     }
-    public static function getBorrowEquip($month){
+    public static function getRecordList($type = 'not_return', $month = 'all', $page=1, $num = 2){
+        if($type == 'be_lated'){
+            if($month == 'all'){
+                return self::whereRaw('type = \'not_return\' and estimate_return_time < now()')->take($num)->skip(($page-1)*$num)->get()->toJson();
+
+            }else{
+                return self::whereRaw('type = \'not_return\' and estimate_return_time < now() and month(borrow_time) = ?',array($month))->take($num)->skip(($page-1)*$num)->get()->toJson();
+
+            }
+        }else{
+            if($type == 'not_return'){
+                if($month == 'all'){
+                    return self::whereRaw('return_time is NULL')->take($num)->skip(($page-1)*$num)->get()->toJson();
+
+                }else{
+                    return self::whereRaw('return_time is NULL and month(borrow_time) = ?',array($month))->take($num)->skip(($page-1)*$num)->get()->toJson();
+
+                }
+            }elseif($type == 'returned'){
+                if($month == 'all'){
+                    return self::whereRaw('type = \'returned\' ')->take($num)->skip(($page-1)*$num)->get()->toJson();
+
+                }else{
+                    return self::whereRaw('type = \'returned\' and month(borrow_time) = ?',array($month))->take($num)->skip(($page-1)*$num)->get()->toJson();
+
+                }
+            }
+            
+        }
+
 
     }
-    public static function getReturnedEquip($month){
+    public static function getRecordListPageCount($type = 'not_return', $month = 'all',$num = 2){
+        if($type == 'be_lated'){
+            if($month == 'all'){
+                return ceil(self::whereRaw('type = \'not_return\' and estimate_return_time < now()')->count()/$num);
 
-    }
-    public static function getLateEquip($month){
+            }else{
+                return ceil(self::whereRaw('type = \'not_return\' and estimate_return_time < now() and month(borrow_time) = ?',array($month))->count()/$num);
 
+            }
+        }else{
+            if($type == 'not_return'){
+                if($month == 'all'){
+                    return ceil(self::whereRaw('return_time is NULL')->count()/$num);
+
+                }else{
+                    return ceil(self::whereRaw('return_time is NULL and month(borrow_time) = ?',array($month))->count()/$num);
+
+                }
+            }elseif($type == 'returned'){
+                if($month == 'all'){
+                    return ceil(self::whereRaw('type = \'returned\' ')->count()/$num);
+
+                }else{
+                    return ceil(self::whereRaw('type = \'returned\' and month(borrow_time) = ?',array($month))->count()/$num);
+
+                }
+            }
+            
+        }
     }
+    
 }

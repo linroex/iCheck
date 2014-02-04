@@ -6,10 +6,45 @@
     <title>校園RFID系統｜借用記錄</title>
     @include('import',array('target'=>'器材借用'))
     <script>
-        $('#history_tab a').click(function (e) {
-          e.preventDefault()
-          $(this).tab('show')
+        
+        $(document).ready(function(){
+            /*$("#history_tab li").each(function(){
+                var type = $(this).children('a').attr('href').replace('#','');
+                var month = $('#month').val();
+                var target = $(this).children('a').attr('href');
+                $.post('{{url()}}/equip/history/count',{type:type,month:month},function(num){
+                  for(var i=0; i<num; i++){
+                      $(target + ' ul.pagination').append('<li><a class="' + type + '-page-' + (i+1) + '">' +  (i+1) + '</a></li>');
+                  }
+                  
+                });
+                $.post('{{url()}}/equip/history',{type:type,month:month,page:1},function(data){
+                    data = JSON.parse(data);
+                    var i=0;
+                    $.each(data,function(){
+                        $(target + ' tbody').append('<tr><td></td><td>' 
+                            + data[i].student_id
+                            + '</td><td>' 
+                            + data[i].equip_name
+                            + '</td><td>' 
+                            + data[i].borrow_time 
+                            + '</td><td>' 
+                            + (data[i].borrow_time == null?data[i].estimate_return_time :data[i].borrow_time )
+                            + '</td></tr>');
+                        i++;
+                    })
+                });
+
+            })*/
+            $('#history_tab a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');              
+            })    
         })
+
+        function load_record($page, $type){
+
+        }
     </script>
 </head>
 
@@ -45,16 +80,30 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="nav nav-tabs" id="history_tab">
-                        <li class="active"><a href="#borrowed" data-toggle="tab">已借出</a></li>
+                        <li class="active"><a href="#not_return" data-toggle="tab">未歸還</a></li>
                         <li><a href="#returned" data-toggle="tab">已歸還</a></li>
-                        <li><a href="#recovery" data-toggle="tab">待催討</a></li>
+                        <li><a href="#be_lated" data-toggle="tab">待催討</a></li>
                         <div class="pull-right">
-                        {{Form::selectMonth('month',date('m',time()),array('class'=>'form-control'))}}
-                    </div>
+                            <select name="month" id="month" class="form-control">
+                                <option value="all">全部</option>
+                                <option value="1">一月</option>
+                                <option value="2">二月</option>
+                                <option value="3">三月</option>
+                                <option value="4">四月</option>
+                                <option value="5">五月</option>
+                                <option value="6">六月</option>
+                                <option value="7">七月</option>
+                                <option value="8">八月</option>
+                                <option value="9">九月</option>
+                                <option value="10">十月</option>
+                                <option value="11">十一月</option>
+                                <option value="12">十二月</option>
+                            </select>
+                        </div>
                     </ul>
                     
                     <div class="tab-content">
-                        <div class="tab-pane active fade in" id="borrowed">
+                        <div class="tab-pane active fade in" id="not_return">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -66,65 +115,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
+                                    @foreach (json_decode($content['not_return'],true) as $record)
+                                        <tr>
+                                            <td>XXX</td>
+                                            <td>{{$record['student_id']}}</td>
+                                            <td>{{$record['equip_name']}}</td>
+                                            <td>{{date('Y/m/d H:i',time($record['borrow_time']))}}</td>
+                                            <td>{{date('Y/m/d',time($record['estimate_return_time']))}}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             <div class="pull-left">
                                 <a href="" class="btn btn-success">匯出資料</a>
                             </div>
                             <ul class="pagination pull-right">
-                                <li class="active"><a href="">1</a></li>
-                                <li><a href="">2</a></li>
-                                <li><a href="">3</a></li>
-                                <li><a href="">4</a></li>
+                                @for ($i=1; $i<=$pagenum['not_return']; $i++)
+                                    <li class="{{$i==1?'active':''}}"><a href="" onclick="load_record({{$i}},'not_return')">{{$i}}</a></li>
+                                @endfor
                             </ul>
                         </div> <!-- tab-pane -->
                         <div class="tab-pane fade in" id="returned">
@@ -139,54 +147,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                    </tr>
+                                    @foreach (json_decode($content['returned'],true) as $record)
+                                        <tr>
+                                            <td>XXX</td>
+                                            <td>{{$record['student_id']}}</td>
+                                            <td>{{$record['equip_name']}}</td>
+                                            <td>{{date('Y/m/d H:i',time($record['borrow_time']))}}</td>
+                                            <td>{{date('Y/m/d H:i',time($record['return_time']))}}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             <div class="pull-left">
                                 <a href="" class="btn btn-success">匯出資料</a>
                             </div>
                             <ul class="pagination pull-right">
-                                <li class="active"><a href="">1</a></li>
-                                <li><a href="">2</a></li>
-                                <li><a href="">3</a></li>
-                                <li><a href="">4</a></li>
+                                @for ($i=1; $i<=$pagenum['returned']; $i++)
+                                    <li class="{{$i==1?'active':''}}"><a href="" onclick="load_record({{$i}},'returned')">{{$i}}</a></li>
+                                @endfor
                             </ul>
                         </div> <!-- tab-pane -->
-                        <div class="tab-pane fade in" id="recovery">
+                        <div class="tab-pane fade in" id="be_lated">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -199,40 +180,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                        <td>5天</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                        <td>5天</td>
-                                    </tr>
-                                    <tr>
-                                        <td>林熙哲</td>
-                                        <td>B10209019</td>
-                                        <td>無線電</td>
-                                        <td>2014/1/1</td>
-                                        <td>2014/1/10</td>
-                                        <td>5天</td>
-                                    </tr>
+                                    @foreach (json_decode($content['be_lated'],true) as $record)
+                                        <tr>
+                                            <td>XXX</td>
+                                            <td>{{$record['student_id']}}</td>
+                                            <td>{{$record['equip_name']}}</td>
+                                            <td>{{$record['borrow_time']}}</td>
+                                            <td>{{date('Y/m/d',time($record['estimate_return_time']))}}</td>
+                                            <td>{{date('j',time()-time($record['estimate_return_time']))}}天</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             <div class="pull-left">
                                 <a href="" class="btn btn-success">匯出資料</a>
                             </div>
                             <ul class="pagination pull-right">
-                                <li class="active"><a href="">1</a></li>
-                                <li><a href="">2</a></li>
-                                <li><a href="">3</a></li>
-                                <li><a href="">4</a></li>
+                                @for ($i=1; $i<=$pagenum['be_lated']; $i++)
+                                    <li class="{{$i==1?'active':''}}"><a href="" onclick="load_record({{$i}},'be_lated')">{{$i}}</a></li>
+                                @endfor
                             </ul>
                         </div> <!-- tab-pane -->
                     </div>
@@ -243,14 +209,3 @@
     </div>
 </body>
 </html>
-<!-- 
-    已借出
-    已歸還
-    待催討
-
-    借用人
-    學號
-    器材名稱
-    借用日期
-    預計歸還日期
- -->

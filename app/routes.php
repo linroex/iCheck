@@ -73,14 +73,13 @@ Route::group(array('before'=>'auth'),function(){
         });
     });
     Route::group(array('prefix'=>'equip'),function(){
-        Route::get('history',function(){
-            return View::make('history_equipment');
-        });
+        Route::get('history','EquipController@viewRecordList');
         Route::get('borrow',function(){
             return View::make('borrow_equipment');
         });
         Route::post('return/not','EquipController@getNotReturnEquipList');
-                
+        Route::post('history/count','EquipController@getPageNum');
+        Route::post('history','EquipController@getRecordList');
         Route::group(array('before'=>'csrf'),function(){
             Route::post('borrow','EquipController@borrowEquip');
             Route::post('return','EquipController@setRecordReturned');
@@ -101,7 +100,7 @@ Route::group(array('before'=>'auth'),function(){
     });
 });
 
-// Route::any('test','EquipController@test');
+Route::any('test','EquipController@test');
 // Route::post('test','UserController@test');
 
 App::missing(function($exception)

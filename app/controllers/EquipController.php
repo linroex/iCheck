@@ -25,5 +25,28 @@ class EquipController extends Controller{
         }
         return '已設定為歸還';
     }
+    public function viewRecordList(){
 
+        return View::make('history_equipment')
+                ->with('pagenum',array(
+                    'not_return'=>Equip::getRecordListPageCount('not_return'),
+                    'returned'=>Equip::getRecordListPageCount('returned'), 
+                    'be_lated'=>Equip::getRecordListPageCount('be_lated')
+                    ))
+                ->with('content',array(
+                    'not_return'=>Equip::getRecordList('not_return'), 
+                    'returned'=>Equip::getRecordList('returned'), 
+                    'be_lated'=>Equip::getRecordList('be_lated')
+                    ));
+
+    }
+    public function getPageNum(){
+        return Equip::getRecordListPageCount(Input::get('type'), Input::get('month'));
+    }
+    public function getRecordList(){
+        return Equip::getRecordList(Input::get('type'), Input::get('month'),Input::get('page'));
+    }
+    public function test(){
+        
+    }
 }
