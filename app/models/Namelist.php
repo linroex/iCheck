@@ -27,7 +27,12 @@ class Namelist extends Eloquent{
         return self::whereRaw('nid = ? and uid = ?',array($nid, Login::getUid()))->delete();
     }
     public static function getNameList($page = 1, $num = 20){
-        return self::where('uid','=',Login::getUid())->orderBy('created_at','DESC')->take($num)->skip(($page-1)*$num)->get();
+        if($num == 'all'){
+            return self::where('uid','=',Login::getUid())->get();
+        }else{
+            return self::where('uid','=',Login::getUid())->orderBy('created_at','DESC')->take($num)->skip(($page-1)*$num)->get();    
+        }
+        
     }
     public static function getNameListPageNum($num = 20){
         return ceil(self::where('uid','=',Login::getUid())->orderBy('created_at','DESC')->count()/$num);
@@ -52,6 +57,23 @@ class Namelist extends Eloquent{
                 'namelist_name'=>$name,
                 'namelist_desc'=>$desc
             ));    
+        }
+        
+    }
+    public static function convertNidToName($nid){
+        $namelist = self::whereRaw('nid = ? and uid = ?',array($nid, Login::getUid()))->first();
+        if(is_null($namelist)){
+            return 'not found nid';
+        }else{
+            return $namelist->namelist_name;
+        }
+    }
+    public static function checkNidRelateUid($nid){
+        $namelist =  self::where('nid','=',$nid)->first();
+        if(is_null($namelist)){
+            return 'not found nid';
+        }else{
+            return $namelist->uid;    
         }
         
     }

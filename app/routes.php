@@ -64,9 +64,7 @@ Route::group(array('before'=>'auth'),function(){
         Route::get('check',function(){
             return View::make('activity_check');
         });
-        Route::get('create',function(){
-            return View::make('create_activity');
-        });
+        Route::get('create','ActivityController@viewActivity');
         Route::get('view',function(){
             return View::make('view_activity');
         });
@@ -75,6 +73,9 @@ Route::group(array('before'=>'auth'),function(){
         });
         Route::get('view/detail',function(){
             return View::make('view_activity_detail');
+        });
+        Route::group(array('before'=>'csrf'),function(){
+            Route::post('create','ActivityController@createActivity');
         });
     });
     Route::group(array('prefix'=>'equip'),function(){
@@ -106,7 +107,7 @@ Route::group(array('before'=>'auth'),function(){
     });
 });
 
-Route::any('test','NameListController@test');
+Route::any('test','ActivityController@test');
 // Route::post('test','UserController@test');
 
 App::missing(function($exception)

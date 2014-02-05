@@ -28,13 +28,13 @@ return array(
         "array"   => "The :attribute must have between :min and :max items.",
     ),
     "confirmed"        => ":attribute 和密碼欄位不符合",
-    "date"             => "The :attribute is not a valid date.",
+    "date"             => ":attribute 的格式有錯誤",
     "date_format"      => "The :attribute does not match the format :format.",
     "different"        => "The :attribute and :other must be different.",
     "digits"           => "The :attribute must be :digits digits.",
     "digits_between"   => "The :attribute must be between :min and :max digits.",
     "email"            => "The :attribute format is invalid.",
-    "exists"           => "The selected :attribute is invalid.",
+    "exists"           => "您輸入的 :attribute 不存在",
     "image"            => "The :attribute must be an image.",
     "in"               => "The selected :attribute is invalid.",
     "integer"          => "The :attribute must be an integer.",
@@ -104,7 +104,10 @@ return array(
         'department'=>'單位',
         'type'=>'種類',
         'namelist_desc'=>'名冊說明',
-        'namelist_name'=>'名冊名稱'
+        'namelist_name'=>'名冊名稱',
+        'activity_date'=>'活動日期',
+        'activity_name'=>'活動名稱',
+        'activity_type'=>'簽到類型'
     ),
 
 );
