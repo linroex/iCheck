@@ -53,8 +53,7 @@ class ListMember extends Eloquent{
     public static function getMemberListPage($nid, $num = 10){
         return ceil(self::whereRaw('nid = ? and uid = ?',array($nid, Login::getUid()))->count()/$num);
     }
-
+    public static function deleteMember($nmid){
+        return self::whereRaw('nmid = ? and uid = ?',array($nmid, Login::getUid()))->delete();
+    }
 }
-/*
-    
-*/

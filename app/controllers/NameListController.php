@@ -42,7 +42,15 @@ class NameListController extends Controller{
         ));
     }
     public function delNameList(){
-        return Namelist::delNameList(Input::get('nid'));
+        Namelist::delNameList(Input::get('nid'));
+        if(Input::has('_token')){
+            return Redirect::to('namelist/view')->with(array(
+                'message'=>'已刪除該名冊'
+            ));
+        }else{
+            return 1;
+
+        }
     }
     public function viewNameListData($nid, $page = 1){
         return View::make('edit_namelist')->with(array(
@@ -59,5 +67,32 @@ class NameListController extends Controller{
             return '錯誤，請檢查您填寫的資料';
 
         }
+    }
+    public function deleteMember(){
+        if(Input::has('nmid')){
+            foreach (Input::get('nmid') as $row) {
+                $id = explode(',', $row);
+                ListMember::deleteMember($id[0]);
+            }
+            return 1;
+        }else{
+            return 'No input';
+        }
+    }
+    public function export(){
+        $excel = new Excel('人員名冊','校園RFID系統','人員名冊');
+        $data = array();
+        $get_column = array('name','student_id','department','job','phone','email');
+        $data = ListMember::whereRaw('nid = ? and uid = ?',array(Input::get('nid'),Login::getUid()))->get($get_column)->toArray();
+        $excel->makeXLS(array(
+            '姓名',
+            '學號',
+            '科系',
+            '職務',
+            '電話',
+            '信箱'
+            ),$data);
+        $excel->download();
+        $excel = NULL;
     }
 }

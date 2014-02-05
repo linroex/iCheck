@@ -12,7 +12,19 @@
             $('#check_dialog').modal('show');
             
         }
-        function del_select_member(){
+        function delete_select_member(){
+            $('#check_dialog').modal('hide');
+            $.post('{{url()}}/namelist/member/delete',$('#member_form').serialize(),function(data){
+
+                if(data == 1){
+                    $('#member_form input:checked').parent().parent().remove();
+                    $('.breadcrumb').parent().append('<div class="alert alert-success">成功刪除指定的成員</div>');
+                }else{
+                    console.log(data);
+                }
+            })
+        }
+        function del_select_member_dialog(){
             var body_str = '';
             var id_str = '';
 
@@ -35,7 +47,7 @@
             
             $.post('{{url()}}/namelist/edit',$('#namelist_data').serialize(),function(data){
                 $('.alert').remove();
-                $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>')
+                $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>');
             });
         }
     </script>
@@ -88,7 +100,7 @@
                 
                 <div class="col-md-12">
                     <h3>名冊成員</h3>
-                    <form action="">
+                    {{Form::open(array('id'=>'member_form'))}}
                         <table class="table-hover table namelist_member">
                             <thead>
                                 <tr>
@@ -117,14 +129,14 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </form>
+                    {{Form::close()}}
 
 
                 </div>
             </div>  <!-- row end -->
             <div class="row">
-                <div class="col-md-5 hidden-xs col-sm-4">
-                    <a onclick="del_select_member()" class="btn btn-danger">刪除選定成員</a>
+                <div class="col-md-4 hidden-xs col-sm-4">
+                    <a onclick="del_select_member_dialog()" class="btn btn-danger">刪除選定成員</a>
                 </div>
                 <div class="col-md-3 col-xs-6 col-sm-3">
                     <ul class="pagination">
@@ -133,11 +145,19 @@
                         @endfor
                     </ul>
                 </div>
-                <div class="col-md-4 col-xs-6 col-sm-5">
-                    <div class="btn-group edit-namelist-btn-group pull-right">
-                        <a href="" class="btn btn-default hidden-xs">匯出名冊</a>
-                        <a onclick="del_namelist_check(1,'國立台灣科技大學學生會')" class="btn btn-danger">刪除名冊</a>
-                    </div>
+                <div class="col-md-5 col-xs-6 col-sm-5">
+                
+                    {{Form::open(array('url'=>url().'/namelist/export'))}}
+                    {{Form::hidden('nid',$data[0]['nid'])}}
+                    <input type="submit" value="匯出名冊" class="pull-right btn btn-default hidden-xs">
+                    {{Form::close()}}
+
+                    {{Form::open(array('url'=>url().'/namelist/delete'))}}
+                    {{Form::hidden('nid',$data[0]['nid'])}}
+                    <input type="submit" value="刪除名冊" class="pull-right btn btn-danger hidden-xs" style="margin-right:15px;">
+                    {{Form::close()}}
+                    <!-- <a onclick="del_namelist_check(1,'國立台灣科技大學學生會')" class="pull-right btn btn-danger">刪除名冊</a> -->
+                
                 </div>
             </div> <!-- row end -->
         </div>  <!-- page-wrapper -->
@@ -154,7 +174,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-danger">確定刪除</button>
+                <button type="button" class="btn btn-danger" onclick="delete_select_member()">確定刪除</button>
               </div>
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->

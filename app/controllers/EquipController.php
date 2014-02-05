@@ -78,6 +78,5 @@ class EquipController extends Controller{
         $excel = NULL;
 
     }
-    public function test(){
-    }
+    
 }

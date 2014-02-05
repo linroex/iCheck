@@ -54,7 +54,7 @@ class Excel{
         foreach ($tbody as $row) {
             $path_x = 65;
             foreach ($row as $block) {
-                $this->obj->getActiveSheet()->setCellValue(chr($path_x) . $path_y ,$block);
+                $this->obj->getActiveSheet()->setCellValueExplicit(chr($path_x) . $path_y ,$block,PHPExcel_Cell_DataType::TYPE_STRING);
                 $path_x++;
             }
             $path_y++;

@@ -10,7 +10,7 @@ class Namelist extends Eloquent{
             'namelist_desc'=>$namelist_desc
         ), array(
             'namelist_name'=>'required',
-            'namelist_desc'=>'required'
+            'namelist_desc'=>''
         ));
         if($result->fails()){
             return $result->messages();

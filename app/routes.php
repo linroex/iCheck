@@ -57,6 +57,8 @@ Route::group(array('before'=>'auth'),function(){
         Route::group(array('before'=>'csrf'),function(){
             Route::post('create','NameListController@createNameList');
             Route::post('edit','NameListController@editNameList');
+            Route::post('member/delete','NameListController@deleteMember');
+            Route::post('export','NameListController@export');
         });
     });
     Route::group(array('prefix'=>'activity'),function(){
