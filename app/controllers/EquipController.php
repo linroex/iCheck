@@ -53,17 +53,17 @@ class EquipController extends Controller{
         $get_column = array('bid','student_id','equip_name','borrow_time','estimate_return_time','return_time');
         if(Input::get('type') == 'not_return'){
             if(Input::get('month') == 'all'){
-                $data = Equip::whereRaw('return_time is null')->get($get_column)->toArray();
+                $data = Equip::whereRaw('return_time is null and uid = ?',array(Login::getUid()))->get($get_column)->toArray();
 
             }else{
-                $data = Equip::whereRaw('return_time is null and month(borrow_time)=?',array(Input::get('month')))->get($get_column)->toArray();
+                $data = Equip::whereRaw('return_time is null and month(borrow_time)=? and uid = ?',array(Input::get('month'),Login::getUid()))->get($get_column)->toArray();
 
             }
         }else{
             if(Input::get('month') == 'all'){
-                $data = Equip::whereRaw('type = ?',array(Input::get('type')))->get($get_column)->toArray();
+                $data = Equip::whereRaw('type = ? and uid = ?',array(Input::get('type'),Login::getUid()))->get($get_column)->toArray();
             }else{
-                $data = Equip::whereRaw('type = ? and month(borrow_time)=?',array(Input::get('type'),Input::get('month')))->get($get_column)->toArray();
+                $data = Equip::whereRaw('type = ? and month(borrow_time)=? and uid = ?',array(Input::get('type'),Input::get('month'),Login::getUid()))->get($get_column)->toArray();
             }
         }
         $excel->makeXLS(array(

@@ -8,14 +8,14 @@
     <script>
         
         $(document).ready(function(){
-            
+            $('ul.pagination li a').click(function(e){
+                e.preventDefault();
+            })
             $('#history_tab a').click(function (e) {
                 e.preventDefault();
                 $(this).tab('show');              
             })    
-            $('.pagination a').click(function(e){
-                e.preventDefault();
-            })
+            
             $('#month').change(function(){
                 var target = $("#history_tab li.active a").attr('href');
                 $('input.month').val($('#month').val());

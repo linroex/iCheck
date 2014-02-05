@@ -119,24 +119,7 @@
                         <input type="text" class="form-control" id="stu_card" name="student_id" placeholder="請刷學生證">
                     </div>
                     <div id="reset-clear">
-                        <div class="wait-to-return hidden col-md-6">
-                            <h3>歸還</h3>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <td></td>
-                                        <td>器材名稱</td>
-                                        <td>借用日期</td>
-                                    </tr>
-                                    
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                            <a onclick="returnEquip()" class="btn btn-primary btn-lg pull-right">歸還</a>
-
-                        </div>
+                        
                         <div class="borrow-table hidden col-md-6">
                             <h3>借用</h3>
                             <table class="table table-hover">
@@ -159,6 +142,24 @@
                                 <a onclick="del_item()" class="btn btn-default">減少</a>
                             </div>
                             <a onclick="borrow()" class="btn btn-primary btn-lg pull-right">借用</a>
+
+                        </div>
+                        <div class="wait-to-return hidden col-md-6">
+                            <h3>歸還</h3>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td>器材名稱</td>
+                                        <td>借用日期</td>
+                                    </tr>
+                                    
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                            <a onclick="returnEquip()" class="btn btn-primary btn-lg pull-right">歸還</a>
 
                         </div>
                     </div> <!-- reset-clear -->

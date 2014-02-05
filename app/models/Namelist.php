@@ -21,7 +21,14 @@ class Namelist extends Eloquent{
                 'uid'=>Login::getUid()
             ))->nid;
         }
-        
-
+    }
+    public static function delNameList($nid){
+        return self::whereRaw('nid = ? and uid = ?',array($nid, Login::getUid()))->delete();
+    }
+    public static function getNameList($page = 1, $num = 20){
+        return self::where('uid','=',Login::getUid())->orderBy('created_at','DESC')->take($num)->skip(($page-1)*$num)->get();
+    }
+    public static function getNameListPageNum($num = 20){
+        return ceil(self::where('uid','=',Login::getUid())->orderBy('created_at','DESC')->count()/$num);
     }
 }

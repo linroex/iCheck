@@ -1,9 +1,9 @@
 <?php
 class NameListController extends Controller{
     public function test(){
-        dd(Namelist::addNamelist('測試名冊',''));
+        dd(Namelist::getNameList());
     }
-    
+
     public function createNameList(){
         if(Input::hasfile('upload_namelist_file')){
             DB::beginTransaction();
@@ -32,5 +32,16 @@ class NameListController extends Controller{
                 'message'=>'請上傳名冊檔案'
             ));
         }
+    }
+
+    public function getNameList($page = 1){
+        return View::make('view_namelist')->with(array(
+            'namelist'=>Namelist::getNameList($page),
+            'pagenum'=>Namelist::getNameListPageNum(),
+            'current_page'=>$page
+        ));
+    }
+    public function delNameList(){
+        return Namelist::delNameList(Input::get('nid'));
     }
 }

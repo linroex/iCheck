@@ -57,30 +57,30 @@ class Equip extends Eloquent{
             'return_time'=>date('Y/m/d H:i',time())
         ));
     }
-    public static function getRecordList($type = 'not_return', $month = 'all', $page=1, $num = 10){
+    public static function getRecordList($type = 'not_return', $month = 'all', $page=1, $num = 20){
         if($type == 'be_lated'){
             if($month == 'all'){
-                return self::whereRaw('type = \'not_return\' and estimate_return_time < now()')->orderBy('estimate_return_time')->take($num)->skip(($page-1)*$num)->get()->toJson();
+                return self::whereRaw('type = \'not_return\' and estimate_return_time < now() and uid = ?',array(Login::getUid()))->orderBy('estimate_return_time')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
             }else{
-                return self::whereRaw('type = \'not_return\' and estimate_return_time < now() and month(borrow_time) = ?',array($month))->orderBy('estimate_return_time')->take($num)->skip(($page-1)*$num)->get()->toJson();
+                return self::whereRaw('type = \'not_return\' and estimate_return_time < now() and month(borrow_time) = ? and uid = ?',array($month,Login::getUid()))->orderBy('estimate_return_time')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
             }
         }else{
             if($type == 'not_return'){
                 if($month == 'all'){
-                    return self::whereRaw('return_time is NULL')->orderBy('borrow_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
+                    return self::whereRaw('return_time is NULL and uid = ?', array(Login::getUid()))->orderBy('borrow_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
                 }else{
-                    return self::whereRaw('return_time is NULL and month(borrow_time) = ?',array($month))->orderBy('borrow_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
+                    return self::whereRaw('return_time is NULL and month(borrow_time) = ? and uid = ?', array($month,Login::getUid()))->orderBy('borrow_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
                 }
             }elseif($type == 'returned'){
                 if($month == 'all'){
-                    return self::whereRaw('type = \'returned\' ')->orderBy('return_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
+                    return self::whereRaw('type = \'returned\' and uid = ?', array(Login::getUid()))->orderBy('return_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
                 }else{
-                    return self::whereRaw('type = \'returned\' and month(borrow_time) = ?',array($month))->orderBy('return_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
+                    return self::whereRaw('type = \'returned\' and month(borrow_time) = ? and uid = ?', array($month,Login::getUid()))->orderBy('return_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
 
                 }
             }
@@ -89,30 +89,30 @@ class Equip extends Eloquent{
 
 
     }
-    public static function getRecordListPageCount($type = 'not_return', $month = 'all',$num = 10){
+    public static function getRecordListPageCount($type = 'not_return', $month = 'all',$num = 20){
         if($type == 'be_lated'){
             if($month == 'all'){
-                return ceil(self::whereRaw('type = \'not_return\' and estimate_return_time < now()')->count()/$num);
+                return ceil(self::whereRaw('type = \'not_return\' and estimate_return_time < now() and uid = ?', array(Login::getUid()))->count()/$num);
 
             }else{
-                return ceil(self::whereRaw('type = \'not_return\' and estimate_return_time < now() and month(borrow_time) = ?',array($month))->count()/$num);
+                return ceil(self::whereRaw('type = \'not_return\' and estimate_return_time < now() and month(borrow_time) = ? and uid = ?', array($month, Login::getUid()))->count()/$num);
 
             }
         }else{
             if($type == 'not_return'){
                 if($month == 'all'){
-                    return ceil(self::whereRaw('return_time is NULL')->count()/$num);
+                    return ceil(self::whereRaw('return_time is NULL and uid = ?', array(Login::getUid()))->count()/$num);
 
                 }else{
-                    return ceil(self::whereRaw('return_time is NULL and month(borrow_time) = ?',array($month))->count()/$num);
+                    return ceil(self::whereRaw('return_time is NULL and month(borrow_time) = ? and uid = ?', array($month,Login::getUid()))->count()/$num);
 
                 }
             }elseif($type == 'returned'){
                 if($month == 'all'){
-                    return ceil(self::whereRaw('type = \'returned\' ')->count()/$num);
+                    return ceil(self::whereRaw('type = \'returned\' and uid = ?',array(Login::getUid()))->count()/$num);
 
                 }else{
-                    return ceil(self::whereRaw('type = \'returned\' and month(borrow_time) = ?',array($month))->count()/$num);
+                    return ceil(self::whereRaw('type = \'returned\' and month(borrow_time) = ? and uid = ?',array($month,Login::getUid()))->count()/$num);
 
                 }
             }

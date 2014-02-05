@@ -56,7 +56,7 @@
                          <table class="table">
                              <tr>
                                  <td class="col-md-3 field-name">名冊名稱</td>
-                                 <td class="col-md-9"><input type="text" class="form-control" name="namelist_name"></td>
+                                 <td class="col-md-9"><input type="text" class="form-control" name="namelist_name" required></td>
                              </tr>
                              <tr>
                                  <td>名冊說明</td>
@@ -66,7 +66,7 @@
                                  <td>上傳檔案</td>
                                  <td>
                                      <div class="input-group">
-                                         <input type="text" class="form-control" id="namelist_path">
+                                         <input type="text" class="form-control" id="namelist_path" required>
                                          <div class="input-group-btn">
                                              <a class="btn btn-success" id="select_namelist_file">位置</a>
                                          </div>

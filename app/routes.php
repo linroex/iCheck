@@ -45,15 +45,14 @@ Route::group(array('before'=>'auth'),function(){
         Route::get('create',function(){
             return View::make('create_namelist');
         });
-        Route::get('view',function(){
-            return View::make('view_namelist');
-        });
+        Route::get('view/{page?}','NameListController@getNameList');
         Route::get('edit',function(){
             return View::make('edit_namelist');
         });
         Route::get('edit/member',function(){
             return View::make('edit_namelist_member_data');
         });
+        Route::post('delete','NameListController@delNameList');
         Route::group(array('before'=>'csrf'),function(){
             Route::post('create','NameListController@createNameList');
         });

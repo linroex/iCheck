@@ -13,6 +13,7 @@
     $(document).ready(function(){
         $('.side-nav li a:contains(' + target + ')').parent().first().addClass('active open');
 
+        
         @if (Session::has('message') === true)
             @if (is_object(Session::get('message')) === true)
                 $('.breadcrumb').parent().append('<div class="alert alert-danger">@foreach (Session::get('message')->all() as $row){{$row}} <br/>@endforeach </div>')
