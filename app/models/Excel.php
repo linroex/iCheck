@@ -3,7 +3,7 @@ class Excel{
     private $obj;
     private $reader;
     private $filename = '';
-    public function __construct($sheet_name, $author, $title){
+    public function __construct($sheet_name = '', $author = '', $title = ''){
         $this->filename = $title . 'xls';
         $this->obj = new PHPExcel();
 
@@ -14,15 +14,24 @@ class Excel{
         $this->obj->setActiveSheetIndex(0)
                   ->setTitle($sheet_name);
     }
-    public function readXLS($path, $width, $height){
+    public function readXLS($path, $width){
         if(file_exists($path)){
             $this->reader = PHPExcel_IOFactory::load($path);
             $worksheet = $this->reader->getActiveSheet();
             $result = array();
-            for($i = 1; $i <= $height; $i++){
+            $height = $worksheet->getHighestRow();
+
+            // 從第二行開始讀取，避免讀到標題
+            for($i = 2; $i <= $height; $i++){
                 $row = array();
-                for($ii = 65; $ii < $width+64; $ii++){
-                    array_push($row, $worksheet->getCellByColumnAndRow(chr($ii),$i)->getValue());
+                for($ii = 0; $ii < $width; $ii++){
+                    $data = $worksheet->getCellByColumnAndRow($ii, $i)->getValue();
+                    if(trim($data) == '' and $ii == 0){
+                        return $result;
+                    }else{
+                        array_push($row, $data);
+
+                    }
                 }
                 array_push($result, $row);
             }

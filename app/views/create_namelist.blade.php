@@ -52,36 +52,34 @@
 
             <div class="row">
                  <div class="col-md-8">
-                     <form action="" enctype="multipart/form-data">
-                            
-                             <table class="table">
-                                 <tr>
-                                     <td class="col-md-3 field-name">名冊名稱</td>
-                                     <td class="col-md-9"><input type="text" class="form-control"></td>
-                                 </tr>
-                                 <tr>
-                                     <td>名冊說明</td>
-                                     <td><textarea name="" id="" rows="5" class="form-control col-md-12"></textarea></td>
-                                 </tr>
-                                 <tr>
-                                     <td>上傳檔案</td>
-                                     <td>
-                                         <div class="input-group">
-                                             <input type="text" class="form-control" id="namelist_path">
-                                             <div class="input-group-btn">
-                                                 <a class="btn btn-success" id="select_namelist_file">位置</a>
-                                             </div>
+                     {{Form::open(array('files'=>true))}}
+                         <table class="table">
+                             <tr>
+                                 <td class="col-md-3 field-name">名冊名稱</td>
+                                 <td class="col-md-9"><input type="text" class="form-control" name="namelist_name"></td>
+                             </tr>
+                             <tr>
+                                 <td>名冊說明</td>
+                                 <td><textarea name="namelist_desc" id="" rows="5" class="form-control col-md-12"></textarea></td>
+                             </tr>
+                             <tr>
+                                 <td>上傳檔案</td>
+                                 <td>
+                                     <div class="input-group">
+                                         <input type="text" class="form-control" id="namelist_path">
+                                         <div class="input-group-btn">
+                                             <a class="btn btn-success" id="select_namelist_file">位置</a>
                                          </div>
-                                         <input type="file" name="upload_namelist_file" id="upload_namelist_file" style="display:none;">
-                                     </td>
-                                 </tr>
-                                 <tr>
-                                     <td></td>
-                                     <td><input type="submit" value="建立" class="btn btn-primary btn-lg pull-right"></td>
-                                 </tr>
-                             </table>
-                         
-                    </form>
+                                     </div>
+                                     <input type="file" name="upload_namelist_file" id="upload_namelist_file" style="display:none;">
+                                 </td>
+                             </tr>
+                             <tr>
+                                 <td></td>
+                                 <td><input type="submit" value="建立" class="btn btn-primary btn-lg pull-right"></td>
+                             </tr>
+                         </table>
+                    {{Form::close()}}
                 </div>
             </div> <!-- row -->
         </div>

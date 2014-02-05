@@ -54,6 +54,9 @@ Route::group(array('before'=>'auth'),function(){
         Route::get('edit/member',function(){
             return View::make('edit_namelist_member_data');
         });
+        Route::group(array('before'=>'csrf'),function(){
+            Route::post('create','NameListController@createNameList');
+        });
     });
     Route::group(array('prefix'=>'activity'),function(){
         Route::get('check',function(){
