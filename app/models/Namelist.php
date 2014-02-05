@@ -21,6 +21,7 @@ class Namelist extends Eloquent{
                 'uid'=>Login::getUid()
             ))->nid;
         }
+
     }
     public static function delNameList($nid){
         return self::whereRaw('nid = ? and uid = ?',array($nid, Login::getUid()))->delete();
@@ -30,5 +31,28 @@ class Namelist extends Eloquent{
     }
     public static function getNameListPageNum($num = 20){
         return ceil(self::where('uid','=',Login::getUid())->orderBy('created_at','DESC')->count()/$num);
+    }
+    public static function getNameListData($nid){
+        return self::whereRaw('nid = ? and uid = ?',array($nid, Login::getUid()))->get()->toArray();
+    }
+    public static function editNameList($nid, $name, $desc = ''){
+        $check = Validator::make(array(
+            'nid'=>$nid,
+            'namelist_name'=>$name,
+            'namelist_desc'=>$desc
+        ),array(
+            'nid'=>'required | exists:namelist',
+            'namelist_name'=>'required',
+            'namelist_desc'=>''
+        ));
+        if($check->fails()){
+            return $check->messages();
+        }else{
+            return self::whereRaw('nid = ? and uid = ?',array($nid, Login::getUid()))->update(array(
+                'namelist_name'=>$name,
+                'namelist_desc'=>$desc
+            ));    
+        }
+        
     }
 }

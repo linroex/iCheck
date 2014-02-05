@@ -31,6 +31,13 @@
             
             $('#check_dialog').modal('show');
         }
+        function update_namelist(){
+            
+            $.post('{{url()}}/namelist/edit',$('#namelist_data').serialize(),function(data){
+                $('.alert').remove();
+                $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>')
+            });
+        }
     </script>
 </head>
 
@@ -47,7 +54,7 @@
                         <ul class="breadcrumb">
                             <li>活動簽到</li>
                             <li><a href="{{url()}}/namelist/view">檢視名冊</a></li>
-                            <li><a href="{{url()}}/namelist/edit">編輯名冊</a></li>
+                            <li><a href="{{url()}}/namelist/edit/{{$data[0]['nid']}}">編輯名冊</a></li>
                         </ul>
                     </div>
                 </div>
@@ -55,23 +62,24 @@
             <div class="row">
                 <div class="col-md-8">
                     <h3>基本資料</h3>
-                    <form action="">
+                    {{Form::model($data[0],array('id'=>'namelist_data'))}}
+                        {{Form::hidden('nid')}}
                         <table class="table">
                             <tr>
                                 <td class="col-md-3">名冊名稱</td>
-                                <td class="col-md-9"><input type="text" class="form-control"></td>
+                                <td class="col-md-9">{{Form::text('namelist_name',null,array('class'=>'form-control','id'=>'namelist_name','required'))}}</td>
                             </tr>
                             <tr>
                                 <td>名冊說明</td>
-                                <td><textarea name="" id="" rows="5" class="col-md-12 form-control"></textarea></td>
+                                <td>{{Form::textarea('namelist_desc',null,array('class'=>'form-control','rows'=>5,'id'=>'namelist_desc'))}}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td><input type="submit" value="送出" class="pull-right btn btn-primary btn-lg"></td>
+                                <td><input type="button" onclick="update_namelist()" value="送出" class="pull-right btn btn-primary btn-lg"></td>
                             </tr>
                         </table>
 
-                    </form>
+                    {{Form::close()}}
                 </div>
             </div> <!-- row end -->
             
@@ -95,96 +103,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type="checkbox" name="" value="1,林熙哲"></td>
-                                    <td>林熙哲</td>
-                                    <td>B10209019</td>
-                                    <td>資訊管理系</td>
-                                    <td class="hidden-xs">社員</td>
-                                    <td class="hidden-xs">0912123456</td>
-                                    <td class="hidden-xs">linroex@coder.tw</td>
-                                    <td><a href="edit_namelist_member_data.php" class="btn btn-primary">編輯</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="" value="2,林熙哲"></td>
-                                    <td>林熙哲</td>
-                                    <td>B10209019</td>
-                                    <td>資訊管理系</td>
-                                    <td class="hidden-xs">社員</td>
-                                    <td class="hidden-xs">0912123456</td>
-                                    <td class="hidden-xs">linroex@coder.tw</td>
-                                    <td><a href="edit_namelist_member_data.php" class="btn btn-primary">編輯</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name=""  value="3,林熙哲"></td>
-                                    <td>林熙哲</td>
-                                    <td>B10209019</td>
-                                    <td>資訊管理系</td>
-                                    <td class="hidden-xs">社員</td>
-                                    <td class="hidden-xs">0912123456</td>
-                                    <td class="hidden-xs">linroex@coder.tw</td>
-                                    <td><a href="edit_namelist_member_data.php" class="btn btn-primary">編輯</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name=""  value="4,林熙哲"></td>
-                                    <td>林熙哲</td>
-                                    <td>B10209019</td>
-                                    <td>資訊管理系</td>
-                                    <td class="hidden-xs">社員</td>
-                                    <td class="hidden-xs">0912123456</td>
-                                    <td class="hidden-xs">linroex@coder.tw</td>
-                                    <td><a href="edit_namelist_member_data.php" class="btn btn-primary">編輯</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name=""  value="5,林熙哲"></td>
-                                    <td>林熙哲</td>
-                                    <td>B10209019</td>
-                                    <td>資訊管理系</td>
-                                    <td class="hidden-xs">社員</td>
-                                    <td class="hidden-xs">0912123456</td>
-                                    <td class="hidden-xs">linroex@coder.tw</td>
-                                    <td><a href="edit_namelist_member_data.php" class="btn btn-primary">編輯</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name=""  value="6,林熙哲"></td>
-                                    <td>林熙哲</td>
-                                    <td>B10209019</td>
-                                    <td>資訊管理系</td>
-                                    <td class="hidden-xs">社員</td>
-                                    <td class="hidden-xs">0912123456</td>
-                                    <td class="hidden-xs">linroex@coder.tw</td>
-                                    <td><a href="edit_namelist_member_data.php" class="btn btn-primary">編輯</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name=""  value="7,林熙哲"></td>
-                                    <td>林熙哲</td>
-                                    <td>B10209019</td>
-                                    <td>資訊管理系</td>
-                                    <td class="hidden-xs">社員</td>
-                                    <td class="hidden-xs">0912123456</td>
-                                    <td class="hidden-xs">linroex@coder.tw</td>
-                                    <td><a href="edit_namelist_member_data.php" class="btn btn-primary">編輯</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name=""  value="8,林熙哲"></td>
-                                    <td>林熙哲</td>
-                                    <td>B10209019</td>
-                                    <td>資訊管理系</td>
-                                    <td class="hidden-xs">社員</td>
-                                    <td class="hidden-xs">0912123456</td>
-                                    <td class="hidden-xs">linroex@coder.tw</td>
-                                    <td><a href="edit_namelist_member_data.php" class="btn btn-primary">編輯</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name=""  value="9,林熙哲"></td>
-                                    <td>林熙哲</td>
-                                    <td>B10209019</td>
-                                    <td>資訊管理系</td>
-                                    <td class="hidden-xs">社員</td>
-                                    <td class="hidden-xs">0912123456</td>
-                                    <td class="hidden-xs">linroex@coder.tw</td>
-                                    <td><a href="edit_namelist_member_data.php" class="btn btn-primary">編輯</a></td>
-                                </tr>
+                                @foreach ($member as $row)
+                                    <tr id="nmid-{{$row->nmid}}">
+                                        <td><input type="checkbox" name="nmid[]" value="{{$row->nmid}},{{$row->name}}"></td>
+                                        <td>{{$row->name}}</td>
+                                        <td>{{$row->student_id}}</td>
+                                        <td>{{$row->department}}</td>
+                                        <td class="hidden-xs">{{$row->job}}</td>
+                                        <td class="hidden-xs">{{$row->phone}}</td>
+                                        <td class="hidden-xs">{{$row->email}}</td>
+                                        <td><a href="{{url()}}/namelist/edit/member/{{$row->nmid}}" class="btn btn-primary">編輯</a></td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </form>
@@ -198,10 +128,9 @@
                 </div>
                 <div class="col-md-3 col-xs-6 col-sm-3">
                     <ul class="pagination">
-                        <li class="active"><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-
+                        @for ($i = 1; $i<=$pagenum; $i++)
+                            <li class="{{$i==$current_page?'active':''}}"><a href="{{url()}}/namelist/edit/{{$data[0]['nid']}}/{{$i}}">{{$i}}</a></li>
+                        @endfor
                     </ul>
                 </div>
                 <div class="col-md-4 col-xs-6 col-sm-5">

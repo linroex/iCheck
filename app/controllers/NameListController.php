@@ -44,4 +44,20 @@ class NameListController extends Controller{
     public function delNameList(){
         return Namelist::delNameList(Input::get('nid'));
     }
+    public function viewNameListData($nid, $page = 1){
+        return View::make('edit_namelist')->with(array(
+            'data'=>Namelist::getNameListData($nid),
+            'member'=>ListMember::getMemberList($nid, $page),
+            'pagenum'=>ListMember::getMemberListPage($nid),
+            'current_page'=>$page
+        ));
+    }
+    public function editNameList(){
+        if(is_int(Namelist::editNameList(Input::get('nid'), Input::get('namelist_name'), Input::get('namelist_desc')))){
+            return '名冊基本資料編輯成功';
+        }else{
+            return '錯誤，請檢查您填寫的資料';
+
+        }
+    }
 }

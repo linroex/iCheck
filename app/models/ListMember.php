@@ -47,6 +47,12 @@ class ListMember extends Eloquent{
         $excel = NULL;
         return 1;
     }
+    public static function getMemberList($nid, $page = 1, $num = 10){
+        return self::whereRaw('nid = ? and uid = ?',array($nid, Login::getUid()))->take($num)->skip(($page-1)*$num)->get();
+    }
+    public static function getMemberListPage($nid, $num = 10){
+        return ceil(self::whereRaw('nid = ? and uid = ?',array($nid, Login::getUid()))->count()/$num);
+    }
 
 }
 /*

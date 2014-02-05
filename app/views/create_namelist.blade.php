@@ -71,6 +71,7 @@
                                              <a class="btn btn-success" id="select_namelist_file">位置</a>
                                          </div>
                                      </div>
+                                     <span class="help-block"><a href="{{url()}}/example/namelist_example.xlsx">範例檔案點此下載</a></span>
                                      <input type="file" name="upload_namelist_file" id="upload_namelist_file" style="display:none;">
                                  </td>
                              </tr>
