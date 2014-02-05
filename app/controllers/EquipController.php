@@ -7,7 +7,8 @@ class EquipController extends Controller{
     public function borrowEquip(){
         $data = '';
         for($i=0;$i<count(Input::get('equip_name'));$i++){
-            if(Input::get('equip_name')[$i] == ''){
+            if(trim(Input::get('equip_name')[$i]) == ''){
+                $data .= "第" . ($i+1) . "項錯誤：器材名稱為必填";
                 break;
             }
             $info = Equip::borrowEquip(Input::get('student_id'),Input::get('equip_name')[$i],Input::get('return_date')[$i]);
@@ -74,7 +75,7 @@ class EquipController extends Controller{
             '實際歸還時間'
             ),$data);
         $excel->download();
-
+        $excel = NULL;
 
     }
     public function test(){

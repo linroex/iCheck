@@ -101,7 +101,7 @@ Route::group(array('before'=>'auth'),function(){
     });
 });
 
-Route::any('test','EquipController@test');
+Route::any('test','NameListController@test');
 // Route::post('test','UserController@test');
 
 App::missing(function($exception)

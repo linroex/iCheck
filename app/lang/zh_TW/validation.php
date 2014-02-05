@@ -102,7 +102,9 @@ return array(
         'password_confirmation'=>'在輸入一次密碼',
         'name'=>'姓名',
         'department'=>'單位',
-        'type'=>'種類'
+        'type'=>'種類',
+        'namelist_desc'=>'名冊說明',
+        'namelist_name'=>'名冊名稱'
     ),
 
 );

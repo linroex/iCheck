@@ -1,6 +1,7 @@
 <?php
 class Excel{
     private $obj;
+    private $reader;
     private $filename = '';
     public function __construct($sheet_name, $author, $title){
         $this->filename = $title . 'xls';
@@ -12,6 +13,24 @@ class Excel{
         
         $this->obj->setActiveSheetIndex(0)
                   ->setTitle($sheet_name);
+    }
+    public function readXLS($path, $width, $height){
+        if(file_exists($path)){
+            $this->reader = PHPExcel_IOFactory::load($path);
+            $worksheet = $this->reader->getActiveSheet();
+            $result = array();
+            for($i = 1; $i <= $height; $i++){
+                $row = array();
+                for($ii = 65; $ii < $width+64; $ii++){
+                    array_push($row, $worksheet->getCellByColumnAndRow(chr($ii),$i)->getValue());
+                }
+                array_push($result, $row);
+            }
+            return $result;
+        }else{
+            return 'This file path is error.';
+        }
+        
     }
     public function makeXLS($thead, $tbody){
 

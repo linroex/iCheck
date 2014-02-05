@@ -39,8 +39,8 @@ class Equip extends Eloquent{
             return '預計歸還時間不可早於借出時間';
         }else{
             $data = self::create(array(
-                'student_id'=>$student_id,
-                'equip_name'=>$equip_name,
+                'student_id'=>trim($student_id),
+                'equip_name'=>trim($equip_name),
                 'borrow_time'=>date('Y/m/d H:i:s',time()),
                 'estimate_return_time'=>$estimate_return_date,
                 'type'=>'not_return',
