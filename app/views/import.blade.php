@@ -9,7 +9,16 @@
 <script src="{{url()}}/js/custom.js"></script>
 <script>
     var target = '{{$target or ''}}';
-
+    function htmlspecialchars(str) {
+         if (typeof(str) == "string") {
+          str = str.replace(/&/g, "&amp;");
+          str = str.replace(/"/g, "&quot;");
+          str = str.replace(/'/g, "&#039;");
+          str = str.replace(/</g, "&lt;");
+          str = str.replace(/>/g, "&gt;");
+          }
+         return str;
+     }
     $(document).ready(function(){
         $('.side-nav li a:contains(' + target + ')').parent().first().addClass('active open');
 

@@ -18,8 +18,8 @@
                     <ul class="breadcrumb">
                         <li>活動簽到</li>
                         <li><a href="{{url()}}/namelist/view">檢視名冊</a></li>
-                        <li><a href="{{url()}}/namelist/edit/{{$data[0]['nid']}}">編輯名冊</a></li>
-                        <li><a href="{{url()}}/namelist/edit/member/{{$data[0]['nmid']}}">編輯成員資料</a></li>
+                        <li><a href="{{url()}}/namelist/edit/{{{$data[0]['nid']}}}">編輯名冊</a></li>
+                        <li><a href="{{url()}}/namelist/edit/member/{{{$data[0]['nmid']}}}">編輯成員資料</a></li>
                     </ul>
                 </div>
             </div> <!-- row end -->

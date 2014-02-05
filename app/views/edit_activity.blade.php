@@ -35,55 +35,65 @@
             <div class="row">
                 <div class="col-md-8">
                     <h3>活動資料</h3>
-                    <form action="">
+                    {{Form::model(Session::get('old_data'))}}
                         <table class="table">
                             <tr>
-                                <td class="col-md-3">活動名稱</td>
-                                <td class="col-md-9"><input type="text" class="form-control"></td>
+                                <td class="col-md-3 field-name">活動名稱</td>
+                                <td class="col-md-9">{{Form::text('activity_name',null,array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>活動內容</td>
-                                <td><textarea name="" id="" rows="5" class="col-md-12 form-control"></textarea></td>
+                                <td>{{Form::textarea('activity_desc',null,array('class'=>'form-control'))}}</td>
                             </tr>
                             <tr>
                                 <td>活動日期</td>
-                                <td><input type="text" class="form-control" id="activity_date"></td>
+                                <td>{{Form::text('activity_date',null,array('class'=>'form-control','id'=>'activity_date'))}}</td>
                             </tr>
                             <tr>
                                 <td>簽到類型</td>
                                 <td>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">無需身分驗證</option>
-                                        <option value="">需嚴格身分驗證</option>
-                                        <option value="">僅需提示身份是否符合</option>
-                                    </select>
+                                    {{
+                                        Form::select('activity_type',array(
+                                            'no_check'=>'無需身分驗證',
+                                            'strict_check'=>'需嚴格身分驗證',
+                                            'only_prompt'=>'僅需提示身份是否符合'
+                                        ),null,array('class'=>'form-control'))
+                                    }}
+                                    
                                 </td>
                             </tr>
                             <tr>
                                 <td>名冊選擇</td>
                                 <td>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">不需要名冊</option>
-                                        <option value="">程式研究社 社員</option>
-                                        <option value="">學生會成員</option>
-                                        <option value="">教務處同仁</option>
-                                    </select>
+                                    {{Form::select('nid',$namelist,null,array('class'=>'form-control'))}}
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>主辦單位</td>
+                                <td>{{Form::text('activity_organize',null,array('class'=>'form-control'))}}</td>
+                            </tr>
+                            <tr>
+                                <td>狀態</td>
+                                <td>
+                                    {{
+                                        Form::select('enable',array(
+                                            '1'=>'啟用',
+                                            '0'=>'停用'
+                                        ),1,array('class'=>'form-control'))
+                                    }}
                                 </td>
                             </tr>
                             <tr>
-                                <td>主辦單位</td>
-                                <td><input type="text" class="form-control"></td>
-                            </tr>
-                            <tr>
                                 <td>備註</td>
-                                <td><textarea name="" id="" rows="5" class="col-md-12 form-control"></textarea></td>
+                                <td>{{Form::textarea('activity_note',null,array('class'=>'form-control','rows'=>5))}}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td><input type="submit" value="送出" class="pull-right btn btn-primary btn-lg"></td>
+                                <td><input type="submit" value="建立" class="btn btn-lg btn-primary pull-right"></td>
                             </tr>
                         </table>
-                    </form>
+                    {{Form::close()}}
                 </div>
             </div> <!-- row end -->
         </div>  <!-- page-wrapper -->

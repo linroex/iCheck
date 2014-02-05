@@ -26,18 +26,18 @@
                             i = 0;
                             $('.wait-to-return').removeClass('hidden');
                             $.each(data,function(){
-                                // console.log(data[i].equip_name);
+                                
                                 var now = new Date();
                                 var type = "";
                                 if(Date.parse(now) > Date.parse(data[i].estimate_return_time)){
                                     type = "danger";
                                 }
-                                $('.wait-to-return tbody').append('<tr class="' + type + '"><td><input type="checkbox" name="bid[]" value="' 
-                                    + data[i].bid
+                                $('.wait-to-return tbody').append('<tr class="' + htmlspecialchars(type) + '"><td><input type="checkbox" name="bid[]" value="' 
+                                    + htmlspecialchars(data[i].bid)
                                     +'"></td><td>' 
-                                    + data[i].equip_name 
+                                    + htmlspecialchars(data[i].equip_name)
                                     + '</td><td>' 
-                                    + $.datepicker.formatDate('yy/mm/dd',new Date(data[i].borrow_time)) 
+                                    + htmlspecialchars($.datepicker.formatDate('yy/mm/dd',new Date(data[i].borrow_time)))
                                     + '</td></tr>');
                                 i++;
                             })

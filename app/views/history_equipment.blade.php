@@ -34,33 +34,33 @@
                 $.each(data,function(){
                     if(type == 'be_lated'){
                         $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
-                            + data[i].student_id
+                            + htmlspecialchars(data[i].student_id)
                             + '</td><td>' 
-                            + data[i].equip_name
+                            + htmlspecialchars(data[i].equip_name)
                             + '</td><td>' 
-                            + formatDateTime(data[i].borrow_time)
+                            + htmlspecialchars(formatDateTime(data[i].borrow_time))
                             + '</td><td>' 
-                            + formatDateTime(data[i].estimate_return_time)
+                            + htmlspecialchars(formatDateTime(data[i].estimate_return_time))
                             + '</td><td>' 
-                            + $.datepicker.formatDate('d',new Date((+new Date()) - (+new Date(data[i].estimate_return_time))))
+                            + htmlspecialchars($.datepicker.formatDate('d',new Date((+new Date()) - (+new Date(data[i].estimate_return_time)))))
                             + '天</td></tr>');
                     }else if(type == 'not_return'){
                         $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
-                            + data[i].student_id
+                            + htmlspecialchars(data[i].student_id)
                             + '</td><td>' 
-                            + data[i].equip_name
+                            + htmlspecialchars(data[i].equip_name)
                             + '</td><td>' 
-                            + formatDateTime(data[i].borrow_time)
+                            + htmlspecialchars(formatDateTime(data[i].borrow_time))
                             + '</td></tr>');
                     }else{
                         $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
-                            + data[i].student_id
+                            + htmlspecialchars(data[i].student_id)
                             + '</td><td>' 
-                            + data[i].equip_name
+                            + htmlspecialchars(data[i].equip_name)
                             + '</td><td>' 
-                            + formatDateTime(data[i].borrow_time)
+                            + htmlspecialchars(formatDateTime(data[i].borrow_time))
                             + '</td><td>' 
-                            + formatDateTime(data[i].return_time)
+                            + htmlspecialchars(formatDateTime(data[i].return_time))
                             + '</td></tr>');
                     }
                     
@@ -141,9 +141,9 @@
                                     @foreach (json_decode($content['not_return'],true) as $record)
                                         <tr>
                                             <td>XXX</td>
-                                            <td>{{$record['student_id']}}</td>
-                                            <td>{{$record['equip_name']}}</td>
-                                            <td>{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}</td>
+                                            <td>{{{$record['student_id']}}}</td>
+                                            <td>{{{$record['equip_name']}}}</td>
+                                            <td>{{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -176,10 +176,10 @@
                                     @foreach (json_decode($content['returned'],true) as $record)
                                         <tr>
                                             <td>XXX</td>
-                                            <td>{{$record['student_id']}}</td>
-                                            <td>{{$record['equip_name']}}</td>
-                                            <td>{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}</td>
-                                            <td>{{date('Y/m/d H:i',strtotime($record['return_time']))}}</td>
+                                            <td>{{{$record['student_id']}}}</td>
+                                            <td>{{{$record['equip_name']}}}</td>
+                                            <td>{{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}}</td>
+                                            <td>{{{date('Y/m/d H:i',strtotime($record['return_time']))}}}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -213,11 +213,11 @@
                                     @foreach (json_decode($content['be_lated'],true) as $record)
                                         <tr>
                                             <td>XXX</td>
-                                            <td>{{$record['student_id']}}</td>
-                                            <td>{{$record['equip_name']}}</td>
-                                            <td>{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}</td>
-                                            <td>{{date('Y/m/d H:i',strtotime($record['estimate_return_time']))}}</td>
-                                            <td>{{date('j',time()-strtotime($record['estimate_return_time']))}}天</td>
+                                            <td>{{{$record['student_id']}}}</td>
+                                            <td>{{{$record['equip_name']}}}</td>
+                                            <td>{{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}}</td>
+                                            <td>{{{date('Y/m/d H:i',strtotime($record['estimate_return_time']))}}}</td>
+                                            <td>{{{date('j',time()-strtotime($record['estimate_return_time']))}}}天</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

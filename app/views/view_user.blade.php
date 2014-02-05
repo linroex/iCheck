@@ -69,14 +69,14 @@
                         </thead>
                         <tbody>
                             @foreach ($data as $row)
-                                <tr class="uid-{{$row->uid}}">
-                                    <td>{{$row->name}}</td>
-                                    <td class="hidden-xs">{{$row->username}}</td>
-                                    <td>{{$row->department}}</td>
-                                    <td class="hidden-xs">{{$row->email}}</td>
+                                <tr class="uid-{{{$row->uid}}}">
+                                    <td>{{{$row->name}}}</td>
+                                    <td class="hidden-xs">{{{$row->username}}}</td>
+                                    <td>{{{$row->department}}}</td>
+                                    <td class="hidden-xs">{{{$row->email}}}</td>
                                     <td class="hidden-xs">{{$row->type == 'admin' ?'管理員':'使用者'}}</td>
-                                    <td><a href="{{url()}}/user/edit/{{$row->uid}}" class="btn btn-default">編輯</a></td>
-                                    <td class="hidden-xs"><a onclick="delete_dialog({{$row->uid}},'{{$row->name}}')" class="btn btn-danger">刪除</a></td>
+                                    <td><a href="{{url()}}/user/edit/{{{$row->uid}}}" class="btn btn-default">編輯</a></td>
+                                    <td class="hidden-xs"><a onclick="delete_dialog({{{$row->uid}}},'{{{$row->name}}}')" class="btn btn-danger">刪除</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

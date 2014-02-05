@@ -116,15 +116,15 @@
                             </thead>
                             <tbody>
                                 @foreach ($member as $row)
-                                    <tr id="nmid-{{$row->nmid}}">
-                                        <td><input type="checkbox" name="nmid[]" value="{{$row->nmid}},{{$row->name}}"></td>
-                                        <td>{{$row->name}}</td>
-                                        <td>{{$row->student_id}}</td>
-                                        <td>{{$row->department}}</td>
-                                        <td class="hidden-xs">{{$row->job}}</td>
-                                        <td class="hidden-xs">{{$row->phone}}</td>
-                                        <td class="hidden-xs">{{$row->email}}</td>
-                                        <td><a href="{{url()}}/namelist/edit/member/{{$row->nmid}}" class="btn btn-primary">編輯</a></td>
+                                    <tr id="nmid-{{{$row->nmid}}}">
+                                        <td><input type="checkbox" name="nmid[]" value="{{{$row->nmid}}},{{{$row->name}}}"></td>
+                                        <td>{{{$row->name}}}</td>
+                                        <td>{{{$row->student_id}}}</td>
+                                        <td>{{{$row->department}}}</td>
+                                        <td class="hidden-xs">{{{$row->job}}}</td>
+                                        <td class="hidden-xs">{{{$row->phone}}}</td>
+                                        <td class="hidden-xs">{{{$row->email}}}</td>
+                                        <td><a href="{{url()}}/namelist/edit/member/{{{$row->nmid}}}" class="btn btn-primary">編輯</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -141,7 +141,7 @@
                 <div class="col-md-3 col-xs-6 col-sm-3">
                     <ul class="pagination">
                         @for ($i = 1; $i<=$pagenum; $i++)
-                            <li class="{{$i==$current_page?'active':''}}"><a href="{{url()}}/namelist/edit/{{$data[0]['nid']}}/{{$i}}">{{$i}}</a></li>
+                            <li class="{{$i==$current_page?'active':''}}"><a href="{{url()}}/namelist/edit/{{{$data[0]['nid']}}}/{{$i}}">{{$i}}</a></li>
                         @endfor
                     </ul>
                 </div>

@@ -66,11 +66,11 @@
                         </thead>
                         <tbody>
                             @foreach ($namelist as $row)
-                                <tr id="nid-{{$row->nid}}">
-                                    <td>{{$row->namelist_name}}</td>
-                                    <td class="hidden-xs">{{$row->namelist_desc}}</td>
-                                    <td><a href="{{url()}}/namelist/edit/{{$row->nid}}" class="btn btn-default">詳細</a></td>
-                                    <td class="hidden-xs"><a onclick="delete_dialog({{$row->nid}},'{{$row->namelist_name}}')" class="btn btn-danger">刪除</a></td>
+                                <tr id="nid-{{{$row->nid}}}">
+                                    <td>{{{$row->namelist_name}}}</td>
+                                    <td class="hidden-xs">{{{$row->namelist_desc}}}</td>
+                                    <td><a href="{{url()}}/namelist/edit/{{{$row->nid}}}" class="btn btn-default">詳細</a></td>
+                                    <td class="hidden-xs"><a onclick="delete_dialog({{{$row->nid}}},'{{{$row->namelist_name}}}')" class="btn btn-danger">刪除</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
