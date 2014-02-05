@@ -56,4 +56,31 @@ class ListMember extends Eloquent{
     public static function deleteMember($nmid){
         return self::whereRaw('nmid = ? and uid = ?',array($nmid, Login::getUid()))->delete();
     }
+    public static function getMemberData($nmid){
+        return self::whereRaw('nmid = ? and uid = ?',array($nmid, Login::getUid()))->get()->toArray();
+    }
+    public static function editMemberData($nmid, $data){
+        $check = Validator::make($data,array(
+            'name'=>'required',
+            'student_id'=>'required',
+            'department'=>'',
+            'job'=>'',
+            'phone'=>'',
+            'email'=>'email'
+        ));
+        if($check->fails()){
+            return $check->messages();
+        }else{
+            self::whereRaw('nmid = ? and uid = ?',array($nmid, Login::getUid()))->update(array(
+                'name'=>$data['name'],
+                'student_id'=>$data['student_id'],
+                'department'=>$data['department'],
+                'job'=>$data['job'],
+                'phone'=>$data['phone'],
+                'email'=>$data['email']
+            ));
+            return $data['name'] . ' 資料編輯成功';
+        }
+        
+    }
 }

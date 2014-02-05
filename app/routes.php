@@ -46,11 +46,9 @@ Route::group(array('before'=>'auth'),function(){
             return View::make('create_namelist');
         });
         Route::get('view/{page?}','NameListController@getNameList');
-        
-        Route::get('edit/member/{nmid}',function(){
-            // 此路由順序必須放前面，因為下面會讀取變數
-            return View::make('edit_namelist_member_data');
-        });
+    
+        // 此路由順序必須放前面，因為下面會讀取變數
+        Route::get('edit/member/{nmid}','NameListController@viewMemberData');
         Route::get('edit/{nid}/{page?}','NameListController@viewNameListData');
         
         Route::post('delete','NameListController@delNameList');
@@ -59,6 +57,7 @@ Route::group(array('before'=>'auth'),function(){
             Route::post('edit','NameListController@editNameList');
             Route::post('member/delete','NameListController@deleteMember');
             Route::post('export','NameListController@export');
+            Route::post('edit/member/{nmid}','NameListController@editMemberData');
         });
     });
     Route::group(array('prefix'=>'activity'),function(){

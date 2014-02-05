@@ -79,6 +79,14 @@ class NameListController extends Controller{
             return 'No input';
         }
     }
+    public function viewMemberData($nmid){
+        return View::make('edit_namelist_member_data')->with(array('data'=>ListMember::getMemberData($nmid)));
+    }
+    public function editMemberData($nmid){
+        return Redirect::to('namelist/edit/'.Input::get('nid'))->with(array(
+            'message'=>ListMember::editMemberData($nmid, Input::all())
+        ));
+    }
     public function export(){
         $excel = new Excel('人員名冊','校園RFID系統','人員名冊');
         $data = array();
