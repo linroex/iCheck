@@ -7,7 +7,7 @@
     @include('import',array('target'=>'活動簽到'))
     <script>
         
-        function del_select_activity(){
+        function del_select_activity_dialog(){
             var body_str = '';
             var id_str = '';
 
@@ -25,6 +25,15 @@
             }
             
             $('#check_dialog').modal('show');
+        }
+        function del_select_activity(){
+            $.post('{{url()}}/activity/delete',$('#viewActivityForm').serialize(),function(data){
+                $('#check_dialog').modal('hide');
+                $('input:checked').parent().parent().remove();
+                $('.alert').remove();
+                $('.breadcrumb').parent().append('<div class="alert alert-success">成功刪除指定的活動</div>');
+
+            })
         }
     </script>
 </head>
@@ -60,6 +69,7 @@
             </div> <!-- row end -->
             <div class="row">
                 <div class="col-md-12">
+                    {{Form::open(array('id'=>'viewActivityForm'))}}
                     <table class="table table-hover avtivity_list">
                         <thead>
                             <tr>
@@ -74,60 +84,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="hidden-xs"><input type="checkbox" name="" id="" value="1,台科大電影節"></td>
-                                <td>台科大電影節</td>
-                                <td class="hidden-xs">一年一度的電影節，全校師生免費看電影</td>
-                                <td class="hidden-xs">2014/2/13</td>
-                                <td class="hidden-xs">台科學生會</td>
-                                <td class="hidden-xs"><a href="{{url()}}/activity/edit" class="btn btn-default">編輯</a></td>
-                                <td><a href="{{url()}}/activity/view/detail" class="btn btn-default">記錄</a></td>
-                                <td><a href="{{url()}}/activity/check" class="btn btn-primary">進入</a></td>
-                            </tr>
-                            <tr>
-                                <td class="hidden-xs"><input type="checkbox" name="" id="" value="2,台科大電影節"></td>
-                                <td>台科大電影節</td>
-                                <td class="hidden-xs">一年一度的電影節，全校師生免費看電影</td>
-                                <td class="hidden-xs">2014/2/13</td>
-                                <td class="hidden-xs">台科學生會</td>
-                                <td class="hidden-xs"><a href="{{url()}}/activity/edit" class="btn btn-default">編輯</a></td>
-                                <td><a href="{{url()}}/activity/view/detail" class="btn btn-default">記錄</a></td>
-                                <td><a href="{{url()}}/activity/check" class="btn btn-primary">進入</a></td>
-                            </tr>
-                            <tr>
-                                <td class="hidden-xs"><input type="checkbox" name="" id="" value="3,台科大電影節"></td>
-                                <td>台科大電影節</td>
-                                <td class="hidden-xs">一年一度的電影節，全校師生免費看電影</td>
-                                <td class="hidden-xs">2014/2/13</td>
-                                <td class="hidden-xs">台科學生會</td>
-                                <td class="hidden-xs"><a href="{{url()}}/activity/edit" class="btn btn-default">編輯</a></td>
-                                <td><a href="{{url()}}/activity/view/detail" class="btn btn-default">記錄</a></td>
-                                <td><a href="{{url()}}/activity/check" class="btn btn-primary">進入</a></td>
-                            </tr>
-                            <tr>
-                                <td class="hidden-xs"><input type="checkbox" name="" id="" value="4,台科大電影節"></td>
-                                <td>台科大電影節</td>
-                                <td class="hidden-xs">一年一度的電影節，全校師生免費看電影</td>
-                                <td class="hidden-xs">2014/2/13</td>
-                                <td class="hidden-xs">台科學生會</td>
-                                <td class="hidden-xs"><a href="{{url()}}/activity/edit" class="btn btn-default">編輯</a></td>
-                                <td><a href="{{url()}}/activity/view/detail" class="btn btn-default">記錄</a></td>
-                                <td><a href="{{url()}}/activity/check" class="btn btn-primary">進入</a></td>
-                            </tr>
+                            @foreach ($data as $row)
+                                <tr>
+                                    <td class="hidden-xs"><input type="checkbox" name="aid[]" value="{{{$row->aid . ',' . $row->activity_name}}}"></td>
+                                    <td>{{{$row->activity_name}}}</td>
+                                    <td class="hidden-xs">{{{$row->activity_desc}}}</td>
+                                    <td class="hidden-xs">{{{date('Y/m/d',strtotime($row->activity_date))}}}</td>
+                                    <td class="hidden-xs">{{{$row->activity_organize}}}</td>
+                                    <td class="hidden-xs"><a href="{{url()}}/activity/edit/{{{$row->aid}}}" class="btn btn-default">編輯</a></td>
+                                    <td><a href="{{url()}}/activity/detail/{{{$row->aid}}}" class="btn btn-default">記錄</a></td>
+                                    <td><a href="{{url()}}/activity/check/{{{$row->aid}}}" class="btn btn-primary">進入</a></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
+                    {{Form::close()}}
                 </div>
             </div> <!-- row end -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-left hidden-xs">
-                        <a onclick="del_select_activity();" class="btn btn-danger">刪除所選活動</a>
+                        <a onclick="del_select_activity_dialog();" class="btn btn-danger">刪除所選活動</a>
                     </div>
                     <div class="pull-right">
                         <ul class="pagination">
-                            <li class="active"><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
+                            @for ($i=1; $i<=$pagenum; $i++)
+                                <li class="{{$i==$current_page?'active':''}}"><a href="{{url()}}/activity/view/{{$i}}">{{$i}}</a></li>
+                            @endfor
                         </ul>
                     </div>
                 </div>
@@ -146,7 +129,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-danger">確定刪除</button>
+                <button type="button" class="btn btn-danger" onclick="del_select_activity()">確定刪除</button>
               </div>
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->

@@ -61,21 +61,20 @@ Route::group(array('before'=>'auth'),function(){
         });
     });
     Route::group(array('prefix'=>'activity'),function(){
-        Route::get('check',function(){
+        Route::get('check{aid?}',function(){
             return View::make('activity_check');
         });
-        Route::get('create','ActivityController@viewActivity');
-        Route::get('view',function(){
-            return View::make('view_activity');
-        });
-        Route::get('edit',function(){
+        Route::get('create','ActivityController@viewCreateActivity');
+        Route::get('view/{page?}','ActivityController@viewActivity');
+        Route::get('edit/{aid}',function(){
             return View::make('edit_activity');
         });
-        Route::get('view/detail',function(){
+        Route::get('detail/{aid}',function(){
             return View::make('view_activity_detail');
         });
         Route::group(array('before'=>'csrf'),function(){
             Route::post('create','ActivityController@createActivity');
+            Route::post('delete','ActivityController@deleteActivity');
         });
     });
     Route::group(array('prefix'=>'equip'),function(){

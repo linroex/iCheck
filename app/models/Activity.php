@@ -50,5 +50,25 @@ class Activity extends Eloquent{
             
         }
     }
-    
+    public static function getAvtivityList($page = 1, $num = 20){
+        return self::whereRaw('uid = ?',array(Login::getUid()))->orderBy('created_at','DESC')->take($num)->skip(($page-1)*$num)->get();
+    }
+    public static function getAvtivityListPageNum($num = 20){
+        return ceil(self::whereRaw('uid = ?',array(Login::getUid()))->count()/$num);
+    }
+    public static function checkActivityExist($aid){
+        $count = self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->count();
+        if($count == 0){
+            return False;
+        }else{
+            return True;
+        }
+    }
+    public static function deleteActivity($aid){
+        if(self::checkActivityExist($aid)){
+            return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->delete();
+        }else{
+            return False;
+        }
+    }
 }

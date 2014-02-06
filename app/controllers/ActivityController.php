@@ -18,7 +18,7 @@ class ActivityController extends Controller{
             ));
         }
     }
-    public function viewActivity(){
+    public function viewCreateActivity(){
         $namelist_key = array('not_use');
         $namelist_value = array('不使用名條');
         foreach (Namelist::getNameList('*','all') as $row) {
@@ -29,6 +29,22 @@ class ActivityController extends Controller{
         return View::make('create_activity')->with(array(
             'namelist'=>$namelist
         ));
+    }
+    public function viewActivity($page = 1){
+        return View::make('view_activity')->with(array(
+            'data'=>Activity::getAvtivityList($page),
+            'pagenum'=>Activity::getAvtivityListPageNum(),
+            'current_page'=>$page
+        ));
+    }
+    public function deleteActivity(){
+        foreach (Input::get('aid') as $aid) {
+            $aid = explode(',', $aid);
+            if(!Activity::deleteActivity($aid[0])){
+                return 'Activity not found';
+            }
+        }
+        return 1;
     }
     public function test(){
 

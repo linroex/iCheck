@@ -18,6 +18,7 @@
 
                 if(data == 1){
                     $('#member_form input:checked').parent().parent().remove();
+                    $('.alert').remove();
                     $('.breadcrumb').parent().append('<div class="alert alert-success">成功刪除指定的成員</div>');
                 }else{
                     console.log(data);
