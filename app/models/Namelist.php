@@ -34,6 +34,16 @@ class Namelist extends Eloquent{
         }
         
     }
+    public static function getNameListArray(){
+        $namelist_key = array('not_use');
+        $namelist_value = array('不使用名條');
+        foreach (self::getNameList('*','all') as $row) {
+            array_push($namelist_key, $row->nid);
+            array_push($namelist_value, $row->namelist_name);
+        }
+        $namelist = array_combine($namelist_key, $namelist_value);
+        return $namelist;
+    }
     public static function getNameListPageNum($num = 20){
         return ceil(self::where('uid','=',Login::getUid())->orderBy('created_at','DESC')->count()/$num);
     }

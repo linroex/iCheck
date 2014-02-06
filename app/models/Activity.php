@@ -64,11 +64,44 @@ class Activity extends Eloquent{
             return True;
         }
     }
+    public static function getActivityData($aid){
+        if(self::checkActivityExist($aid)){
+            return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->first();
+        }else{
+            return App::abort(404);
+        }
+    }
+    public static function editActivityData($aid, $data){
+        if(self::checkActivityExist($aid)){
+            $check = self::checkData($data);
+            if($check->fails()){
+                return $check->messages();
+            }else{
+                $data['nid'] = $data['nid']=='not_use'?-1:$data['nid'];
+                if($data['activity_type'] != 'no_check' and $data['nid'] == -1){
+                    return '您設定的簽到類型需使用名條';
+                }else{
+                    return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->update(array(
+                        'activity_name'=>$data['activity_name'],
+                        'activity_desc'=>$data['activity_desc'],
+                        'activity_date'=>$data['activity_date'],
+                        'activity_type'=>$data['activity_type'],
+                        'nid'=>$data['nid'],
+                        'activity_organize'=>$data['activity_organize'],
+                        'activity_note'=>$data['activity_note'],
+                        'enable'=>$data['enable']
+                    ));
+                }
+            }
+        }else{
+            return App::abort(404);
+        }
+    }
     public static function deleteActivity($aid){
         if(self::checkActivityExist($aid)){
             return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->delete();
         }else{
-            return False;
+            return App::abort(404);
         }
     }
 }

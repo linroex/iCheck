@@ -19,15 +19,9 @@ class ActivityController extends Controller{
         }
     }
     public function viewCreateActivity(){
-        $namelist_key = array('not_use');
-        $namelist_value = array('不使用名條');
-        foreach (Namelist::getNameList('*','all') as $row) {
-            array_push($namelist_key, $row->nid);
-            array_push($namelist_value, $row->namelist_name);
-        }
-        $namelist = array_combine($namelist_key, $namelist_value);
+        
         return View::make('create_activity')->with(array(
-            'namelist'=>$namelist
+            'namelist'=>Namelist::getNameListArray()
         ));
     }
     public function viewActivity($page = 1){
@@ -45,6 +39,24 @@ class ActivityController extends Controller{
             }
         }
         return 1;
+    }
+    public function editActivity($aid){
+        $activity = Activity::editActivityData($aid, Input::all());
+        if(is_object($activity) or $activity == '您設定的簽到類型需使用名條'){
+            return Redirect::to('activity/edit/'.$aid)->with(array(
+                'message'=>$activity
+            ));
+        }else{
+            return Redirect::to('activity/view')->with(array(
+                'message'=>'活動編輯成功'
+            ));
+        }
+    }
+    public function viewEditActivity($aid){
+        return View::make('edit_activity')->with(array(
+            'data'=>Activity::getActivityData($aid),
+            'namelist'=>Namelist::getNameListArray()
+        ));
     }
     public function test(){
 

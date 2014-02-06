@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <h3>活動資料</h3>
-                    {{Form::model(Session::get('old_data'))}}
+                    {{Form::model($data)}}
                         <table class="table">
                             <tr>
                                 <td class="col-md-3 field-name">活動名稱</td>
@@ -47,7 +47,7 @@
                             </tr>
                             <tr>
                                 <td>活動日期</td>
-                                <td>{{Form::text('activity_date',null,array('class'=>'form-control','id'=>'activity_date'))}}</td>
+                                <td>{{Form::text('activity_date',date('Y/m/d',strtotime($data['activity_date'])),array('class'=>'form-control','id'=>'activity_date'))}}</td>
                             </tr>
                             <tr>
                                 <td>簽到類型</td>
@@ -90,7 +90,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td><input type="submit" value="建立" class="btn btn-lg btn-primary pull-right"></td>
+                                <td><input type="submit" value="送出" class="btn btn-lg btn-primary pull-right"></td>
                             </tr>
                         </table>
                     {{Form::close()}}

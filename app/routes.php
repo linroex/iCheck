@@ -66,15 +66,14 @@ Route::group(array('before'=>'auth'),function(){
         });
         Route::get('create','ActivityController@viewCreateActivity');
         Route::get('view/{page?}','ActivityController@viewActivity');
-        Route::get('edit/{aid}',function(){
-            return View::make('edit_activity');
-        });
+        Route::get('edit/{aid}','ActivityController@viewEditActivity');
         Route::get('detail/{aid}',function(){
             return View::make('view_activity_detail');
         });
         Route::group(array('before'=>'csrf'),function(){
             Route::post('create','ActivityController@createActivity');
             Route::post('delete','ActivityController@deleteActivity');
+            Route::post('edit/{aid}','ActivityController@editActivity');
         });
     });
     Route::group(array('prefix'=>'equip'),function(){
