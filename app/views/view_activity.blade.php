@@ -93,7 +93,15 @@
                                     <td class="hidden-xs">{{{$row->activity_organize}}}</td>
                                     <td class="hidden-xs"><a href="{{url()}}/activity/edit/{{{$row->aid}}}" class="btn btn-default">編輯</a></td>
                                     <td><a href="{{url()}}/activity/detail/{{{$row->aid}}}" class="btn btn-default">記錄</a></td>
-                                    <td><a href="{{url()}}/activity/check/{{{$row->aid}}}" class="btn btn-primary">進入</a></td>
+                                    <td>
+                                        @if ($row->enable == 0)
+                                            <a href="" class="btn btn-primary">已停用</a>
+
+                                        @elseif ($row->enable == 1)
+                                            <a href="{{url()}}/activity/check/{{{$row->aid}}}" class="btn btn-primary">進入</a>
+
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
