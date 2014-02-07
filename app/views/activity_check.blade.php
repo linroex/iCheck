@@ -130,7 +130,7 @@
                                 ?>
                                 <li class="list-group-item" id="activity_name">活動名稱：{{{$default_data->activity_name}}}</li>
                                 <li class="list-group-item" id="activity_type">簽到類型：{{{$default_data->activity_type}}}</li>
-                                <li class="list-group-item" id="activity_date">活動時間：{{{date('Y/m/d',strtotime($default_data->activity_date))}}}</li>
+                                <li class="list-group-item" id="activity_date">活動時間：{{{str_replace('1970/01/01','',date('Y/m/d',strtotime($default_data->activity_date)))}}}</li>
                                 <li class="list-group-item" id="activity_organize">主辦單位：{{{$default_data->activity_organize}}}</li>
                             @else
                                 <li class="list-group-item" id="activity_name">活動名稱：</li>
