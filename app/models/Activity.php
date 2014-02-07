@@ -27,6 +27,9 @@ class Activity extends Eloquent{
     }
     public static function createActivity($data){
         $check = self::checkData($data);
+        if($data['activity_date'] == ''){
+            $data['activity_date'] = null;
+        }
         if($check->fails()){
             return $check->messages();
         }else{

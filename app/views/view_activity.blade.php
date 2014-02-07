@@ -89,7 +89,7 @@
                                     <td class="hidden-xs"><input type="checkbox" name="aid[]" value="{{{$row->aid . ',' . $row->activity_name}}}"></td>
                                     <td>{{{$row->activity_name}}}</td>
                                     <td class="hidden-xs">{{{$row->activity_desc}}}</td>
-                                    <td class="hidden-xs">{{{date('Y/m/d',strtotime($row->activity_date))}}}</td>
+                                    <td class="hidden-xs">{{{str_replace('1970/01/01','',date('Y/m/d',strtotime($row->activity_date)))}}}</td>
                                     <td class="hidden-xs">{{{$row->activity_organize}}}</td>
                                     <td class="hidden-xs"><a href="{{url()}}/activity/edit/{{{$row->aid}}}" class="btn btn-default">編輯</a></td>
                                     <td><a href="{{url()}}/activity/detail/{{{$row->aid}}}" class="btn btn-default">記錄</a></td>

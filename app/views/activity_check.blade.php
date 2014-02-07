@@ -17,7 +17,7 @@
                     $('#activity_load_alert').removeClass('hidden');
                     data = JSON.parse(data);
                     $('#activity_name').text('活動名稱：' + data.activity_name);
-                    $('#activity_date').text('活動日期：' + $.datepicker.formatDate("yy/mm/dd",new Date(data.activity_date)).replace('NaN/NaN/NaN',''));
+                    $('#activity_date').text('活動日期：' + $.datepicker.formatDate("yy/mm/dd",new Date(data.activity_date)).replace('1970/01/01',''));
                     $('#activity_organize').text('主辦單位：' + data.activity_organize);
                     $('#activity_type').text('簽到類型：' + data.activity_type.replace('no_check','無需身分驗證').replace('strict_check','需嚴格身分驗證').replace('only_prompt','僅需提示身份是否符合'));
                 })    
