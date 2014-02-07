@@ -50,10 +50,26 @@ class Activity extends Eloquent{
             
         }
     }
-    public static function getAvtivityList($page = 1, $num = 20){
-        return self::whereRaw('uid = ?',array(Login::getUid()))->orderBy('created_at','DESC')->take($num)->skip(($page-1)*$num)->get();
+    public static function getActivityList($page = 1, $num = 20){
+        if($page == 'all'){
+            return self::whereRaw('uid = ?',array(Login::getUid()))->orderBy('created_at','DESC')->get();
+        }else{
+            return self::whereRaw('uid = ?',array(Login::getUid()))->orderBy('created_at','DESC')->take($num)->skip(($page-1)*$num)->get();
+        }
     }
-    public static function getAvtivityListPageNum($num = 20){
+    public static function geteEnableActivityListArray(){
+        $activity_key = array('');
+        $activity_value = array('');
+        foreach (self::getActivityList('all') as $row) {
+            if($row->enable == 1){
+                array_push($activity_key, $row->aid);
+                array_push($activity_value, $row->activity_name);    
+            }
+        }
+        $activity_list = array_combine($activity_key, $activity_value);
+        return $activity_list;
+    }
+    public static function getActivityListPageNum($num = 20){
         return ceil(self::whereRaw('uid = ?',array(Login::getUid()))->count()/$num);
     }
     public static function checkActivityExist($aid){

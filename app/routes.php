@@ -61,15 +61,14 @@ Route::group(array('before'=>'auth'),function(){
         });
     });
     Route::group(array('prefix'=>'activity'),function(){
-        Route::get('check{aid?}',function(){
-            return View::make('activity_check');
-        });
+        Route::get('check/{aid?}','ActivityController@viewActivityCheck');
         Route::get('create','ActivityController@viewCreateActivity');
         Route::get('view/{page?}','ActivityController@viewActivity');
         Route::get('edit/{aid}','ActivityController@viewEditActivity');
         Route::get('detail/{aid}',function(){
             return View::make('view_activity_detail');
         });
+        Route::post('data','ActivityController@getActivityData');
         Route::group(array('before'=>'csrf'),function(){
             Route::post('create','ActivityController@createActivity');
             Route::post('delete','ActivityController@deleteActivity');

@@ -27,7 +27,7 @@
                         <ul class="breadcrumb">
                             <li>活動簽到</li>
                             <li><a href="{{url()}}/activity/view">檢視活動</a></li>
-                            <li><a href="{{url()}}/activity/edit">編輯活動</a></li>
+                            <li><a href="{{url()}}/activity/edit/{{$data->aid}}">編輯活動</a></li>
                         </ul>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                                         Form::select('enable',array(
                                             '1'=>'啟用',
                                             '0'=>'停用'
-                                        ),1,array('class'=>'form-control'))
+                                        ),null,array('class'=>'form-control'))
                                     }}
                                 </td>
                             </tr>

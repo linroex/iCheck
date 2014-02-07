@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校園RFID系統｜活動簽到</title>
     @include('import',array('target'=>'活動簽到'))
+    <script>
+        function load_activity_data(){
+            var aid = $('#select_activity').val();
+            if(aid != ''){
+                $.post('{{url()}}/activity/data',{aid:aid},function(data){
+                    $('#activity_load_alert').removeClass('hidden');
+                    data = JSON.parse(data);
+                    $('#activity_name').text('活動名稱：' + data.activity_name);
+                    $('#activity_date').text('活動日期：' + $.datepicker.formatDate("yy/mm/dd",new Date(data.activity_date)));
+                    $('#activity_organize').text('主辦單位：' + data.activity_organize);
+                    $('#activity_type').text('簽到類型：' + data.activity_type.replace('no_check','無需身分驗證').replace('strict_check','需嚴格身分驗證').replace('only_prompt','僅需提示身份是否符合'));
+                })    
+            }
+        }
+        $(document).ready(function(){
+            $('#select_activity').change(function(){
+                load_activity_data();
+            });
+        })
+    </script>
 </head>
 
 <body>
@@ -37,35 +57,35 @@
             </div> <!-- row -->
             <div class="row">
                 <div class="col-md-6">
-                    <form action="">
-                        
-                            <div class="form-group">
-                                <label for="select_activity">選擇活動</label>
-                                <select name="" id="select_activity" class="form-control">
-                                    <option value="">台科大電影節</option>
-                                    <option value="">大登陸演唱會</option>
-                                    <option value="">電研社課</option>
-                                    <option value="">桌遊社課</option>
-                                </select>
-                            </div>
-                            
-                        
-                            <div class="form-group">
-                                <label for="stu_card">學生證</label>
-                                <input type="text" class="form-control" id="stu_card" placeholder="請刷學生證">
-                            </div>
-                            
-                    </form>
-                    <div class="alert alert-success">
+                    {{Form::open()}}
+                        <div class="form-group">
+                            <label for="select_activity">選擇活動</label>
+                            {{Form::select('activity',$activity_list,$default,array('class'=>'form-control','id'=>'select_activity'))}}
+                        </div>
+                        <div class="form-group">
+                            <label for="stu_card">學生證</label>
+                            <input type="text" class="form-control" id="stu_card" placeholder="請刷學生證">
+                        </div>
+                    {{Form::close()}}
+                    <div class="alert alert-success {{$default==null?'hidden':''}}" id="activity_load_alert">
                         <h3 class="text-center">活動資訊載入成功</h3>
-                        <p class="text-center">此活動需使用名冊</p>
                         <br>
                         <ul class="list-group">
-                            <li class="list-group-item">活動名稱</li>
-                            <li class="list-group-item">活動內容</li>
-                            <li class="list-group-item">簽到類型</li>
-                            <li class="list-group-item">活動時間</li>
-                            <li class="list-group-item">主辦單位</li>
+                            @if ($default != '')
+                                <?php
+                                    // 為了讓簽到類型可以顯示中文
+                                    $default_data->activity_type = str_replace(array('no_check','strict_check','only_prompt'), array('無需身分驗證','需嚴格身分驗證','僅需提示身份是否符合'), $default_data->activity_type)
+                                ?>
+                                <li class="list-group-item" id="activity_name">活動名稱：{{{$default_data->activity_name}}}</li>
+                                <li class="list-group-item" id="activity_type">簽到類型：{{{$default_data->activity_type}}}</li>
+                                <li class="list-group-item" id="activity_date">活動時間：{{{$default_data->activity_date}}}</li>
+                                <li class="list-group-item" id="activity_organize">主辦單位：{{{$default_data->activity_organize}}}</li>
+                            @else
+                                <li class="list-group-item" id="activity_name">活動名稱：</li>
+                                <li class="list-group-item" id="activity_type">簽到類型：</li>
+                                <li class="list-group-item" id="activity_date">活動時間：</li>
+                                <li class="list-group-item" id="activity_organize">主辦單位：</li>
+                            @endif
                         </ul>
                     </div>
                     

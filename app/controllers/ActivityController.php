@@ -26,8 +26,8 @@ class ActivityController extends Controller{
     }
     public function viewActivity($page = 1){
         return View::make('view_activity')->with(array(
-            'data'=>Activity::getAvtivityList($page),
-            'pagenum'=>Activity::getAvtivityListPageNum(),
+            'data'=>Activity::getActivityList($page),
+            'pagenum'=>Activity::getActivityListPageNum(),
             'current_page'=>$page
         ));
     }
@@ -56,6 +56,16 @@ class ActivityController extends Controller{
         return View::make('edit_activity')->with(array(
             'data'=>Activity::getActivityData($aid),
             'namelist'=>Namelist::getNameListArray()
+        ));
+    }
+    public function getActivityData(){
+        return Activity::getActivityData(Input::get('aid'))->toJson();
+    }
+    public function viewActivityCheck($aid = ''){
+        return View::make('activity_check')->with(array(
+            'activity_list'=>Activity::geteEnableActivityListArray(),
+            'default'=>($aid == ''?null:Activity::getActivityData($aid)->aid),
+            'default_data'=>($aid == ''?null:Activity::getActivityData($aid))
         ));
     }
     public function test(){
