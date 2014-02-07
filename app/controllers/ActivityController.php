@@ -58,6 +58,9 @@ class ActivityController extends Controller{
             'namelist'=>Namelist::getNameListArray()
         ));
     }
+    public function checkinActivity(){
+        return ActivityCheck::checkinActivity(Input::get('activity'), Input::get('student_id'));
+    }
     public function getActivityData(){
         return Activity::getActivityData(Input::get('aid'))->toJson();
     }
@@ -69,6 +72,7 @@ class ActivityController extends Controller{
         ));
     }
     public function test(){
-
+        // dd(ActivityCheck::checkPremission(2,'b10209019'));
+        dd(ListMember::getMemberDataByStudentID(2,'b10209019'));
     }
 }

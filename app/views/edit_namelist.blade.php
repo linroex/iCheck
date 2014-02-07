@@ -109,7 +109,7 @@
                                     <td>姓名</td>
                                     <td>學號</td>
                                     <td>科系</td>
-                                    <td class="hidden-xs">職位</td>
+                                    <td class="hidden-xs">職位（票種）</td>
                                     <td class="hidden-xs">電話</td>
                                     <td class="hidden-xs">信箱</td>
                                     <td></td>

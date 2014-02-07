@@ -73,6 +73,7 @@ Route::group(array('before'=>'auth'),function(){
             Route::post('create','ActivityController@createActivity');
             Route::post('delete','ActivityController@deleteActivity');
             Route::post('edit/{aid}','ActivityController@editActivity');
+            Route::post('check','ActivityController@checkinActivity');
         });
     });
     Route::group(array('prefix'=>'equip'),function(){

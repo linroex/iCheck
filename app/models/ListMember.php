@@ -83,4 +83,14 @@ class ListMember extends Eloquent{
         }
         
     }
+    public static function getMemberDataByStudentID($aid, $student_id){
+        $result = DB::select('select name,student_id,department,job from namelist_member join activity where activity.aid = ? and namelist_member.student_id = ? and namelist_member.uid = ? limit 1',array($aid, $student_id, Login::getUid()));
+        if(empty($result)){
+            return false;
+        }else{
+            return json_encode($result[0]);    
+        }
+        
+
+    }
 }

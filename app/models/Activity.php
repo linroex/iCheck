@@ -10,6 +10,8 @@ class Activity extends Eloquent{
 
         nid = -1 代表不使用名冊
     */
+
+    
     public static function checkData($data){
         $check = Validator::make($data,array(
             'activity_name'=>'required',
@@ -87,6 +89,20 @@ class Activity extends Eloquent{
             return App::abort(404);
         }
     }
+    public static function getActivityType($aid){
+        if(self::checkActivityExist($aid)){
+            return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->first()->activity_type;
+        }else{
+            return App::abort(404);
+        }
+    }
+    public static function getActivityNid($aid){
+        if(self::checkActivityExist($aid)){
+            return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->first()->nid;
+        }else{
+            return App::abort(404);
+        }
+    }
     public static function editActivityData($aid, $data){
         if(self::checkActivityExist($aid)){
             $check = self::checkData($data);
@@ -113,6 +129,7 @@ class Activity extends Eloquent{
             return App::abort(404);
         }
     }
+
     public static function deleteActivity($aid){
         if(self::checkActivityExist($aid)){
             return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->delete();
