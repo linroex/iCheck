@@ -88,7 +88,7 @@ class ListMember extends Eloquent{
         if(empty($result)){
             return false;
         }else{
-            return json_encode($result[0]);    
+            return ($result[0]);    
         }
         
 

@@ -30,6 +30,12 @@ class ActivityCheck extends Eloquent{
             if(!self::checkPremission($aid, $student_id)){
                 return '資格不符合，簽到失敗';
             }else{
+                self::create(array(
+                    'aid'=>$aid,
+                    'student_id'=>$student_id,
+                    'check_time'=>time(),
+                    'uid'=>Login::getUid()
+                ));
                 $data = json_decode(ListMember::getMemberDataByStudentID($aid, $student_id));
                 return json_encode(array('student_id'=>$student_id,'message'=>'簽到成功','name'=>$data->name,'department'=>$data->department,'job'=>$data->job));
             }
@@ -45,9 +51,16 @@ class ActivityCheck extends Eloquent{
                 return $student_id;
             }else{
                 if(self::checkPremission($aid, $student_id)){
-                    return ListMember::getMemberDataByStudentID($aid, $student_id);
+                    $memberdata = ListMember::getMemberDataByStudentID($aid, $student_id);
+                    return json_encode($memberdata);
                 }else{
-                    return json_encode(array('student_id'=>$student_id,'message'=>'學號' . $student_id . '來賓已簽到，未報名'));
+                    return json_encode(array(
+                        'student_id'=>$student_id,
+                        'message'=>$student_id . '來賓已簽到，未報名',
+                        'name'=>'未報名',
+                        'department'=>'未報名',
+                        'job'=>'未報名'
+                    ));
                 }
             }
         }else{
