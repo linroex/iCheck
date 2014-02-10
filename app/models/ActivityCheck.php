@@ -33,7 +33,7 @@ class ActivityCheck extends Eloquent{
                 self::create(array(
                     'aid'=>$aid,
                     'student_id'=>$student_id,
-                    'check_time'=>time(),
+                    'check_time'=>date('Y/m/d H:i:s',time()),
                     'uid'=>Login::getUid()
                 ));
                 $data = json_decode(ListMember::getMemberDataByStudentID($aid, $student_id));
@@ -44,7 +44,7 @@ class ActivityCheck extends Eloquent{
             self::create(array(
                 'aid'=>$aid,
                 'student_id'=>$student_id,
-                'check_time'=>time(),
+                'check_time'=>date('Y/m/d H:i:s',time()),
                 'uid'=>Login::getUid()
             ));
             if($type == 'no_check'){

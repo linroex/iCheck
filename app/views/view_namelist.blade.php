@@ -26,7 +26,7 @@
 
 <body>
     <div id="wrapper">
-        @include('menu');
+        @include('menu')
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-md-12">
