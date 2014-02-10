@@ -27,6 +27,7 @@ $app = new Illuminate\Foundation\Application;
 $env = $app->detectEnvironment(array(
 
 	'local' => array('your-machine-name'),
+    'rfid.waac.tw'=>array('ip-172-31-23-90.ap-northeast-1.compute.internal')
 
 ));
 
