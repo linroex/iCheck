@@ -72,7 +72,7 @@ class ActivityController extends Controller{
         ));
     }
     public function test(){
-        // dd(ActivityCheck::checkPremission(2,'b10209019'));
-        dd(ListMember::getMemberDataByStudentID(2,'b10209019'));
+        // dd(User::getUidByUsername('linroexa'));
+        // echo 10;
     }
 }

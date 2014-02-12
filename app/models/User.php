@@ -140,7 +140,7 @@ class User extends Eloquent{
     }
 
     public static function getUidByUsername($username){
-        $user = self::where('username','=',$username)->first()->get()->toArray();
+        $user = self::where('username','=',$username)->get()->toArray();
         return $user[0]['uid'];
     }
     public static function login($username, $password){
