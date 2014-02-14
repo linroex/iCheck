@@ -9,9 +9,16 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		Eloquent::unguard();
-
-		// $this->call('UserTableSeeder');
+		User::addUser(array(
+			'username'=>'admin',
+			'password'=>'123456789',
+			'password_confirmation'=>'123456789',
+			'name'=>'管理員',
+			'email'=>'admin@email.com',
+			'department'=>'預設',
+			'type'=>'admin'
+		));
+		$this->command->info('User Added');
 	}
 
 }
