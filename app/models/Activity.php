@@ -140,4 +140,5 @@ class Activity extends Eloquent{
             return App::abort(404);
         }
     }
+    
 }

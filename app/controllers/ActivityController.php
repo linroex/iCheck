@@ -71,6 +71,17 @@ class ActivityController extends Controller{
             'default_data'=>($aid == ''?null:Activity::getActivityData($aid))
         ));
     }
+    public function viewCheckinHistory($aid = '',$page = 1){
+        return View::make('view_activity_detail')->with(array(
+            'activity_data'=>Activity::getActivityData($aid),
+            'checkin_data'=>ActivityCheck::getCheckinHistory($aid, $page),
+            'pagenum'=>ActivityCheck::getCheckinHistoryPageNum($aid),
+            'current_page'=>$page,
+            'aid'=>$aid,
+            'checkin_total'=>ActivityCheck::getTotalNum($aid),
+            'groupnum'=>ActivityCheck::getCheckinGroupNum($aid)
+        ));
+    }
     public function test(){
         // dd(User::getUidByUsername('linroexa'));
         // echo 10;

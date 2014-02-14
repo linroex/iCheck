@@ -18,7 +18,7 @@
                     <ul class="breadcrumb">
                         <li>活動簽到</li>
                         <li><a href="{{url()}}/activity/view">檢視活動</a></li>
-                        <li><a href="{{url()}}/activity/view/detail">檢視簽到記錄</a></li>
+                        <li><a href="{{url()}}/activity/detail/{{$aid}}/{{$current_page}}">檢視簽到記錄</a></li>
                         
                     </ul>
                 </div>
@@ -28,19 +28,20 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-8">
+                            
                             <h3>基本資料</h3>
                             <table class="table">
                                 <tr>
                                     <td class="col-md-2">活動名稱</td>
-                                    <td class="col-md-10">台科大電影節</td>
+                                    <td class="col-md-10">{{{$activity_data->activity_name}}}</td>
                                 </tr>
                                 <tr>
                                     <td>活動內容</td>
-                                    <td>讓台科師生免費看電影的活動</td>
+                                    <td>{{{$activity_data->activity_desc}}}</td>
                                 </tr>
                                 <tr>
                                     <td>簽到類型</td>
-                                    <td>無需身分驗證</td>
+                                    <td>{{{str_replace(array('no_check','strict_check','only_prompt'), array('無需身分驗證','需嚴格身分驗證','僅需提示身份是否符合'), $activity_data->activity_type)}}}</td>
                                 </tr>
                             </table>
                         </div>
@@ -53,12 +54,13 @@
                             </div>
                             <div class="btn-group pull-right activity_btn_group">
                                 <a href="" class="btn btn-default hidden-xs">匯出記錄</a>
-                                <a href="" class="btn btn-default dropdown-toggle" data-toggle="dropdown">共100人簽到 <span class="caret"></span></a>
+                                <a href="" class="btn btn-default dropdown-toggle" data-toggle="dropdown">共{{{$checkin_total}}}人簽到 <span class="caret"></span></a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="">2013/9/10共10人</a></li>
-                                    <li><a href="">2013/9/17共30人</a></li>
-                                    <li><a href="">2013/9/20共50人</a></li>
+                                    @foreach ($groupnum as $row)
+                                        <li><a href="">{{{$row->date}}}共{{{$row->num}}}人</a></li>
+                                    @endforeach
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -66,23 +68,47 @@
                     <form action="">
                         <table class="table-hover table activity_check_list">
                             <thead>
-                                <tr>
-                                    <td>姓名</td>
-                                    <td>學號</td>
-                                    <td>科系</td>
-                                    <td>簽到日期</td>
-                                    <td>簽到時間</td>
-                                    <td>資格</td>
-                                </tr>
+                                @if ($activity_data->activity_type == 'no_check')
+                                    <tr>
+                                        <td>姓名</td>
+                                        <td>學號</td>
+                                        <td>簽到日期</td>
+                                        <td>簽到時間</td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td>姓名</td>
+                                        <td>學號</td>
+                                        <td>科系</td>
+                                        <td>簽到日期</td>
+                                        <td>簽到時間</td>
+                                        <td>資格</td>
+                                    </tr>
+                                @endif
+                                
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>林熙哲</td>
-                                    <td>B10209019</td>
-                                    <td>資訊管理系</td>
-                                    <td>2014/1/1</td>
-                                    <td>13:30</td>
-                                </tr>
+                                @if ($activity_data->activity_type == 'no_check')
+                                    @foreach ($checkin_data as $checkin)
+                                        <tr>
+                                            <td>XXX</td>
+                                            <td>{{{$checkin->student_id}}}</td>
+                                            <td>{{{date('Y/m/d', strtotime($checkin->check_time))}}}</td>
+                                            <td>{{{date('H:i:s', strtotime($checkin->check_time))}}}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    @foreach ($checkin_data as $checkin)
+                                        <tr>
+                                            <td>{{{$checkin->name}}}</td>
+                                            <td>{{{$checkin->student_id}}}</td>
+                                            <td>{{{$checkin->department}}}</td>
+                                            <td>{{{date('Y/m/d', strtotime($checkin->check_time))}}}</td>
+                                            <td>{{{date('H:i:s', strtotime($checkin->check_time))}}}</td>
+                                            <td>{{{$checkin->job}}}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                                 
                             </tbody>
                         </table>
@@ -93,27 +119,22 @@
                 
                 <div class="col-md-4 col-xs-8 col-sm-7 col-md-offset-4">
                     <ul class="pagination">
-                        <li class="active"><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">4</a></li>
-                        <li><a href="">5</a></li>
-                        <li><a href="">6</a></li>
-                        <li><a href="">7</a></li>
-                        <li><a href="">8</a></li>
+                        @for ($i=1; $i<=$pagenum; $i++)
+                            <li class="{{$i==$current_page?'active':''}}"><a href="{{url()}}/activity/detail/{{$aid}}/{{$i}}">{{$i}}</a></li>
+                        @endfor
                     </ul>
                 </div>
                 <div class="col-md-3 col-xs-4 col-sm-5 pull-right">
-                    <div class="btn-group edit-namelist-btn-group pull-right">
+                    <div class="btn-group pull-right activity_btn_group">
                         <a href="" class="btn btn-default hidden-xs">匯出記錄</a>
-                        <a href="" class="btn btn-default dropdown-toggle" data-toggle="dropdown">共100人簽到 <span class="caret"></span></a>
+                        <a href="" class="btn btn-default dropdown-toggle" data-toggle="dropdown">共{{{$checkin_total}}}人簽到 <span class="caret"></span></a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="">2013/9/10共10人</a></li>
-                            <li><a href="">2013/9/17共30人</a></li>
-                            <li><a href="">2013/9/20共50人</a></li>
+                            @foreach ($groupnum as $row)
+                                <li><a href="">{{{$row->date}}}共{{{$row->num}}}人</a></li>
+                            @endforeach
+                            
                         </ul>
-                        
                     </div>
                 </div>
             </div> <!-- row end -->

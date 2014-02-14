@@ -65,9 +65,7 @@ Route::group(array('before'=>'auth'),function(){
         Route::get('create','ActivityController@viewCreateActivity');
         Route::get('view/{page?}','ActivityController@viewActivity');
         Route::get('edit/{aid}','ActivityController@viewEditActivity');
-        Route::get('detail/{aid}',function(){
-            return View::make('view_activity_detail');
-        });
+        Route::get('detail/{aid}/{page?}','ActivityController@viewCheckinHistory');
         Route::post('data','ActivityController@getActivityData');
         Route::group(array('before'=>'csrf'),function(){
             Route::post('create','ActivityController@createActivity');
