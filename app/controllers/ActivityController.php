@@ -82,8 +82,24 @@ class ActivityController extends Controller{
             'groupnum'=>ActivityCheck::getCheckinGroupNum($aid)
         ));
     }
-    public function test(){
-        // dd(User::getUidByUsername('linroexa'));
-        // echo 10;
+    public function export(){
+        $data = ActivityCheck::getCheckinHistory(Input::get('aid'),'all');
+        $activity_data = Activity::getActivityData(Input::get('aid'));
+        if($activity_data->activity_type == 'no_check'){
+            $head = array('學號','簽到時間');
+            
+        }else{
+            $head = array(
+                '學號',
+                '姓名',
+                '科系',
+                '票種、職務',
+                '簽到時間'
+            );
+        }
+        $excel = new Excel('簽到清冊','校園RFID系統','簽到清冊');
+        $excel->makeXLS($head,$data);
+        $excel->download();
     }
+    
 }

@@ -67,6 +67,7 @@ Route::group(array('before'=>'auth'),function(){
         Route::get('edit/{aid}','ActivityController@viewEditActivity');
         Route::get('detail/{aid}/{page?}','ActivityController@viewCheckinHistory');
         Route::post('data','ActivityController@getActivityData');
+        Route::post('export','ActivityController@export');
         Route::group(array('before'=>'csrf'),function(){
             Route::post('create','ActivityController@createActivity');
             Route::post('delete','ActivityController@deleteActivity');
@@ -102,9 +103,6 @@ Route::group(array('before'=>'auth'),function(){
         Route::get('view','UserController@viewUser');
     });
 });
-
-Route::any('test','ActivityController@test');
-// Route::post('test','UserController@test');
 
 App::missing(function($exception)
 {

@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校園RFID系統｜檢視簽到記錄</title>
     @include('import',array('target'=>'活動簽到'))
+    <script>
+        function exportCheckinHistory(){
 
+        }
+    </script>
 </head>
 
 <body>
@@ -53,7 +57,9 @@
                                 <h3>簽到記錄</h3>
                             </div>
                             <div class="btn-group pull-right activity_btn_group">
-                                <a href="" class="btn btn-default hidden-xs">匯出記錄</a>
+                                {{Form::open(array('url'=>'activity/export'))}}
+                                {{Form::hidden('aid',$aid)}}
+                                <input type="submit" value="匯出記錄" class="btn btn-default">
                                 <a href="" class="btn btn-default dropdown-toggle" data-toggle="dropdown">共{{{$checkin_total}}}人簽到 <span class="caret"></span></a>
 
                                 <ul class="dropdown-menu" role="menu">
@@ -62,6 +68,7 @@
                                     @endforeach
                                     
                                 </ul>
+                                {{Form::close()}}
                             </div>
                         </div>
                     </div>  <!-- row end -->
@@ -126,7 +133,9 @@
                 </div>
                 <div class="col-md-3 col-xs-4 col-sm-5 pull-right">
                     <div class="btn-group pull-right activity_btn_group">
-                        <a href="" class="btn btn-default hidden-xs">匯出記錄</a>
+                        {{Form::open(array('url'=>'activity/export'))}}
+                        {{Form::hidden('aid',$aid)}}
+                        <input type="submit" value="匯出記錄" class="btn btn-default">
                         <a href="" class="btn btn-default dropdown-toggle" data-toggle="dropdown">共{{{$checkin_total}}}人簽到 <span class="caret"></span></a>
 
                         <ul class="dropdown-menu" role="menu">
@@ -135,6 +144,7 @@
                             @endforeach
                             
                         </ul>
+                        {{Form::close()}}
                     </div>
                 </div>
             </div> <!-- row end -->
