@@ -71,7 +71,7 @@
             
             $('#checkin_form').submit(function(e){
                 e.preventDefault();
-                if(($('#stu_card').val().length == 9)){
+                if(($('#stu_card').val().length == 10)){
                     checkin();
                 }
             });

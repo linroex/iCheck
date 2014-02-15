@@ -13,7 +13,7 @@
             $('.return_date').datepicker();
             var flag = false;
             $('#stu_card').keypress(function(e){
-                if(($('#stu_card').val().length == 9) && e.which == 13){
+                if(($('#stu_card').val().length == 10) && e.which == 13){
                     if(flag == true){
                         $('#reset-clear').html(origin);
                         $('.return_date').datepicker();
