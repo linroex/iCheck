@@ -59,6 +59,7 @@ class ActivityCheck extends Eloquent{
         return DB::select('select count(cid) num,cast(check_time as date) date FROM activity_check where aid = ? and uid = ? group by cast(check_time as date)',array($aid, Login::getUid()));
     }
     public static function checkinActivity($aid, $student_id){
+        $student_id = Helper::convert_card_id($student_id);
         $type = Activity::getActivityType($aid);
         
         if($type == 'strict_check'){
