@@ -6,64 +6,6 @@
     <title>校園RFID系統｜活動簽到</title>
     @include('import',array('target'=>'活動簽到'))
     <script>
-        function load_activity_data(){
-            $('.checkin_history').removeClass('hidden');
-            $('.checkin_history tbody').text('');
-            var aid = $('#select_activity').val();
-            if(aid != ''){
-                $.post('{{url()}}/activity/data',{aid:aid},function(data){
-                    $('.checkin_num').text('0');
-                    $('#checkin_alert').addClass('hidden');
-                    $('#activity_load_alert').removeClass('hidden');
-                    data = JSON.parse(data);
-                    $('#activity_name').text('活動名稱：' + data.activity_name);
-                    $('#activity_date').text('活動日期：' + $.datepicker.formatDate("yy/mm/dd",new Date(data.activity_date)).replace('1970/01/01',''));
-                    $('#activity_organize').text('主辦單位：' + data.activity_organize);
-                    $('#activity_type').text('簽到類型：' + data.activity_type.replace('no_check','無需身分驗證').replace('strict_check','需嚴格身分驗證').replace('only_prompt','僅需提示身份是否符合'));
-                })    
-            }
-        }
-
-        function isJson(str) {
-            try {
-                JSON.parse(str);
-            } catch (e) {
-                return false;
-            }
-            return true;
-        }
-        
-        function checkin(){
-            $.post('{{url()}}/activity/check',$('#checkin_form').serialize(),function(data){
-                $('.checkin-data').addClass('hidden');
-                $('#checkin_alert').removeClass('hidden');
-                $('.checkin_title').text('');
-                $('#activity_load_alert').addClass('hidden');
-                if(data == '資格不符合，簽到失敗'){
-                    $('.checkin_title').text(data);
-                }else{
-                    $('.checkin_num').text(parseInt($('.checkin_num').text()) + 1);
-                    if(isJson(data)){
-                        data = JSON.parse(data);
-                        if(data.message == undefined){
-                            data.message = '簽到成功';
-                        }
-                        $('.checkin-data').removeClass('hidden');
-                        $('.checkin_title').text(data.message);
-
-                        $('#checkin_name').text('姓名：' + htmlspecialchars(data.name));
-                        $('#checkin_job').text('職務（票種）：' + htmlspecialchars(data.job));
-                        $('#checkin_department').text('科系：' + htmlspecialchars(data.department));
-                        $('#checkin_studentid').text('學號：' + htmlspecialchars(data.student_id));
-                        $('.checkin_history tbody').prepend('<tr><td>' + htmlspecialchars(data.student_id) + '</td><td>' + new Date().getHours() + ":" + new Date().getMinutes() + '</td></tr>')
-                    }else{
-                        $('.checkin_title').text(data + '簽到成功');
-                        $('.checkin_history tbody').prepend('<tr><td>' + htmlspecialchars(data) + '</td><td>' + new Date().getHours() + ":" + new Date().getMinutes() + '</td></tr>')
-                    }
-                }
-                $('#stu_card').val('');
-            })
-        }
         $(document).ready(function(){
             $('#select_activity').change(function(){
                 load_activity_data();

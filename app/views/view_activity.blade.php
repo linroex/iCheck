@@ -26,15 +26,7 @@
             
             $('#check_dialog').modal('show');
         }
-        function del_select_activity(){
-            $.post('{{url()}}/activity/delete',$('#viewActivityForm').serialize(),function(data){
-                $('#check_dialog').modal('hide');
-                $('input:checked').parent().parent().remove();
-                $('.alert').remove();
-                $('.breadcrumb').parent().append('<div class="alert alert-success">成功刪除指定的活動</div>');
-
-            })
-        }
+        
     </script>
 </head>
 

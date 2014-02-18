@@ -20,7 +20,7 @@
                         flag = false;
 
                     }
-                    $.post('{{url()}}/equip/return/not',{student_id:$('#stu_card').val()},function(data){
+                    $.post(url + '/equip/return/not',{student_id:$('#stu_card').val()},function(data){
                         if(data!='false'){
                             data = JSON.parse(data);
                             i = 0;
@@ -49,34 +49,6 @@
             });
             
         })
-        function borrow(){
-            $(".alert").remove();
-            if($('#stu_card').val() != ''){
-                $.post('{{url()}}/equip/borrow',$('form').serialize(),function(data){
-                    $("form input:text").val('');
-                    $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>')
-                })
-            }else{
-                $('.breadcrumb').parent().append('<div class="alert alert-danger">學生證欄位為必填</div>')
-            }
-            
-        }
-        function returnEquip(){
-            $(".alert").remove();
-            $.post('{{url()}}/equip/return',$('form').serialize(),function(data){
-                $("form input:text").val('');
-                $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>');
-                $("input:checked").parent().parent().remove();
-
-            })
-        }
-        function add_item(){
-            $(".borrow-table tbody").append('<tr><td><input type="text" class="form-control" name="equip_name[]"></td><td><input type="text" class="form-control return_date" name="return_date[]"></td></tr>');
-            $('.return_date').datepicker();
-        }
-        function del_item(){
-            $(".borrow-table tbody tr").last().remove();
-        }
 
     </script>
 

@@ -23,52 +23,6 @@
             })
         })
 
-        function load_record(page, type){
-            $.post('{{url()}}/equip/history',{type:type,page:page,month:$('#month').val()},function(data){
-                $('#' + type).find("ul.pagination li.active").removeClass('active');
-                $('#' + type).find("ul.pagination li").eq(page-1).addClass('active');
-                $('#' + type).find('tbody').html('');
-                
-                data = JSON.parse(data);
-                var i=0;
-                $.each(data,function(){
-                    if(type == 'be_lated'){
-                        $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
-                            + htmlspecialchars(data[i].student_id)
-                            + '</td><td>' 
-                            + htmlspecialchars(data[i].equip_name)
-                            + '</td><td>' 
-                            + htmlspecialchars(formatDateTime(data[i].borrow_time))
-                            + '</td><td>' 
-                            + htmlspecialchars(formatDateTime(data[i].estimate_return_time))
-                            + '</td><td>' 
-                            + htmlspecialchars($.datepicker.formatDate('d',new Date((+new Date()) - (+new Date(data[i].estimate_return_time)))))
-                            + '天</td></tr>');
-                    }else if(type == 'not_return'){
-                        $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
-                            + htmlspecialchars(data[i].student_id)
-                            + '</td><td>' 
-                            + htmlspecialchars(data[i].equip_name)
-                            + '</td><td>' 
-                            + htmlspecialchars(formatDateTime(data[i].borrow_time))
-                            + '</td></tr>');
-                    }else{
-                        $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
-                            + htmlspecialchars(data[i].student_id)
-                            + '</td><td>' 
-                            + htmlspecialchars(data[i].equip_name)
-                            + '</td><td>' 
-                            + htmlspecialchars(formatDateTime(data[i].borrow_time))
-                            + '</td><td>' 
-                            + htmlspecialchars(formatDateTime(data[i].return_time))
-                            + '</td></tr>');
-                    }
-                    
-                    i++;
-                })
-            });
-        }
-
     </script>
 </head>
 

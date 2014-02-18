@@ -6,51 +6,7 @@
     <title>校園RFID系統｜編輯名冊</title>
     @include('import',array('target'=>'活動簽到'))
     <script>
-        function del_namelist_check(namelist_id,namelist_name){
-            $('#check_dialog .modal-title').text('確認刪除名冊');
-            $('#check_dialog .modal-body').text('您確定要刪除' + namelist_name + '這份名冊？');
-            $('#check_dialog').modal('show');
-            
-        }
-        function delete_select_member(){
-            $('#check_dialog').modal('hide');
-            $.post('{{url()}}/namelist/member/delete',$('#member_form').serialize(),function(data){
 
-                if(data == 1){
-                    $('#member_form input:checked').parent().parent().remove();
-                    $('.alert').remove();
-                    $('.breadcrumb').parent().append('<div class="alert alert-success">成功刪除指定的成員</div>');
-                }else{
-                    console.log(data);
-                }
-            })
-        }
-        function del_select_member_dialog(){
-            var body_str = '';
-            var id_str = '';
-
-            $('.namelist_member input[type=checkbox]:checked').each(function(){
-                var temp = $(this).val().split(',');
-                body_str += temp[1] + '<br/>';
-                id_str += temp[0] + ',';
-            })
-            if($('.namelist_member input[type=checkbox]:checked').length===0){
-                $('#check_dialog .modal-title').text('確認刪除成員');
-                $('#check_dialog .modal-body').html('您沒有選擇任何成員！');
-            }else{
-                $('#check_dialog .modal-title').text('確認刪除成員');
-                $('#check_dialog .modal-body').html('您確定要從本名冊中刪除以下成員？ <br/>' + body_str);    
-            }
-            
-            $('#check_dialog').modal('show');
-        }
-        function update_namelist(){
-            
-            $.post('{{url()}}/namelist/edit',$('#namelist_data').serialize(),function(data){
-                $('.alert').remove();
-                $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>');
-            });
-        }
     </script>
 </head>
 

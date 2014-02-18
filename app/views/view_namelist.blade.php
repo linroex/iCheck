@@ -7,19 +7,7 @@
     @include('import',array('target'=>'活動簽到'))
     <script>
         var nid = '';
-        function delete_dialog(namelist_id,namelist_name){
-            nid = namelist_id;
-            $('.del_name').text(namelist_name);
-            $('#check_delete_dialog').modal('show');
-        }
-        function delete_NameList(){
-            $.post('{{url()}}/namelist/delete',{nid:nid},function(data){
-                console.log(data);
-                $('#check_delete_dialog').modal('hide');
-                $('tr#nid-' + nid).remove();
-                nid = '';
-            });
-        }
+        
 
     </script>
 </head>
