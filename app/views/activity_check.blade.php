@@ -68,7 +68,7 @@
                             @if ($default != '')
                                 <?php
                                     // 為了讓簽到類型可以顯示中文
-                                    $default_data->activity_type = str_replace(array('no_check','strict_check','only_prompt'), array('無需身分驗證','需嚴格身分驗證','僅需提示身份是否符合'), $default_data->activity_type)
+                                    $default_data->activity_type = str_replace(array('no_check','strict_check','only_prompt'), array('無需事先報名','需事先報名','需事先報名，但可現場補報'), $default_data->activity_type)
                                 ?>
                                 <li class="list-group-item" id="activity_name">活動名稱：{{{$default_data->activity_name}}}</li>
                                 <li class="list-group-item" id="activity_type">簽到類型：{{{$default_data->activity_type}}}</li>

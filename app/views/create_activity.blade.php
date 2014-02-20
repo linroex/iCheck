@@ -64,9 +64,9 @@
                                 <td>
                                     {{
                                         Form::select('activity_type',array(
-                                            'no_check'=>'無需身分驗證',
-                                            'strict_check'=>'需嚴格身分驗證',
-                                            'only_prompt'=>'僅需提示身份是否符合'
+                                            'no_check'=>'無需事先報名',
+                                            'strict_check'=>'需事先報名',
+                                            'only_prompt'=>'需事先報名，但可現場補報'
                                         ),null,array('class'=>'form-control'))
                                     }}
                                     

@@ -45,7 +45,7 @@
                                 </tr>
                                 <tr>
                                     <td>簽到類型</td>
-                                    <td>{{{str_replace(array('no_check','strict_check','only_prompt'), array('無需身分驗證','需嚴格身分驗證','僅需提示身份是否符合'), $activity_data->activity_type)}}}</td>
+                                    <td>{{{str_replace(array('no_check','strict_check','only_prompt'), array('無需事先報名','需事先報名','需事先報名，但可現場補報'), $activity_data->activity_type)}}}</td>
                                 </tr>
                             </table>
                         </div>
