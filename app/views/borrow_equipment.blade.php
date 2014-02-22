@@ -88,7 +88,7 @@
                 <div class="col-md-12 col-xs-12 col-sm-12">
                     <div class="well">
                         <label for="stu_card" class="control-label">學生證</label>
-                        <input type="text" class="form-control" id="stu_card" name="student_id" placeholder="請刷學生證">
+                        <input type="password" class="form-control" id="stu_card" name="student_id" placeholder="請刷學生證">
                     </div>
                     <div id="reset-clear">
                         

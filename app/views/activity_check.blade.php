@@ -58,7 +58,7 @@
                         </div>
                         <div class="form-group">
                             <label for="stu_card">學生證</label>
-                            <input type="text" class="form-control" id="stu_card" name="student_id" placeholder="請刷學生證">
+                            <input type="password" class="form-control" id="stu_card" name="student_id" placeholder="請刷學生證">
                         </div>
                     {{Form::close()}}
                     <div class="alert alert-success {{$default==null?'hidden':''}}" id="activity_load_alert">

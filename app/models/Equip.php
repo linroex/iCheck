@@ -11,6 +11,7 @@ class Equip extends Eloquent{
     */
 
     public static function getNotReturnEquipList($student_id){
+        $student_id = Helper::convert_card_id($student_id);
         $data = self::find($student_id);
         if($data === null){
             return 'false';
