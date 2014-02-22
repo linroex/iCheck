@@ -116,6 +116,9 @@ class Activity extends Eloquent{
                 if($data['activity_type'] != 'no_check' and $data['nid'] == -1){
                     return '您設定的簽到類型需使用名條';
                 }else{
+                    if(trim($data['activity_date']) == ''){
+                        $data['activity_date'] = null;
+                    }
                     return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->update(array(
                         'activity_name'=>$data['activity_name'],
                         'activity_desc'=>$data['activity_desc'],

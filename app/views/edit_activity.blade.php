@@ -47,7 +47,7 @@
                             </tr>
                             <tr>
                                 <td>活動日期</td>
-                                <td>{{Form::text('activity_date',date('Y/m/d',strtotime($data['activity_date'])),array('class'=>'form-control','id'=>'activity_date'))}}</td>
+                                <td>{{Form::text('activity_date',str_replace('1970/01/01','',date('Y/m/d',strtotime($data['activity_date']))),array('class'=>'form-control','id'=>'activity_date'))}}</td>
                             </tr>
                             <tr>
                                 <td>簽到類型</td>
