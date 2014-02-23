@@ -146,15 +146,7 @@ function update_namelist(){
         $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>');
     });
 }
-function error_detect(){
-    
-    if($('#stu_card').val().length < 10 ){
-        $('#stu_card').val('');
-        $('#checkin_alert').removeClass('hidden');
-        $('.checkin_title').text('讀取失敗，請重新嘗試');
-        flag = false;
-    }
-}
+
 function load_record(page, type){
     $.post(url + '/equip/history',{type:type,page:page,month:$('#month').val()},function(data){
         $('#' + type).find("ul.pagination li.active").removeClass('active');
