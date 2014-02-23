@@ -70,6 +70,7 @@ function checkin(){
         $('#stu_card').val('');
     }).fail(function(){
         $('#checkin_alert').removeClass('hidden');
+        $('#stu_card').val('');
         $('.checkin_title').text('該學號不存在');
     })
 }
