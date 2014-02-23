@@ -6,11 +6,20 @@
     <title>校園RFID系統｜活動簽到</title>
     @include('import',array('target'=>'活動簽到'))
     <script>
+
         $(document).ready(function(){
             $('#select_activity').change(function(){
                 load_activity_data();
             });
-            
+            var flag = false;
+            $('#stu_card').keypress(function(e){
+                if(flag == false){
+                    setTimeout('error_detect()',1000);    
+                }else{
+                    flag = true;
+
+                }
+            });
             $('#checkin_form').submit(function(e){
                 e.preventDefault();
                 if(($('#stu_card').val().length == 10)){

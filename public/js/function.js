@@ -68,13 +68,16 @@ function checkin(){
             }
         }
         $('#stu_card').val('');
+    }).fail(function(){
+        $('#checkin_alert').removeClass('hidden');
+        $('.checkin_title').text('該學號不存在');
     })
 }
 function borrow(){
     $(".alert").remove();
     if($('#stu_card').val() != ''){
         $.post(url + '/equip/borrow',$('form').serialize(),function(data){
-            $("form input:text").val('');
+            $("input").val('');
             $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>')
         })
     }else{
@@ -85,7 +88,7 @@ function borrow(){
 function returnEquip(){
     $(".alert").remove();
     $.post(url + '/equip/return',$('form').serialize(),function(data){
-        $("form input:text").val('');
+        $("#stu_card").val('');
         $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>');
         $("input:checked").parent().parent().remove();
 
@@ -143,7 +146,15 @@ function update_namelist(){
         $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>');
     });
 }
-
+function error_detect(){
+    
+    if($('#stu_card').val().length < 10 ){
+        $('#stu_card').val('');
+        $('#checkin_alert').removeClass('hidden');
+        $('.checkin_title').text('讀取失敗，請重新嘗試');
+        flag = false;
+    }
+}
 function load_record(page, type){
     $.post(url + '/equip/history',{type:type,page:page,month:$('#month').val()},function(data){
         $('#' + type).find("ul.pagination li.active").removeClass('active');
