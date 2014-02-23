@@ -40,6 +40,11 @@ function checkin(){
         $('#checkin_alert').removeClass('hidden');
         $('.checkin_title').text('');
         $('#activity_load_alert').addClass('hidden');
+
+        // 避免簽到暫存區過長
+        if($(".checkin_history tbody tr").length >= 20){
+            $(".checkin_history tbody tr").last().remove();
+        }
         if(data == '資格不符合，簽到失敗'){
             $('.checkin_title').text(data);
         }else{
