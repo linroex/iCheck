@@ -30,14 +30,14 @@ class ActivityCheck extends Eloquent{
                 if($activity->activity_type == 'no_check'){
                     return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->orderby('check_time','DESC')->get(array('student_id','check_time'))->toArray();
                 }else{
-                    return DB::select('select distinct(member.student_id) ,member.name,member.department,member.job,checkin.check_time from activity_check as checkin join namelist_member member where member.nid = ? and checkin.aid = ? and checkin.uid = ? order by checkin.check_time desc',array($activity->nid, $aid, Login::getUid()));
+                    return DB::select('select distinct(member.student_id) ,member.name,member.department,member.job,checkin.check_time from activity_check as checkin join namelist_member member on member.student_id = checkin.student_id where member.nid = ? and checkin.aid = ? and checkin.uid = ? order by checkin.check_time desc',array($activity->nid, $aid, Login::getUid()));
                 }
             }else{
                 $activity = Activity::getActivityData($aid);
                 if($activity->activity_type == 'no_check'){
                     return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->orderby('check_time','DESC')->take($num)->skip(($page-1)*$num)->get();
                 }else{
-                    return DB::select('select distinct(member.student_id) ,member.name,member.department,member.job,checkin.check_time from activity_check as checkin join namelist_member member where member.nid = ? and checkin.aid = ? and checkin.uid = ? order by checkin.check_time desc limit ?,?',array($activity->nid, $aid, Login::getUid(), ($page-1)*$num, $num));
+                    return DB::select('select distinct(member.student_id) ,member.name,member.department,member.job,checkin.check_time from activity_check as checkin join namelist_member member on member.student_id = checkin.student_id where member.nid = ? and checkin.aid = ? and checkin.uid = ? order by checkin.check_time desc limit ?,?',array($activity->nid, $aid, Login::getUid(), ($page-1)*$num, $num));
                 }
             }
         }else{

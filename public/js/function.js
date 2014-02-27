@@ -99,7 +99,7 @@ function returnEquip(){
     })
 }
 function add_item(){
-    $(".borrow-table tbody").append('<tr><td><input type="text" class="form-control" name="equip_name[]"></td><td><input type="text" class="form-control return_date" name="return_date[]"></td></tr>');
+    $(".borrow-table tbody").append('<tr><td><input type="text" class="form-control equip_name" name="equip_name[]"></td><td><input type="text" class="form-control return_date" name="return_date[]"></td></tr>');
     $('.return_date').datepicker();
 }
 function del_item(){
