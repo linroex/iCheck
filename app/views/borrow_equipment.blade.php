@@ -44,6 +44,10 @@
                         }
                         $('.borrow-table').removeClass('hidden');
                         flag = true;
+                    }).fail(function(){
+                        $('.breadcrumb').parent().append('<div class="alert alert-danger">該學號不存在</div>')
+                        $('#stu_card').val('');
+                        
                     })                    
                 }
             });
@@ -103,7 +107,7 @@
                                </thead>
                                <tbody>
                                    <tr>
-                                       <td><input type="text" class="form-control" name="equip_name[]"></td>
+                                       <td><input type="text" class="form-control equip_name" name="equip_name[]"></td>
                                        <td><input type="text" class="form-control return_date" name="return_date[]"></td>
                                    </tr>
                                    

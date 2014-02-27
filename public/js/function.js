@@ -78,7 +78,10 @@ function borrow(){
     $(".alert").remove();
     if($('#stu_card').val() != ''){
         $.post(url + '/equip/borrow',$('form').serialize(),function(data){
-            $("input").val('');
+            $("#stu_card").val('');
+            $(".equip_name").val('');
+            $(".return_date").val('');
+            
             $('.breadcrumb').parent().append('<div class="alert alert-success">' + data + '</div>')
         })
     }else{
