@@ -8,6 +8,9 @@
     <script>
         $(document).ready(function(){
             $('#activity_date').datepicker();
+            $('#old_activity').change(function(){
+                load_old_activity($('#old_activity').val());
+            });
         })
     </script>
 </head>
@@ -46,7 +49,12 @@
             <div class="row">
                 <div class="col-md-8">
                     {{Form::model(Session::get('old_data'))}}
+                        
                         <table class="table">
+                            <tr>
+                                <td class="col-md-3 field-name">載入</td>
+                                <td class="col-md-9">{{Form::select('old_activity',$old_activity,null,array('class'=>'form-control','id'=>'old_activity'))}}</td>
+                            </tr>
                             <tr>
                                 <td class="col-md-3 field-name">活動名稱</td>
                                 <td class="col-md-9">{{Form::text('activity_name',null,array('class'=>'form-control'))}}</td>
@@ -94,6 +102,7 @@
                                     }}
                                 </td>
                             </tr>
+                            
                             <tr>
                                 <td>備註</td>
                                 <td>{{Form::textarea('activity_note',null,array('class'=>'form-control','rows'=>5))}}</td>

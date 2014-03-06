@@ -74,6 +74,18 @@ class Activity extends Eloquent{
         $activity_list = array_combine($activity_key, $activity_value);
         return $activity_list;
     }
+    public static function geteActivityListArray(){
+        $activity_key = array('');
+        $activity_value = array('');
+        foreach (self::getActivityList('all') as $row) {
+            
+            array_push($activity_key, $row->aid);
+            array_push($activity_value, $row->activity_name);    
+            
+        }
+        $activity_list = array_combine($activity_key, $activity_value);
+        return $activity_list;
+    }
     public static function getActivityListPageNum($num = 20){
         return ceil(self::whereRaw('uid = ?',array(Login::getUid()))->count()/$num);
     }

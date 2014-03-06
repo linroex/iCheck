@@ -21,7 +21,8 @@ class ActivityController extends Controller{
     public function viewCreateActivity(){
         
         return View::make('create_activity')->with(array(
-            'namelist'=>Namelist::getNameListArray()
+            'namelist'=>Namelist::getNameListArray(),
+            'old_activity'=>Activity::geteActivityListArray()
         ));
     }
     public function viewActivity($page = 1){

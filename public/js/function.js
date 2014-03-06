@@ -217,3 +217,15 @@ function delete_NameList(){
         nid = '';
     });
 }
+function load_old_activity(aid){
+    $.post(url + '/activity/data',{aid:aid},function(data){
+        data = JSON.parse(data);
+        $('input[name=activity_name]').val(data['activity_name']);
+        $('input[name=activity_desc]').val(data['activity_desc']);
+        $('input[name=activity_date]').val($.datepicker.formatDate('yy/mm/dd',new Date(data['activity_date'])));
+        $('select[name=activity_type]').val(data['activity_type']);
+        $('select[name=nid]').val(data['nid']);
+        $('input[name=activity_organize]').val(data['activity_organize']);
+        $('input[name=activity_note]').val(data['activity_note']);
+    })
+}
