@@ -45,7 +45,7 @@ function checkin(){
         if($(".checkin_history tbody tr").length >= 20){
             $(".checkin_history tbody tr").last().remove();
         }
-        if(data == '資格不符合，簽到失敗'){
+        if(data == '資格不符合，簽到失敗' || data == '已簽到'){
             $('.checkin_title').text(data);
         }else{
             $('.checkin_num').text(parseInt($('.checkin_num').text()) + 1);

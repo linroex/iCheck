@@ -58,6 +58,9 @@ class ActivityCheck extends Eloquent{
     public static function getCheckinGroupNum($aid){
         return DB::select('select count(cid) num,cast(check_time as date) date FROM activity_check where aid = ? and uid = ? group by cast(check_time as date)',array($aid, Login::getUid()));
     }
+    public static function checkinExist($aid, $student_id){
+        return self::whereRaw('aid = ? and student_id = ? and uid = ?',array($aid, $student_id, Login::getUid()))->count();
+    }
     public static function checkinActivity($aid, $student_id){
         $student_id = Helper::convert_card_id($student_id);
         $type = Activity::getActivityType($aid);
@@ -66,6 +69,10 @@ class ActivityCheck extends Eloquent{
             if(!self::checkPremission($aid, $student_id)){
                 return '資格不符合，簽到失敗';
             }else{
+                
+                if(self::checkinExist($aid, $student_id) >= 1){
+                    return "已簽到";
+                }
 
                 self::create(array(
                     'aid'=>$aid,
@@ -79,6 +86,9 @@ class ActivityCheck extends Eloquent{
             }
         }
         if(!self::checkData(array('aid'=>$aid,'student_id'=>$student_id))->fails()){
+            if(self::checkinExist($aid, $student_id) >= 1){
+                return "已簽到";
+            }
             self::create(array(
                 'aid'=>$aid,
                 'student_id'=>$student_id,
@@ -94,7 +104,7 @@ class ActivityCheck extends Eloquent{
                 }else{
                     return json_encode(array(
                         'student_id'=>$student_id,
-                        'message'=>$student_id . '來賓已簽到，未報名',
+                        'message'=>$student_id . '已簽到(未報名)',
                         'name'=>'未報名',
                         'department'=>'未報名',
                         'job'=>'未報名'
