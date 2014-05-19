@@ -60,7 +60,13 @@ class ActivityController extends Controller{
         ));
     }
     public function checkinActivity(){
-        return ActivityCheck::checkinActivity(Input::get('activity'), Input::get('student_id'));
+        if(Input::get('type') == 'studentid'){
+            return ActivityCheck::checkinActivity(Input::get('activity'), strtoupper(Input::get('student_id')));
+        }else{
+            $student_id = Helper::convert_card_id($student_id);
+            return ActivityCheck::checkinActivity(Input::get('activity'), $student_id);
+        }
+        
     }
     public function getActivityData(){
         return Activity::getActivityData(Input::get('aid'))->toJson();
@@ -86,18 +92,14 @@ class ActivityController extends Controller{
     public function export(){
         $data = ActivityCheck::getCheckinHistory(Input::get('aid'),'all');
         $activity_data = Activity::getActivityData(Input::get('aid'));
-        if($activity_data->activity_type == 'no_check'){
-            $head = array('學號','簽到時間');
-            
-        }else{
-            $head = array(
-                '學號',
-                '姓名',
-                '科系',
-                '票種、職務',
-                '簽到時間'
-            );
-        }
+        
+        $head = array(
+            '學號',
+            '姓名',
+            '科系',
+            '簽到時間'
+        );
+        
         $excel = new Excel('簽到清冊','校園RFID系統','簽到清冊');
         $excel->makeXLS($head,$data);
         $excel->download();

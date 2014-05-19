@@ -92,9 +92,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     @foreach (json_decode($content['not_return'],true) as $record)
                                         <tr>
-                                            <td>XXX</td>
+
+                                            <td>{{{$record['name']}}}</td>
                                             <td>{{{$record['student_id']}}}</td>
                                             <td>{{{$record['equip_name']}}}</td>
                                             <td>{{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}}</td>
@@ -129,7 +131,7 @@
                                 <tbody>
                                     @foreach (json_decode($content['returned'],true) as $record)
                                         <tr>
-                                            <td>XXX</td>
+                                            <td>{{{$record['name']}}}</td>
                                             <td>{{{$record['student_id']}}}</td>
                                             <td>{{{$record['equip_name']}}}</td>
                                             <td>{{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}}</td>
@@ -166,7 +168,7 @@
                                 <tbody>
                                     @foreach (json_decode($content['be_lated'],true) as $record)
                                         <tr>
-                                            <td>XXX</td>
+                                            <td>{{{$record['name']}}}</td>
                                             <td>{{{$record['student_id']}}}</td>
                                             <td>{{{$record['equip_name']}}}</td>
                                             <td>{{{date('Y/m/d H:i',strtotime($record['borrow_time']))}}}</td>

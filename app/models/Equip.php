@@ -16,7 +16,8 @@ class Equip extends Eloquent{
         if($data === null){
             return 'false';
         }else{
-            $data = $data->whereRaw('type = \'not_return\' or type=\'no_deadline\' and uid = ?',array(Login::getUid()))->get();
+
+            $data = $data->whereRaw('(type = \'not_return\' or type=\'no_deadline\') and uid = ?',array(Login::getUid()))->get();
             if($data->count() == 0){
                 return 'false';
             }else{
@@ -61,64 +62,47 @@ class Equip extends Eloquent{
     public static function getRecordList($type = 'not_return', $month = 'all', $page=1, $num = 20){
         if($type == 'be_lated'){
             if($month == 'all'){
-                return self::whereRaw('type = \'not_return\' and estimate_return_time < now() and uid = ?',array(Login::getUid()))->orderBy('estimate_return_time')->take($num)->skip(($page-1)*$num)->get()->toJson();
-
+                return json_encode(DB::select('select contrast.name,contrast.student_id,equip.equip_name,equip.estimate_return_time,equip.borrow_time,equip.return_time from equip_history equip join contrast contrast on contrast.student_id = equip.student_id where equip.type = \'not_return\' and equip.estimate_return_time < now() and equip.uid = ? order by equip.estimate_return_time desc limit ?,?',array(Login::getUid(),($page-1)*$num,$num)));
             }else{
-                return self::whereRaw('type = \'not_return\' and estimate_return_time < now() and month(borrow_time) = ? and uid = ?',array($month,Login::getUid()))->orderBy('estimate_return_time')->take($num)->skip(($page-1)*$num)->get()->toJson();
-
+                return json_encode(DB::select('select contrast.name,contrast.student_id,equip.equip_name,equip.estimate_return_time,equip.borrow_time,equip.return_time from equip_history equip join contrast contrast on contrast.student_id = equip.student_id where equip.type = \'not_return\' and equip.estimate_return_time < now() and equip.uid = ? and month(equip.borrow_time) = ? order by equip.estimate_return_time desc limit ?,?',array(Login::getUid(),$month,($page-1)*$num,$num)));
             }
         }else{
             if($type == 'not_return'){
                 if($month == 'all'){
-                    return self::whereRaw('return_time is NULL and uid = ?', array(Login::getUid()))->orderBy('borrow_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
-
+                    return json_encode(DB::select('select contrast.name,contrast.student_id,equip.equip_name,equip.borrow_time from equip_history equip join contrast contrast on contrast.student_id = equip.student_id where return_time is NULL and equip.uid = ? order by equip.borrow_time desc limit ?,?',array(Login::getUid(),($page-1)*$num,$num)));
                 }else{
-                    return self::whereRaw('return_time is NULL and month(borrow_time) = ? and uid = ?', array($month,Login::getUid()))->orderBy('borrow_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
-
+                    return json_encode(DB::select('select contrast.name,contrast.student_id,equip.equip_name,equip.borrow_time from equip_history equip join contrast contrast on contrast.student_id = equip.student_id where return_time is NULL and equip.uid = ? and month(equip.borrow_time) = ? order by equip.borrow_time desc limit ?,?',array(Login::getUid(),$month,($page-1)*$num,$num)));
                 }
             }elseif($type == 'returned'){
                 if($month == 'all'){
-                    return self::whereRaw('type = \'returned\' and uid = ?', array(Login::getUid()))->orderBy('return_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
-
+                    return json_encode(DB::select('select contrast.name,contrast.student_id,equip.equip_name,equip.borrow_time,equip.return_time from equip_history equip join contrast contrast on contrast.student_id = equip.student_id where equip.type = \'returned\' and equip.uid = ? order by equip.return_time desc limit ?,?',array(Login::getUid(),($page-1)*$num,$num)));
                 }else{
-                    return self::whereRaw('type = \'returned\' and month(borrow_time) = ? and uid = ?', array($month,Login::getUid()))->orderBy('return_time','DESC')->take($num)->skip(($page-1)*$num)->get()->toJson();
-
+                    return json_encode(DB::select('select contrast.name,contrast.student_id,equip.equip_name,equip.borrow_time,equip.return_time from equip_history equip join contrast contrast on contrast.student_id = equip.student_id where equip.type = \'returned\' and equip.uid = ? and month(equip.borrow_time) = ? order by equip.return_time desc limit ?,?',array(Login::getUid(),$month,($page-1)*$num,$num)));
                 }
             }
-            
         }
-
-
     }
     public static function getRecordListPageCount($type = 'not_return', $month = 'all',$num = 20){
         if($type == 'be_lated'){
             if($month == 'all'){
                 return ceil(self::whereRaw('type = \'not_return\' and estimate_return_time < now() and uid = ?', array(Login::getUid()))->count()/$num);
-
             }else{
                 return ceil(self::whereRaw('type = \'not_return\' and estimate_return_time < now() and month(borrow_time) = ? and uid = ?', array($month, Login::getUid()))->count()/$num);
-
             }
         }else{
             if($type == 'not_return'){
                 if($month == 'all'){
                     return ceil(self::whereRaw('return_time is NULL and uid = ?', array(Login::getUid()))->count()/$num);
-
                 }else{
                     return ceil(self::whereRaw('return_time is NULL and month(borrow_time) = ? and uid = ?', array($month,Login::getUid()))->count()/$num);
-
                 }
             }elseif($type == 'returned'){
                 if($month == 'all'){
                     return ceil(self::whereRaw('type = \'returned\' and uid = ?',array(Login::getUid()))->count()/$num);
-
                 }else{
                     return ceil(self::whereRaw('type = \'returned\' and month(borrow_time) = ? and uid = ?',array($month,Login::getUid()))->count()/$num);
-
                 }
             }
-            
         }
     }
-    
 }

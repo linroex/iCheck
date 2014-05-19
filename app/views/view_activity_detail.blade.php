@@ -75,47 +75,27 @@
                     <form action="">
                         <table class="table-hover table activity_check_list">
                             <thead>
-                                @if ($activity_data->activity_type == 'no_check')
-                                    <tr>
-                                        <td>姓名</td>
-                                        <td>學號</td>
-                                        <td>簽到日期</td>
-                                        <td>簽到時間</td>
-                                    </tr>
-                                @else
-                                    <tr>
-                                        <td>姓名</td>
-                                        <td>學號</td>
-                                        <td>科系</td>
-                                        <td>簽到日期</td>
-                                        <td>簽到時間</td>
-                                        <td>資格</td>
-                                    </tr>
-                                @endif
-                                
+                                <tr>
+                                    <td>姓名</td>
+                                    <td>學號</td>
+                                    <td>科系</td>
+                                    <td>簽到日期</td>
+                                    <td>簽到時間</td>
+                                    <td>資格</td>
+                                </tr>
                             </thead>
                             <tbody>
-                                @if ($activity_data->activity_type == 'no_check')
-                                    @foreach ($checkin_data as $checkin)
-                                        <tr>
-                                            <td>XXX</td>
-                                            <td>{{{$checkin->student_id}}}</td>
-                                            <td>{{{date('Y/m/d', strtotime($checkin->check_time))}}}</td>
-                                            <td>{{{date('H:i:s', strtotime($checkin->check_time))}}}</td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    @foreach ($checkin_data as $checkin)
-                                        <tr>
-                                            <td>{{{$checkin->name}}}</td>
-                                            <td>{{{$checkin->student_id}}}</td>
-                                            <td>{{{$checkin->department}}}</td>
-                                            <td>{{{date('Y/m/d', strtotime($checkin->check_time))}}}</td>
-                                            <td>{{{date('H:i:s', strtotime($checkin->check_time))}}}</td>
-                                            <td>{{{$checkin->job}}}</td>
-                                        </tr>
-                                    @endforeach
-                                @endif
+                                
+                                @foreach ($checkin_data as $checkin)
+                                    <tr>
+                                        <td>{{{$checkin->name}}}</td>
+                                        <td>{{{$checkin->student_id}}}</td>
+                                        <td>{{{$checkin->department}}}</td>
+                                        <td>{{{date('Y/m/d', strtotime($checkin->check_time))}}}</td>
+                                        <td>{{{date('H:i:s', strtotime($checkin->check_time))}}}</td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
                                 
                             </tbody>
                         </table>

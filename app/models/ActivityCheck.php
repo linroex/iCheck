@@ -25,25 +25,15 @@ class ActivityCheck extends Eloquent{
     }
     public static function getCheckinHistory($aid, $page = 1, $num = 20){
         if(Activity::checkActivityExist($aid)){
+            $activity = Activity::getActivityData($aid);
             if($page == 'all'){
-                $activity = Activity::getActivityData($aid);
-                if($activity->activity_type == 'no_check'){
-                    return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->orderby('check_time','DESC')->get(array('student_id','check_time'))->toArray();
-                }else{
-                    return DB::select('select distinct(member.student_id) ,member.name,member.department,member.job,checkin.check_time from activity_check as checkin join namelist_member member on member.student_id = checkin.student_id where member.nid = ? and checkin.aid = ? and checkin.uid = ? order by checkin.check_time desc',array($activity->nid, $aid, Login::getUid()));
-                }
+                return DB::select('select distinct(contrast.student_id) ,contrast.name,contrast.department,checkin.check_time from activity_check as checkin join contrast contrast on contrast.student_id = checkin.student_id where checkin.aid = ? and checkin.uid = ? order by checkin.check_time desc',array($aid, Login::getUid()));
             }else{
-                $activity = Activity::getActivityData($aid);
-                if($activity->activity_type == 'no_check'){
-                    return self::whereRaw('aid = ? and uid = ?',array($aid, Login::getUid()))->orderby('check_time','DESC')->take($num)->skip(($page-1)*$num)->get();
-                }else{
-                    return DB::select('select distinct(member.student_id) ,member.name,member.department,member.job,checkin.check_time from activity_check as checkin join namelist_member member on member.student_id = checkin.student_id where member.nid = ? and checkin.aid = ? and checkin.uid = ? order by checkin.check_time desc limit ?,?',array($activity->nid, $aid, Login::getUid(), ($page-1)*$num, $num));
-                }
+                return DB::select('select distinct(contrast.student_id) ,contrast.name,contrast.department,checkin.check_time from activity_check as checkin join contrast contrast on contrast.student_id = checkin.student_id where checkin.aid = ? and checkin.uid = ? order by checkin.check_time desc limit ?,?',array($aid, Login::getUid(), ($page-1)*$num, $num));
             }
         }else{
             return App::abort(404);
         }
-        
     }
     public static function getCheckinHistoryPageNum($aid, $num = 20){
         if(Activity::checkActivityExist($aid)){
@@ -62,14 +52,13 @@ class ActivityCheck extends Eloquent{
         return self::whereRaw('aid = ? and student_id = ? and uid = ?',array($aid, $student_id, Login::getUid()))->count();
     }
     public static function checkinActivity($aid, $student_id){
-        $student_id = Helper::convert_card_id($student_id);
         $type = Activity::getActivityType($aid);
-        
+        $student_data = Contrast::getStudentData($student_id);
+
         if($type == 'strict_check'){
             if(!self::checkPremission($aid, $student_id)){
                 return '資格不符合，簽到失敗';
             }else{
-                
                 if(self::checkinExist($aid, $student_id) >= 1){
                     return "已簽到";
                 }
@@ -80,9 +69,8 @@ class ActivityCheck extends Eloquent{
                     'check_time'=>date('Y/m/d H:i:s',time()),
                     'uid'=>Login::getUid()
                 ));
-                $data = ListMember::getMemberDataByStudentID($aid, $student_id);
 
-                return json_encode(array('student_id'=>$student_id,'message'=>'簽到成功','name'=>$data->name,'department'=>$data->department,'job'=>$data->job));
+                return json_encode(array('student_id'=>$student_id,'message'=>'簽到成功','name'=>$student_data['name'],'department'=>$student_data['department']));
             }
         }
         if(!self::checkData(array('aid'=>$aid,'student_id'=>$student_id))->fails()){
@@ -96,7 +84,7 @@ class ActivityCheck extends Eloquent{
                 'uid'=>Login::getUid()
             ));
             if($type == 'no_check'){
-                return $student_id;
+                return $student_data['name'];
             }else{
                 if(self::checkPremission($aid, $student_id)){
                     $memberdata = ListMember::getMemberDataByStudentID($aid, $student_id);
@@ -104,10 +92,9 @@ class ActivityCheck extends Eloquent{
                 }else{
                     return json_encode(array(
                         'student_id'=>$student_id,
-                        'message'=>$student_id . '已簽到(未報名)',
-                        'name'=>'未報名',
-                        'department'=>'未報名',
-                        'job'=>'未報名'
+                        'message'=>$student_data['name'] . '已簽到(未報名)',
+                        'name'=>$student_data['name'],
+                        'department'=>$student_data['department']
                     ));
                 }
             }

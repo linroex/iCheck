@@ -17,6 +17,9 @@
                 e.preventDefault();
                 if(($('#stu_card').val().length == 10)){
                     checkin();
+                }else if($('#type').is(':checked')){
+                    checkin();
+                    $('#type').prop('checked',false);
                 }
             });
         })
@@ -60,7 +63,10 @@
                         </div>
                         <div class="form-group">
                             <label for="stu_card">學生證</label>
-                            <input type="password" class="form-control" id="stu_card" name="student_id" placeholder="請刷學生證">
+                            <div class="clearfix"></div>
+                            <div class="col-md-1"><input type="checkbox" name="type" id="type" value="studentid" class="form-control"></div>
+                            <div class="col-md-11"><input type="password" class="form-control" id="stu_card" name="student_id" placeholder="請刷學生證"></div>
+                            <div class="clearfix"></div>
                         </div>
                     {{Form::close()}}
                     <div class="alert alert-success {{$default==null?'hidden':''}}" id="activity_load_alert">
@@ -92,7 +98,6 @@
                             <li class="list-group-item" id="checkin_name"></li>
                             <li class="list-group-item" id="checkin_studentid"></li>
                             <li class="list-group-item" id="checkin_department"></li>
-                            <li class="list-group-item" id="checkin_job"></li>
                         </ul>
                     </div>
                 </div>
@@ -105,7 +110,7 @@
                     <table class="table table-hover checkin_history {{$default==null?'hidden':''}}">
                         <thead>
                             <tr>
-                                <td>學號</td>
+                                <td>姓名</td>
                                 <td>時間</td>
                             </tr>
                         </thead>

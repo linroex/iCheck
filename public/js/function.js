@@ -58,10 +58,9 @@ function checkin(){
                 $('.checkin_title').text(data.message);
 
                 $('#checkin_name').text('姓名：' + htmlspecialchars(data.name));
-                $('#checkin_job').text('職務（票種）：' + htmlspecialchars(data.job));
                 $('#checkin_department').text('科系：' + htmlspecialchars(data.department));
                 $('#checkin_studentid').text('學號：' + htmlspecialchars(data.student_id));
-                $('.checkin_history tbody').prepend('<tr><td>' + htmlspecialchars(data.student_id) + '</td><td>' + new Date().getHours() + ":" + new Date().getMinutes() + '</td></tr>')
+                $('.checkin_history tbody').prepend('<tr><td>' + htmlspecialchars(data.name) + '</td><td>' + new Date().getHours() + ":" + new Date().getMinutes() + '</td></tr>')
             }else{
                 $('.checkin_title').text(data + '簽到成功');
                 $('.checkin_history tbody').prepend('<tr><td>' + htmlspecialchars(data) + '</td><td>' + new Date().getHours() + ":" + new Date().getMinutes() + '</td></tr>')
@@ -161,7 +160,9 @@ function load_record(page, type){
         var i=0;
         $.each(data,function(){
             if(type == 'be_lated'){
-                $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
+                $('#' + type).find('tbody').append('<tr><td>'
+                    + htmlspecialchars(data[i].name)
+                    + '</td><td>' 
                     + htmlspecialchars(data[i].student_id)
                     + '</td><td>' 
                     + htmlspecialchars(data[i].equip_name)
@@ -173,7 +174,9 @@ function load_record(page, type){
                     + htmlspecialchars($.datepicker.formatDate('d',new Date((+new Date()) - (+new Date(data[i].estimate_return_time)))))
                     + '天</td></tr>');
             }else if(type == 'not_return'){
-                $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
+                $('#' + type).find('tbody').append('<tr><td>'
+                    + htmlspecialchars(data[i].name)
+                    + '</td><td>' 
                     + htmlspecialchars(data[i].student_id)
                     + '</td><td>' 
                     + htmlspecialchars(data[i].equip_name)
@@ -181,7 +184,9 @@ function load_record(page, type){
                     + htmlspecialchars(formatDateTime(data[i].borrow_time))
                     + '</td></tr>');
             }else{
-                $('#' + type).find('tbody').append('<tr><td>XXX</td><td>' 
+                $('#' + type).find('tbody').append('<tr><td>'
+                    + htmlspecialchars(data[i].name)
+                    + '</td><td>' 
                     + htmlspecialchars(data[i].student_id)
                     + '</td><td>' 
                     + htmlspecialchars(data[i].equip_name)
