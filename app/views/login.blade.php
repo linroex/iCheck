@@ -15,7 +15,7 @@
 <body>
     <div class="container">
         <div class="col-md-4 col-md-offset-4 login-form">
-            <h2 class="text-center">校園RFID系統</h2>
+            <h2 class="text-center">校園RFID系統 <small>Beta</small></h2>
             <form method="post">
                 <div class="alert hidden"></div>
                 <table class="table">
