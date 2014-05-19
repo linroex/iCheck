@@ -60,10 +60,10 @@ class ActivityController extends Controller{
         ));
     }
     public function checkinActivity(){
-        if(Input::get('type') == 'studentid'){
+        if(Input::get('type') === 'studentid'){
             return ActivityCheck::checkinActivity(Input::get('activity'), strtoupper(Input::get('student_id')));
         }else{
-            $student_id = Helper::convert_card_id($student_id);
+            $student_id = Helper::convert_card_id(Input::get('student_id'));
             return ActivityCheck::checkinActivity(Input::get('activity'), $student_id);
         }
         
