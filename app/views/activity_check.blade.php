@@ -55,20 +55,27 @@
                 </div>
             </div> <!-- row -->
             <div class="row">
+                
                 <div class="col-md-6">
+                    <div class="alert alert-info text-center">
+                        <h2>請出示學生證</h2>
+                        <p>台科大學生會資訊室 校園RFID系統</p>
+                    </div>
                     {{Form::open(array('id'=>'checkin_form'))}}
                         <div class="form-group">
                             <label for="select_activity">選擇活動</label>
                             {{Form::select('activity',$activity_list,$default,array('class'=>'form-control','id'=>'select_activity'))}}
                         </div>
+
                         <div class="form-group">
                             <label for="stu_card">學生證</label>
                             <div class="clearfix"></div>
-                            <div class="col-md-1"><input type="checkbox" name="type" id="type" value="studentid" class="form-control"></div>
-                            <div class="col-md-11"><input type="password" class="form-control" id="stu_card" name="student_id" placeholder="請刷學生證"></div>
+                            <div class="col-md-1 col-xs-1"><input type="checkbox" name="type" id="type" value="studentid" class="form-control"></div>
+                            <div class="col-md-11 col-xs-11"><input type="password" class="form-control" id="stu_card" name="student_id" placeholder="請刷學生證"></div>
                             <div class="clearfix"></div>
                         </div>
                     {{Form::close()}}
+                    
                     <div class="alert alert-success {{$default==null?'hidden':''}}" id="activity_load_alert">
                         <h3 class="text-center">活動資訊載入成功</h3>
                         <br>
@@ -107,6 +114,7 @@
                             <a class="btn btn-default">已簽到人數<span class="checkin_num">0</span>人</a>
                         </div>
                     </div>
+                    
                     <table class="table table-hover checkin_history {{$default==null?'hidden':''}}">
                         <thead>
                             <tr>
