@@ -17,7 +17,7 @@ class Equip extends Eloquent{
             return 'false';
         }else{
 
-            $data = $data->whereRaw('(type = \'not_return\' or type=\'no_deadline\') and uid = ?',array(Login::getUid()))->get();
+            $data = $data->whereRaw('(type = \'not_return\' or type=\'no_deadline\') and uid = ? and student_id = ?',array(Login::getUid(), $student_id))->get();
             if($data->count() == 0){
                 return 'false';
             }else{
