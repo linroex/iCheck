@@ -229,7 +229,12 @@ function load_old_activity(aid){
         $('input[name=activity_desc]').val(data['activity_desc']);
         $('input[name=activity_date]').val($.datepicker.formatDate('yy/mm/dd',new Date(data['activity_date'])));
         $('select[name=activity_type]').val(data['activity_type']);
-        $('select[name=nid]').val(data['nid']);
+        if(data['nid'] == -1){
+            $('select[name=nid]').val('not_use');    
+        }else{
+            $('select[name=nid]').val(data['nid']);
+        }
+        
         $('input[name=activity_organize]').val(data['activity_organize']);
         $('input[name=activity_note]').val(data['activity_note']);
     })
