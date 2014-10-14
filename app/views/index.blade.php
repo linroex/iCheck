@@ -21,42 +21,42 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <p class="panel-title">
-                                系統公告
-                            </p>
-                        </div>
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a class="list-group-item">123456</a>
-                                <a class="list-group-item">123456</a>
-                                <a class="list-group-item">123456</a>
-                                <a class="list-group-item">123456</a>
-                                <a class="list-group-item">123456</a>
+                @if (Login::getType() == 'admin')
+                    <div class="col-md-6 col-sm-6">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <p class="panel-title">登入記錄</p>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-border">
+                                    <thead>
+                                        <tr>
+                                            <td>姓名</td>
+                                            <td>時間</td>
+                                            <td>IP</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($login_history as $login) 
+                                        <tr>
+                                            <td>{{{$login->name}}}</td>
+                                            <td>{{{$login->login_time}}}</td>
+                                            <td>{{{$login->login_ip}}}</td>
+                                        </tr>
+                                        @endforeach
+                                        
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <p class="panel-title">
-                                最近活動
-                            </p>
-                        </div>
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a class="list-group-item">123456</a>
-                                <a class="list-group-item">123456</a>
-                                <a class="list-group-item">123456</a>
-                                <a class="list-group-item">123456</a>
-                                <a class="list-group-item">123456</a>
-                            </div>
-                        </div>
+                    <div class="col-md-6 col-sm-6">
+                        
                     </div>
-                </div>
+                @else
+                    PASS
+                @endif
+                
             </div>
             
         </div>

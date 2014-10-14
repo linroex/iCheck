@@ -1,9 +1,5 @@
 <?php
 class NameListController extends Controller{
-    public function test(){
-        dd(Namelist::getNameList());
-    }
-
     public function createNameList(){
         if(Input::hasfile('upload_namelist_file')){
             DB::beginTransaction();

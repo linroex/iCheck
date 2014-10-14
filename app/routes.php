@@ -23,10 +23,7 @@ Route::post('login',array('before'=>'csrf','uses'=>'UserController@login'));
 Route::get('logout','UserController@logout');
 
 Route::group(array('before'=>'auth'),function(){
-    Route::get('/', function()
-    {
-        return View::make('index');
-    });
+    Route::get('/', 'IndexController@showIndex');
 
     Route::get('/me',function(){
         return View::make('user');

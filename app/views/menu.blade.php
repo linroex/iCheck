@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <li><a href="{{url()}}">總覽</a></li>
-            <li><a href="{{url()}}/search">搜尋</a></li>
+            <!-- <li><a href="{{url()}}/search">搜尋</a></li> -->
             @if (Login::getType() == 'admin')
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">系統管理</a>

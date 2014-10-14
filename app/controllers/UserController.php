@@ -1,8 +1,6 @@
 <?php
 class UserController extends Controller{
-    public function test(){
-        
-    }
+    
     public function addUser(){
         $return = User::addUser(Input::all());
         if(is_int($return) === true){
