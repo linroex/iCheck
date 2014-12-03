@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>校園RFID系統｜借用記錄</title>
+    <title>iCheck｜借用記錄</title>
     @include('import',array('target'=>'器材借用'))
     <script>
         

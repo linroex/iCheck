@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>校園RFID系統 | 後台登入</title>
+    <title>iCheck | 後台登入</title>
     @include('import')
     <script>
         @if (Session::has("message"))
@@ -15,7 +15,7 @@
 <body>
     <div class="container">
         <div class="col-md-4 col-md-offset-4 login-form">
-            <h2 class="text-center">校園RFID系統 <small>Beta</small></h2>
+            <h2 class="text-center">iCheck <small>Beta</small></h2>
             <form method="post">
                 <div class="alert hidden"></div>
                 <table class="table">

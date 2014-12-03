@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>校園RFID系統｜活動簽到</title>
+    <title>iCheck｜活動簽到</title>
     @include('import',array('target'=>'活動簽到'))
     <script>
 
@@ -59,7 +59,7 @@
                 <div class="col-md-6">
                     <div class="alert alert-info text-center">
                         <h2>請出示學生證</h2>
-                        <p>台科大學生會資訊室 校園RFID系統</p>
+                        <p>台科大學生會資訊室 iCheck</p>
                     </div>
                     {{Form::open(array('id'=>'checkin_form'))}}
                         <div class="form-group">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>校園RFID系統｜檢視活動</title>
+    <title>iCheck｜檢視活動</title>
     @include('import',array('target'=>'活動簽到'))
     <script>
         

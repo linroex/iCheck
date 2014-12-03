@@ -6,7 +6,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a href="{{url()}}" class="navbar-brand">校園RFID系統</a>
+        <a href="{{url()}}" class="navbar-brand">iCheck</a>
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">

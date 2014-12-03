@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>校園RFID系統｜建立用戶</title>
+    <title>iCheck｜建立用戶</title>
     @include('import',array('target'=>'系統管理'))
     
 </head>
