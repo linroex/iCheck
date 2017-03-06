@@ -14,9 +14,9 @@ class ActivityCheck extends Eloquent{
     }
     
     public static function checkPremission($aid, $student_id = ''){
-        $result = DB::select('select count(name) count from namelist_member join activity where activity.aid = ? and namelist_member.student_id = ?',array($aid, $student_id));
+        $result = DB::select('select activity_type, count(name) count from namelist_member join activity on activity.nid = namelist_member.nid where activity.aid = ? and namelist_member.student_id = ?',array($aid, $student_id));
 
-        if($result[0]->count == 0){
+        if($result[0]->activity_type == 'strict_check' && $result[0]->count == 0){
             return false;
         }else{
             return true;
